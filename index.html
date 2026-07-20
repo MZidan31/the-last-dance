@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Dance - Informatics Engineering 8</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        doodle: ['Rock Salt', 'cursive'],
+                        graffiti: ['Permanent Marker', 'cursive'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#2563eb',
+                            cyan: '#06b6d4',
+                            purple: '#8b5cf6',
+                            pink: '#ec4899',
+                            dark: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rock+Salt&display=swap" rel="stylesheet">
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Modal & Slider Animation */
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: all 0.3s ease-in-out;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-sky-50/50 to-indigo-50/30 text-slate-800 font-sans min-h-screen selection:bg-brand-blue selection:text-white pb-10 pt-24">
+
+    <!-- Floating Navbar Kapsul -->
+    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass-card rounded-full shadow-lg transition-all duration-300 hover:shadow-brand-blue/30 hover:scale-[1.02] px-3 py-2 w-max max-w-[95vw] border border-slate-200">
+        <div class="flex items-center gap-3 sm:gap-6">
+            
+            <!-- Mobile Menu Button (Muncul di layar kecil) -->
+            <button id="menu-btn" class="md:hidden text-slate-700 p-2 rounded-full hover:bg-slate-100 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Menu Kiri (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-6 font-bold text-sm text-slate-600 pl-4">
+                <a href="#squad" class="hover:-translate-y-1 hover:text-brand-blue transition-all duration-300 block">Peserta</a>
+                <a href="#panitia" class="hover:-translate-y-1 hover:text-brand-blue transition-all duration-300 block">Panitia</a>
+            </nav>
+
+            <!-- LOGO TENGAH (Bulat) -->
+            <a href="#" class="flex-shrink-0 relative group">
+                <div class="absolute inset-0 bg-brand-blue rounded-full blur opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
+                <img src="logo.jpg" alt="Logo" class="relative h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover border-2 border-white shadow-md group-hover:rotate-12 transition-all duration-300" onerror="this.outerHTML='<div class=\'relative h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-brand-blue text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white\'>IF-8</div>'">
+            </a>
+
+            <!-- Menu Kanan (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-6 font-bold text-sm text-slate-600 pr-4">
+                <a href="#villa" class="hover:-translate-y-1 hover:text-brand-blue transition-all duration-300 block">Spot Villa</a>
+                <a href="#audit" class="hover:-translate-y-1 hover:text-brand-blue transition-all duration-300 block">Budget</a>
+                <a href="#itinerary" class="hover:-translate-y-1 hover:text-brand-blue transition-all duration-300 block">Rundown</a>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full mt-3 left-0 w-full glass-card rounded-2xl border border-slate-200 px-4 py-4 space-y-3 font-bold text-sm text-center shadow-xl">
+            <a href="#squad" class="block text-slate-700 hover:text-brand-blue mobile-link">Peserta</a>
+            <a href="#panitia" class="block text-slate-700 hover:text-brand-blue mobile-link">Panitia</a>
+            <a href="#villa" class="block text-slate-700 hover:text-brand-blue mobile-link">Spot Villa</a>
+            <a href="#audit" class="block text-slate-700 hover:text-brand-blue mobile-link">Budget</a>
+            <a href="#itinerary" class="block text-slate-700 hover:text-brand-blue mobile-link">Rundown</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-16 sm:py-20 px-4 overflow-hidden text-center">
+        <!-- Glow Orbs BG -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-blue/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-10 w-80 h-80 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-3xl mx-auto relative z-10 space-y-6">
+            <h1 class="text-5xl sm:text-7xl tracking-wide text-slate-900 font-graffiti transform -rotate-2">
+                <span class="text-gradient">The Last Dance</span>
+            </h1>
+            
+            <!-- Address & Event Info -->
+            <div class="flex flex-col items-center gap-3 pt-4 text-sm font-semibold max-w-xl mx-auto">
+                <div class="flex flex-wrap justify-center gap-3">
+                    <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-sm text-slate-700">
+                        📅 Selasa - Rabu, 11-12 Agustus 2026
+                    </div>
+                    <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-sm text-slate-700">
+                        📍 Villa Kamela
+                    </div>
+                </div>
+                <div class="px-4 py-2.5 rounded-xl bg-white/60 border border-slate-200/60 text-slate-600 text-xs text-center w-full">
+                    🗺️ Sukaresmi, Megamendung, Bogor Regency, West Java 16770
+                </div>
+            </div>
+
+            <p class="text-slate-500 italic max-w-lg mx-auto text-sm sm:text-base pt-2">
+                "Lighthearted banter before graduation. Momen ngobrol santai dan ketawa-tawi bareng sebelum sibuk nyari loker & kelarin urusan kampus!"
+            </p>
+        </div>
+    </section>
+
+    <!-- The Squad Section (Doodle/Abstract Style) -->
+    <section id="squad" class="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden">
+        <div class="text-center space-y-2 mb-14">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-brand-blue">Daftar Pasukan</h2>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Siapa Aja Yang Berangkat?</h3>
+        </div>
+
+        <!-- Wadah Flex Wrap Acak -->
+        <div class="flex flex-wrap justify-center gap-x-8 gap-y-12 sm:gap-x-12 sm:gap-y-16">
+            
+            <!-- Rofi (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-3 mt-4">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-blue-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-brand-blue transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Leo&backgroundColor=transparent" alt="Rofi" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Rofi</h4>
+            </div>
+            <!-- Ammar (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-6 -mt-2">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-purple-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-brand-purple transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Ryan&backgroundColor=transparent" alt="Ammar" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Ammar</h4>
+            </div>
+            <!-- Akbar (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-12 mt-6">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-pink-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-brand-pink transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Ethan&backgroundColor=transparent" alt="Akbar" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Akbar</h4>
+            </div>
+            <!-- Sultan (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-2">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-amber-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-amber-400 transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Noah&backgroundColor=transparent" alt="Sultan" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Sultan</h4>
+            </div>
+            <!-- Ayub (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-6 -mt-4">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-cyan-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-brand-cyan transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Liam&backgroundColor=transparent" alt="Ayub" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Ayub</h4>
+            </div>
+            <!-- Sina (Cewek) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-8 mt-3">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-indigo-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-indigo-400 transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Mia&backgroundColor=transparent" alt="Sina" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Sina</h4>
+            </div>
+            <!-- Roza (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-2 -mt-2">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-rose-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-rose-400 transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Mason&backgroundColor=transparent" alt="Roza" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Roza</h4>
+            </div>
+            <!-- Reva (Cewek) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-12 mt-5">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-teal-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-teal-400 transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Lily&backgroundColor=transparent" alt="Reva" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Reva</h4>
+            </div>
+            <!-- Sintia (Cewek) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-8 -mt-5">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-violet-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-violet-400 transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Sophia&backgroundColor=transparent" alt="Sintia" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Sintia</h4>
+            </div>
+            <!-- Uci (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-4 mt-2">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-sky-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-sky-400 transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Lucas&backgroundColor=transparent" alt="Uci" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Uci</h4>
+            </div>
+            <!-- Zidan (Cowok Kece Pilihan) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-5 mt-6">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-orange-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-orange-400 transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Felix&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Zidan</h4>
+            </div>
+            <!-- Rika (Cewek) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-10 -mt-2">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-emerald-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-emerald-400 transition-colors">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Chloe&backgroundColor=transparent" alt="Rika" class="w-full h-full object-cover">
+                </div>
+                <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Rika</h4>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Panitia Acara Dadakan Section (Tema Abstrak/Doodle) -->
+    <section id="panitia" class="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div class="text-center space-y-2 mb-14">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-brand-purple">Struktur Organisasi</h2>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Panitia Dadakan</h3>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-10">
+            
+            <!-- Zidan (Cowok Kece) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-2 w-full sm:w-[220px]">
+                <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-brand-blue transition-colors text-center h-full">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-blue-50 border-2 border-white shadow-sm overflow-hidden mb-3">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Felix&backgroundColor=transparent" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-doodle text-sm font-bold text-slate-900">Zidan</h4>
+                    <p class="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider mt-1">🎯 PJ & Acara</p>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed font-sans">Nge-carry konsep acara dari A-Z biar sesuai rencana.</p>
+                </div>
+            </div>
+
+            <!-- Sintia (Cewek) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-3 w-full sm:w-[220px]">
+                <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-emerald-400 transition-colors text-center h-full">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-emerald-50 border-2 border-white shadow-sm overflow-hidden mb-3">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Sophia&backgroundColor=transparent" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-doodle text-sm font-bold text-slate-900">Sintia</h4>
+                    <p class="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider mt-1">💰 Bundahara</p>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed font-sans">Menteri keuangan penagih kas & nyatet tiap rupiah.</p>
+                </div>
+            </div>
+
+            <!-- Rika (Cewek) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-3 w-full sm:w-[220px]">
+                <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-brand-purple transition-colors text-center h-full">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-purple-50 border-2 border-white shadow-sm overflow-hidden mb-3">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Chloe&backgroundColor=transparent" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-doodle text-sm font-bold text-slate-900">Rika</h4>
+                    <p class="text-[10px] font-extrabold text-brand-purple uppercase tracking-wider mt-1">🏡 Akomodasi</p>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed font-sans">Ngerusuhin booking villa sampe dapet tempat terbaik.</p>
+                </div>
+            </div>
+
+            <!-- Ammar (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-2 w-full sm:w-[220px]">
+                <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-brand-cyan transition-colors text-center h-full">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-cyan-50 border-2 border-white shadow-sm overflow-hidden mb-3">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Ryan&backgroundColor=transparent" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-doodle text-sm font-bold text-slate-900">Ammar</h4>
+                    <p class="text-[10px] font-extrabold text-brand-cyan uppercase tracking-wider mt-1">📢 Humas / PR</p>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed font-sans">Tukang nge-ping di grup biar pada berangkat tepat waktu.</p>
+                </div>
+            </div>
+
+            <!-- Roza (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-1 w-full sm:w-[220px]">
+                <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-rose-400 transition-colors text-center h-full">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-rose-50 border-2 border-white shadow-sm overflow-hidden mb-3">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Mason&backgroundColor=transparent" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-doodle text-sm font-bold text-slate-900">Roza</h4>
+                    <p class="text-[10px] font-extrabold text-rose-600 uppercase tracking-wider mt-1">🗺️ Tour Guide</p>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed font-sans">Penunjuk rute jalan Puncak biar kawan-kawan ga nyasar.</p>
+                </div>
+            </div>
+
+            <!-- Reva (Cewek) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-4 w-full sm:w-[220px]">
+                <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-amber-400 transition-colors text-center h-full">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-amber-50 border-2 border-white shadow-sm overflow-hidden mb-3">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Lily&backgroundColor=transparent" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-doodle text-sm font-bold text-slate-900">Reva</h4>
+                    <p class="text-[10px] font-extrabold text-amber-600 uppercase tracking-wider mt-1">👩‍🍳 Si Paling Chef</p>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed font-sans">Ahli racik bumbu dapur dan per-BBQ-an duniawi.</p>
+                </div>
+            </div>
+
+            <!-- Sina (Cewek) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-3 w-full sm:w-[220px]">
+                <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-pink-400 transition-colors text-center h-full">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-pink-50 border-2 border-white shadow-sm overflow-hidden mb-3">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Mia&backgroundColor=transparent" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-doodle text-sm font-bold text-slate-900">Sina</h4>
+                    <p class="text-[10px] font-extrabold text-pink-600 uppercase tracking-wider mt-1">🔥 Si Paling Acara</p>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed font-sans">Pemandu game bareng Zidan biar acaranya idup.</p>
+                </div>
+            </div>
+
+            <!-- Uci (Cowok) -->
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-2 w-full sm:w-[220px]">
+                <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-indigo-400 transition-colors text-center h-full">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-indigo-50 border-2 border-white shadow-sm overflow-hidden mb-3">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Lucas&backgroundColor=transparent" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-doodle text-sm font-bold text-slate-900">Uci</h4>
+                    <p class="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider mt-1">🎭 Si Paling Acara</p>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed font-sans">Partner Sina buat nyediain topik deep talk & games malam.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 p-4 bg-brand-blue/5 border border-brand-blue/20 rounded-2xl text-center shadow-sm max-w-3xl mx-auto">
+            <p class="text-sm font-semibold text-brand-blue">
+                💡 Info Penting: Panitia di atas tetep ikutan nge-games & seru-seruan bareng ya, jaganya kita gilir santuy aja wkwk! 
+            </p>
+        </div>
+    </section>
+
+    <!-- Galeri Spot Villa Section (Pop-Up Trigger) -->
+    <section id="villa" class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div class="glass-card rounded-[2.5rem] p-8 border border-slate-200/80 shadow-xl text-center overflow-hidden relative group">
+            <div class="absolute inset-0 bg-cover bg-center opacity-20 filter blur-sm group-hover:scale-105 transition-transform duration-700" style="background-image: url('villa-1.webp');"></div>
+            <div class="relative z-10">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-brand-blue mb-2">Sneak Peek Akomodasi</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 mb-4">Spot Villa Kamela</h3>
+                <p class="text-slate-600 text-sm mb-6 max-w-md mx-auto">Fasilitas dan penampakan villa yang bakal kita acak-acak. Ada private pool, ruang karaoke, sampe meja billiard!</p>
+                
+                <button onclick="openGallery()" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-white bg-slate-900 hover:bg-slate-800 transition-all hover:shadow-lg hover:-translate-y-1">
+                    📸 Buka Galeri Foto Villa
+                </button>
+                
+                <!-- NOTE DARI PJ -->
+                <div class="mt-8 mx-auto max-w-md p-4 bg-white/70 backdrop-blur-sm border border-slate-200/80 rounded-2xl text-left transform rotate-1 shadow-sm">
+                    <p class="text-xs font-medium text-slate-600 leading-relaxed">
+                        <span class="text-xl">📝</span> <strong class="text-slate-900">Note dari PJ:</strong> Kenapa milih Villa Kamela? Karena cuma ini doang yang masuk akal dan paling kompatibel sama jumlah orang dan budget kita yang pas-pasan wkwk.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri Modal (Pop-Up Slider) -->
+    <div id="galleryModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+        <div class="modal-content relative w-full max-w-5xl bg-slate-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+            <!-- Header Modal -->
+            <div class="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-20 bg-gradient-to-b from-black/80 to-transparent">
+                <span class="text-white font-bold text-sm bg-black/50 px-3 py-1 rounded-full border border-white/20">
+                    <span id="slideCounter">1</span> / 7
+                </span>
+                <button onclick="closeGallery()" class="text-white hover:text-rose-400 bg-black/50 rounded-full p-2 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <!-- Image Area -->
+            <div class="relative h-[50vh] sm:h-[70vh] w-full flex items-center justify-center bg-black">
+                <img id="sliderImage" src="" alt="Villa Image" class="max-h-full max-w-full object-contain">
+                
+                <!-- Nav Arrows -->
+                <button onclick="prevSlide()" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/60 hover:bg-brand-blue text-white rounded-full transition-colors border border-white/20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button onclick="nextSlide()" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-black/60 hover:bg-brand-blue text-white rounded-full transition-colors border border-white/20">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+            
+            <!-- Caption Area -->
+            <div class="p-4 sm:p-6 bg-slate-900 border-t border-white/10 text-center sm:text-left">
+                <h4 id="sliderTitle" class="text-lg font-bold text-white mb-1"></h4>
+                <p id="sliderDesc" class="text-sm text-slate-400"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Audit Section -->
+    <section id="audit" class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div class="text-center space-y-2 mb-8">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-brand-blue">Transparansi Kas</h2>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Status Budget Acara</h3>
+        </div>
+
+        <div class="glass-card rounded-[2.5rem] p-6 sm:p-8 border border-slate-200/80 shadow-xl">
+            
+            <!-- Alert DP Box -->
+            <div class="mb-8 p-5 bg-rose-50 border border-rose-200 rounded-3xl relative overflow-hidden shadow-sm">
+                <div class="flex items-start gap-4 relative z-10">
+                    <span class="text-3xl drop-shadow-sm">⚠️</span>
+                    <div>
+                        <h4 class="font-bold text-rose-800 text-sm mb-1">INFO PENTING PELUNASAN</h4>
+                        <p class="text-xs text-rose-700 font-medium leading-relaxed">
+                            DP Villa 50% harus <strong>segera dilunasi</strong> agar tanggal kita aman dan di-keep pemilik! <br>
+                            Pelunasan iuran per orang (Rp 120.000) paling lambat ditunggu <strong>Tanggal 1 Agustus</strong> (kalau bisa lebih cepat lebih baik). <br>
+                            <strong>Silakan transfer ke: DANA 088290073130 a.n Sintia Sari.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Summary -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                <div class="p-4 rounded-3xl bg-white border border-slate-200/70 shadow-sm text-center sm:text-left hover:-translate-y-1 transition-transform">
+                    <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Target Budget</p>
+                    <p class="text-2xl font-extrabold text-slate-900 mt-1">Rp 1.440.000</p>
+                    <p class="text-[11px] font-semibold text-brand-blue mt-1">12 Orang × Rp 120.000</p>
+                </div>
+                <div class="p-4 rounded-3xl bg-white border border-slate-200/70 shadow-sm text-center sm:text-left hover:-translate-y-1 transition-transform">
+                    <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Estimasi Keluar</p>
+                    <p class="text-2xl font-extrabold text-rose-600 mt-1">Rp 1.289.000</p>
+                    <p class="text-[11px] font-semibold text-slate-500 mt-1">Villa + Logistik</p>
+                </div>
+                <div class="p-4 rounded-3xl bg-white border border-slate-200/70 shadow-sm text-center sm:text-left hover:-translate-y-1 transition-transform">
+                    <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Dana Darurat</p>
+                    <p class="text-2xl font-extrabold text-emerald-600 mt-1">Rp 151.000</p>
+                    <p class="text-[11px] font-semibold text-emerald-600 mt-1">Sisa saldo diamankan</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="openBudget()" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-brand-blue bg-blue-50 hover:bg-blue-100 border border-brand-blue/20 transition-all hover:-translate-y-1 hover:shadow-md">
+                    📄 Lihat Detail Rincian Belanja
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Budget Detail Modal (Pop-Up) -->
+    <div id="budgetModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="modal-content relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+            <div class="p-5 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-t-3xl">
+                <h3 class="font-extrabold text-lg text-slate-900">Rincian Belanja (Detail)</h3>
+                <button onclick="closeBudget()" class="text-slate-400 hover:text-rose-500 transition-colors p-1 bg-white rounded-full shadow-sm border border-slate-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="p-4 sm:p-6 overflow-y-auto custom-scrollbar">
+                <table class="w-full text-left text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-slate-200 text-slate-800 text-xs uppercase font-extrabold">
+                            <th class="pb-3 pr-2">Item Belanja</th>
+                            <th class="pb-3 px-2 text-right">Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-600">
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Sewa Villa Kamela</p><p class="text-xs mt-0.5">1 Malam (Inc. DP & Pelunasan)</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 900.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Daging Ayam Segar</p><p class="text-xs mt-0.5">1 Ekor (@ Rp 55.000)</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 55.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Sosis Bakar</p><p class="text-xs mt-0.5">2 Pack (@ Rp 18.000)</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 36.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Beras</p><p class="text-xs mt-0.5">5 Liter (@ Rp 11.000)</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 55.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Telur Ayam</p><p class="text-xs mt-0.5">1,5 Kg (@ Rp 28.000)</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 42.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Bumbu Dapur, Minyak</p><p class="text-xs mt-0.5">Penyedap rasa, saos BBQ, dsb</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 40.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Snack Bal-an</p><p class="text-xs mt-0.5">2 Bungkus Besar (@ Rp 40.000)</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 80.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Kopi, Teh, Gula</p><p class="text-xs mt-0.5">Amunisi begadang</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 42.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Arang BBQ</p><p class="text-xs mt-0.5">2 Bungkus (@ Rp 7.000)</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 14.000</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-2"><p class="font-bold text-slate-900">Es Batu & Galon Air</p><p class="text-xs mt-0.5">Isi ulang galon + es batu balok</p></td>
+                            <td class="py-3 px-2 text-right font-semibold">Rp 25.000</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-rose-50 text-rose-700">
+                            <td class="py-4 px-3 font-extrabold text-sm rounded-l-xl">TOTAL ESTIMASI</td>
+                            <td class="py-4 px-3 text-right font-extrabold text-base rounded-r-xl">Rp 1.289.000</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline / Itinerary Section (Journey Map Style) -->
+    <section id="itinerary" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto overflow-hidden">
+        <div class="text-center space-y-2 mb-16">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-brand-blue">Susunan Agenda</h2>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Journey Map Acara</h3>
+        </div>
+
+        <div class="relative w-full max-w-4xl mx-auto">
+            
+            <!-- Garis Putus-putus Tengah (Road/Path) -->
+            <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 border-l-4 border-dashed border-slate-300 md:-translate-x-1/2 rounded-full opacity-60"></div>
+            
+            <!-- Bendera Start -->
+            <div class="absolute left-8 md:left-1/2 top-0 -translate-x-1/2 -mt-4 z-20 text-3xl">🏁</div>
+
+            <!-- Hari 1 Label -->
+            <div class="relative flex justify-start md:justify-center mb-12 pl-16 md:pl-0 z-20">
+                <div class="px-5 py-2 rounded-full bg-gradient-to-r from-brand-blue to-brand-purple text-white font-bold text-xs shadow-lg transform rotate-2">
+                    DAY 1 — Selasa, 11 Agustus 2026
+                </div>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Item 1 (Kiri) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-2 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-brand-blue bg-blue-50 px-3 py-1 rounded-full mb-2 inline-block">13:00 - 14:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Tikum & Otw Puncak</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Simbol/Kartun Tengah -->
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:-rotate-12 transition-transform cursor-default">
+                        🛵
+                    </div>
+                    
+                    <!-- Tampilan Mobile (Kanan) -->
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform hover:scale-105 hover:-rotate-1 shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-brand-blue bg-blue-50 px-3 py-1 rounded-full mb-2 inline-block">13:00 - 14:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Tikum & Otw Puncak</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 (Kanan) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
+                        🏡
+                    </div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:rotate-2 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-brand-purple bg-purple-50 px-3 py-1 rounded-full mb-2 inline-block">14:30 - 15:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Check-in & Unboxing Barang</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Nyampe villa, milih kamar rebutan kasur, naruh tas, dan rapihin bahan makanan di dapur.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 (Kiri) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-1 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-brand-cyan bg-cyan-50 px-3 py-1 rounded-full mb-2 inline-block">15:30 - 16:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Ganjal Perut & Ashar</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:-rotate-12 transition-transform cursor-default">
+                        🍜
+                    </div>
+                    
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform hover:scale-105 hover:-rotate-1 shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-brand-cyan bg-cyan-50 px-3 py-1 rounded-full mb-2 inline-block">15:30 - 16:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Ganjal Perut & Ashar</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 (Kanan) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
+                        ☕
+                    </div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:rotate-1 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full mb-2 inline-block">16:30 - 18:00</span>
+                            <h4 class="font-bold text-slate-900 text-base">Game Santai & Ngopi</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Buka snack bal-an, bikin kopi hangat, main game ringan sambil menikmati sore.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 (Kiri) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-2 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-amber-500 bg-amber-50 px-3 py-1 rounded-full mb-2 inline-block">18:00 - 19:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">ISHOMA & Prep Nasi Liwet</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:-rotate-12 transition-transform cursor-default">
+                        🕌
+                    </div>
+                    
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform hover:scale-105 hover:-rotate-1 shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-amber-500 bg-amber-50 px-3 py-1 rounded-full mb-2 inline-block">18:00 - 19:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">ISHOMA & Prep Nasi Liwet</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6 (Kanan) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
+                        🍖
+                    </div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:rotate-2 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-rose-600 bg-rose-50 px-3 py-1 rounded-full mb-2 inline-block">19:30 - 21:00</span>
+                            <h4 class="font-bold text-slate-900 text-base">The Last Dance Dinner</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Puncak acara! Sikat habis panggangan ayam, sosis, dan santap nasi liwet di daun pisang.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 7 (Kiri) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-1 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-indigo-500 bg-indigo-50 px-3 py-1 rounded-full mb-2 inline-block">21:00 - 23:00</span>
+                            <h4 class="font-bold text-slate-900 text-base">Deep Talk & Curhat Malam</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:-rotate-12 transition-transform cursor-default">
+                        ⛺
+                    </div>
+                    
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform hover:scale-105 hover:-rotate-1 shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-indigo-500 bg-indigo-50 px-3 py-1 rounded-full mb-2 inline-block">21:00 - 23:00</span>
+                            <h4 class="font-bold text-slate-900 text-base">Deep Talk & Curhat Malam</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Hari 2 Label -->
+            <div class="relative flex justify-start md:justify-center mt-12 mb-12 pl-16 md:pl-0 z-20">
+                <div class="px-5 py-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-pink text-white font-bold text-xs shadow-lg transform -rotate-2">
+                    DAY 2 — Rabu, 12 Agustus 2026
+                </div>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Item 8 (Kanan) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
+                        🍳
+                    </div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:rotate-1 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-full mb-2 inline-block">07:00 - 08:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Bangun Pagi & Nasi Goreng</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Hirup udara dingin Puncak, lanjut olah sisa liwetan semalam jadi nasi goreng.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 9 (Kiri) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-1 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-pink-500 bg-pink-50 px-3 py-1 rounded-full mb-2 inline-block">08:30 - 10:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Capturing Memories</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:-rotate-12 transition-transform cursor-default">
+                        📸
+                    </div>
+                    
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform hover:scale-105 hover:-rotate-1 shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-pink-500 bg-pink-50 px-3 py-1 rounded-full mb-2 inline-block">08:30 - 10:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Capturing Memories</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 10 (Kanan) -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
+                        🚗
+                    </div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:rotate-2 inline-block w-full shadow-sm border border-slate-200/80">
+                            <span class="text-xs font-extrabold text-slate-600 bg-slate-100 px-3 py-1 rounded-full mb-2 inline-block">10:30 - 11:30</span>
+                            <h4 class="font-bold text-slate-900 text-base">Check-out & Pulang</h4>
+                            <p class="text-slate-600 text-xs mt-2 leading-relaxed">Beres-beres kamar, pastikan ga ada barang yang ketinggalan, lalu konvoi pulang!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bendera Finish -->
+            <div class="absolute left-8 md:left-1/2 bottom-0 -translate-x-1/2 translate-y-8 z-20 text-3xl">🏠</div>
+
+        </div>
+    </section>
+
+    <!-- Pleading / Mohon-mohon Notes Sticky Area -->
+    <div class="max-w-xl mx-auto px-4 mt-10">
+        <div class="glass-card p-6 rounded-3xl transform -rotate-2 hover:rotate-1 transition-transform border-2 border-dashed border-brand-blue/30 shadow-lg text-center bg-blue-50/50">
+            <h4 class="font-doodle text-xl text-brand-blue mb-2">Pliiiis Banget... 🙏</h4>
+            <p class="text-slate-700 font-medium text-sm leading-relaxed">
+                Tolong realisasiin acara ini ya, Guys! Jangan sampe wacana yak 🥺 Ini momen terakhir banget nih sebelum pada sibuk nyari lokerrr. Gassskeunn yak!!
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer Doodle YNKTS -->
+    <footer class="pt-16 pb-12 text-center relative overflow-hidden">
+        <div class="max-w-2xl mx-auto px-4 relative z-10">
+            <!-- YNKTS Doodle Quote -->
+            <p class="font-doodle text-2xl sm:text-4xl text-slate-800 -rotate-2 transform mb-6 inline-block opacity-80 decoration-brand-blue underline decoration-wavy underline-offset-4 hover:scale-105 transition-transform">
+                "YNKTS - Yo Ndak Tau<br>Kok Tanya Saya"
+            </p>
+            <p class="font-bold text-slate-400 text-sm mt-8">
+                The Last Dance © 2026. Made with ❤️ untuk kita semua.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JS Logic for Modals & Slider -->
+    <script>
+        // --- MOBILE MENU LOGIC ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+        // --- GALLERY SLIDER LOGIC ---
+        const galleryData = [
+            { src: 'villa-1.webp', title: 'Tampak Bangunan & Private Pool', desc: 'Gagah bener penampakannya! Kolam renangnya nunggu banget buat kita selametin.' },
+            { src: 'villa-2.webp', title: 'Kamar Tidur Utama', desc: 'Kasur empuk buat kaum yang tumbang duluan pas sesi deep talk malam-malam.' },
+            { src: 'villa-3.webp', title: 'View Pool dari Lantai 2', desc: 'Spot strategis dari atas buat mantau siapa aja kawan kita yang lagi pada berenang.' },
+            { src: 'villa-4.webp', title: 'Ruang Karaoke', desc: 'Siapin playlist galau & lagu koplo kalian, kita nyanyi bareng sampe pita suara serak!' },
+            { src: 'villa-5.webp', title: 'Kamar Tidur Kedua', desc: 'Space ekstra biar semua dapet tempat tidur yang layak, nggak tumpuk-tumpukan.' },
+            { src: 'villa-6.webp', title: 'Area Billiard (Lantai 2)', desc: 'Waktunya pamer skill sodok bola. Aturan main: Yang kalah wajib push-up!' },
+            { src: 'villa-7.webp', title: 'Space Chill & Balkon (Lt. 2)', desc: 'Spot ngopi, nongkrong, nyebat, sambil nikmatin sejuknya hembusan angin Puncak.' }
+        ];
+
+        let currentSlideIndex = 0;
+        const galleryModal = document.getElementById('galleryModal');
+        const sliderImg = document.getElementById('sliderImage');
+        const sliderTitle = document.getElementById('sliderTitle');
+        const sliderDesc = document.getElementById('sliderDesc');
+        const slideCounter = document.getElementById('slideCounter');
+
+        function openGallery() {
+            currentSlideIndex = 0;
+            updateSlide();
+            galleryModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeGallery() {
+            galleryModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % galleryData.length;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + galleryData.length) % galleryData.length;
+            updateSlide();
+        }
+
+        function updateSlide() {
+            const data = galleryData[currentSlideIndex];
+            sliderImg.src = data.src;
+            sliderTitle.innerText = data.title;
+            sliderDesc.innerText = data.desc;
+            slideCounter.innerText = currentSlideIndex + 1;
+        }
+
+        // --- BUDGET MODAL LOGIC ---
+        const budgetModal = document.getElementById('budgetModal');
+        function openBudget() {
+            budgetModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeBudget() {
+            budgetModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Keyboard support for modals
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeGallery();
+                closeBudget();
+            }
+            if (galleryModal.classList.contains('active')) {
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>
