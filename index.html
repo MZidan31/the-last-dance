@@ -23,6 +23,16 @@
                             pink: '#ec4899',
                             dark: '#0f172a'
                         }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
                     }
                 }
             }
@@ -59,6 +69,14 @@
         .modal.active .modal-content {
             transform: scale(1);
         }
+        /* Hide scrollbar for horizontal slider */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-slate-50 via-sky-50/50 to-indigo-50/30 text-slate-800 font-sans min-h-screen selection:bg-brand-blue selection:text-white pb-10 pt-24">
@@ -80,8 +98,8 @@
                 <a href="#panitia" class="hover:-translate-y-1 hover:text-brand-blue transition-all duration-300 block">Panitia</a>
             </nav>
 
-            <!-- LOGO TENGAH (Bulat) -->
-            <a href="#" class="flex-shrink-0 relative group">
+            <!-- LOGO TENGAH (Bulat) + Animasi Melayang -->
+            <a href="#" class="flex-shrink-0 relative group animate-float">
                 <div class="absolute inset-0 bg-brand-blue rounded-full blur opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
                 <img src="logo.jpg" alt="Logo" class="relative h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover border-2 border-white shadow-md group-hover:rotate-12 transition-all duration-300" onerror="this.outerHTML='<div class=\'relative h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-brand-blue text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white\'>IF-8</div>'">
             </a>
@@ -106,9 +124,9 @@
 
     <!-- Hero Section -->
     <section class="relative py-16 sm:py-20 px-4 overflow-hidden text-center">
-        <!-- Glow Orbs BG -->
-        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-blue/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 right-10 w-80 h-80 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Glow Orbs BG dengan Animasi Lifetime -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none animate-float"></div>
+        <div class="absolute bottom-0 right-10 w-80 h-80 bg-brand-purple/20 rounded-full blur-3xl pointer-events-none animate-float-delayed"></div>
 
         <div class="max-w-3xl mx-auto relative z-10 space-y-6">
             <h1 class="text-5xl sm:text-7xl tracking-wide text-slate-900 font-graffiti transform -rotate-2">
@@ -121,9 +139,10 @@
                     <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-sm text-slate-700">
                         📅 Selasa - Rabu, 11-12 Agustus 2026
                     </div>
-                    <div class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/80 border border-slate-200/80 shadow-sm text-slate-700">
-                        📍 Villa Kamela
-                    </div>
+                    <!-- Tautan Link Villa Kamela Baru -->
+                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/80 border border-brand-blue/30 shadow-sm text-brand-blue hover:bg-brand-blue hover:text-white transition-colors cursor-pointer">
+                        📍 Villa Kamela by ngevillayuk
+                    </a>
                 </div>
                 <div class="px-4 py-2.5 rounded-xl bg-white/60 border border-slate-200/60 text-slate-600 text-xs text-center w-full">
                     🗺️ Sukaresmi, Megamendung, Bogor Regency, West Java 16770
@@ -147,84 +166,84 @@
         <div class="flex flex-wrap justify-center gap-x-8 gap-y-12 sm:gap-x-12 sm:gap-y-16">
             
             <!-- Rofi (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-3 mt-4">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-3 mt-4 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-blue-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-brand-blue transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Leo&backgroundColor=transparent" alt="Rofi" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Rofi</h4>
             </div>
             <!-- Ammar (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-6 -mt-2">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-6 -mt-2 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-purple-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-brand-purple transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Ryan&backgroundColor=transparent" alt="Ammar" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Ammar</h4>
             </div>
             <!-- Akbar (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-12 mt-6">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-12 mt-6 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-pink-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-brand-pink transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Ethan&backgroundColor=transparent" alt="Akbar" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Akbar</h4>
             </div>
             <!-- Sultan (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-2">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-2 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-amber-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-amber-400 transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Noah&backgroundColor=transparent" alt="Sultan" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Sultan</h4>
             </div>
             <!-- Ayub (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-6 -mt-4">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-6 -mt-4 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-cyan-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-brand-cyan transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Liam&backgroundColor=transparent" alt="Ayub" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Ayub</h4>
             </div>
             <!-- Sina (Cewek) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-8 mt-3">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-8 mt-3 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-indigo-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-indigo-400 transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Mia&backgroundColor=transparent" alt="Sina" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Sina</h4>
             </div>
             <!-- Roza (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-2 -mt-2">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-2 -mt-2 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-rose-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-rose-400 transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Mason&backgroundColor=transparent" alt="Roza" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Roza</h4>
             </div>
             <!-- Reva (Cewek) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-12 mt-5">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-12 mt-5 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-teal-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-teal-400 transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Lily&backgroundColor=transparent" alt="Reva" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Reva</h4>
             </div>
             <!-- Sintia (Cewek) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-8 -mt-5">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-8 -mt-5 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-violet-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-violet-400 transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Sophia&backgroundColor=transparent" alt="Sintia" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Sintia</h4>
             </div>
             <!-- Uci (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-4 mt-2">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-4 mt-2 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-sky-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-sky-400 transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Lucas&backgroundColor=transparent" alt="Uci" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Uci</h4>
             </div>
             <!-- Zidan (Cowok Kece Pilihan) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-5 mt-6">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-5 mt-6 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-orange-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-orange-400 transition-colors">
-                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Felix&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover">
+                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=Felix&hair=slick,fonze&glassesProbability=100&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover">
                 </div>
                 <h4 class="font-doodle text-sm sm:text-base text-slate-800 text-center mt-4">Zidan</h4>
             </div>
             <!-- Rika (Cewek) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-10 -mt-2">
+            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-10 -mt-2 w-20 sm:w-24">
                 <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-emerald-50 border-4 border-white shadow-lg overflow-hidden group-hover:border-emerald-400 transition-colors">
                     <img src="https://api.dicebear.com/9.x/micah/svg?seed=Chloe&backgroundColor=transparent" alt="Rika" class="w-full h-full object-cover">
                 </div>
@@ -234,20 +253,21 @@
         </div>
     </section>
 
-    <!-- Panitia Acara Dadakan Section (Tema Abstrak/Doodle) -->
-    <section id="panitia" class="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="text-center space-y-2 mb-14">
+    <!-- Panitia Acara Dadakan Section (Sliding di Mobile, Grid di Desktop) -->
+    <section id="panitia" class="py-12 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div class="text-center space-y-2 mb-10 sm:mb-14 px-4 sm:px-0">
             <h2 class="text-xs font-bold uppercase tracking-wider text-brand-purple">Struktur Organisasi</h2>
             <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Panitia Dadakan</h3>
         </div>
 
-        <div class="flex flex-wrap justify-center gap-x-6 gap-y-10">
+        <!-- Slider Wrapper: flex horizontal dengan overflow-x di mobile, wrap jadi grid di desktop -->
+        <div class="flex overflow-x-auto sm:flex-wrap sm:justify-center snap-x snap-mandatory gap-x-6 gap-y-10 pb-8 px-6 sm:px-0 hide-scrollbar">
             
             <!-- Zidan (Cowok Kece) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-2 w-full sm:w-[220px]">
+            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group relative hover:-translate-y-4 transition-transform duration-300 sm:transform sm:rotate-2 h-full">
                 <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-brand-blue transition-colors text-center h-full">
                     <div class="w-16 h-16 mx-auto rounded-full bg-blue-50 border-2 border-white shadow-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Felix&backgroundColor=transparent" class="w-full h-full object-cover">
+                        <img src="https://api.dicebear.com/9.x/micah/svg?seed=Felix&hair=slick,fonze&glassesProbability=100&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
                     <h4 class="font-doodle text-sm font-bold text-slate-900">Zidan</h4>
                     <p class="text-[10px] font-extrabold text-brand-blue uppercase tracking-wider mt-1">🎯 PJ & Acara</p>
@@ -256,7 +276,7 @@
             </div>
 
             <!-- Sintia (Cewek) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-3 w-full sm:w-[220px]">
+            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group relative hover:-translate-y-4 transition-transform duration-300 sm:transform sm:-rotate-3 h-full">
                 <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-emerald-400 transition-colors text-center h-full">
                     <div class="w-16 h-16 mx-auto rounded-full bg-emerald-50 border-2 border-white shadow-sm overflow-hidden mb-3">
                         <img src="https://api.dicebear.com/9.x/micah/svg?seed=Sophia&backgroundColor=transparent" class="w-full h-full object-cover">
@@ -268,7 +288,7 @@
             </div>
 
             <!-- Rika (Cewek) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-3 w-full sm:w-[220px]">
+            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group relative hover:-translate-y-4 transition-transform duration-300 sm:transform sm:rotate-3 h-full">
                 <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-brand-purple transition-colors text-center h-full">
                     <div class="w-16 h-16 mx-auto rounded-full bg-purple-50 border-2 border-white shadow-sm overflow-hidden mb-3">
                         <img src="https://api.dicebear.com/9.x/micah/svg?seed=Chloe&backgroundColor=transparent" class="w-full h-full object-cover">
@@ -280,7 +300,7 @@
             </div>
 
             <!-- Ammar (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-2 w-full sm:w-[220px]">
+            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group relative hover:-translate-y-4 transition-transform duration-300 sm:transform sm:-rotate-2 h-full">
                 <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-brand-cyan transition-colors text-center h-full">
                     <div class="w-16 h-16 mx-auto rounded-full bg-cyan-50 border-2 border-white shadow-sm overflow-hidden mb-3">
                         <img src="https://api.dicebear.com/9.x/micah/svg?seed=Ryan&backgroundColor=transparent" class="w-full h-full object-cover">
@@ -292,7 +312,7 @@
             </div>
 
             <!-- Roza (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-1 w-full sm:w-[220px]">
+            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group relative hover:-translate-y-4 transition-transform duration-300 sm:transform sm:rotate-1 h-full">
                 <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-rose-400 transition-colors text-center h-full">
                     <div class="w-16 h-16 mx-auto rounded-full bg-rose-50 border-2 border-white shadow-sm overflow-hidden mb-3">
                         <img src="https://api.dicebear.com/9.x/micah/svg?seed=Mason&backgroundColor=transparent" class="w-full h-full object-cover">
@@ -304,7 +324,7 @@
             </div>
 
             <!-- Reva (Cewek) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-4 w-full sm:w-[220px]">
+            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group relative hover:-translate-y-4 transition-transform duration-300 sm:transform sm:-rotate-4 h-full">
                 <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-amber-400 transition-colors text-center h-full">
                     <div class="w-16 h-16 mx-auto rounded-full bg-amber-50 border-2 border-white shadow-sm overflow-hidden mb-3">
                         <img src="https://api.dicebear.com/9.x/micah/svg?seed=Lily&backgroundColor=transparent" class="w-full h-full object-cover">
@@ -316,7 +336,7 @@
             </div>
 
             <!-- Sina (Cewek) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-3 w-full sm:w-[220px]">
+            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group relative hover:-translate-y-4 transition-transform duration-300 sm:transform sm:rotate-3 h-full">
                 <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-pink-400 transition-colors text-center h-full">
                     <div class="w-16 h-16 mx-auto rounded-full bg-pink-50 border-2 border-white shadow-sm overflow-hidden mb-3">
                         <img src="https://api.dicebear.com/9.x/micah/svg?seed=Mia&backgroundColor=transparent" class="w-full h-full object-cover">
@@ -328,7 +348,7 @@
             </div>
 
             <!-- Uci (Cowok) -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-2 w-full sm:w-[220px]">
+            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group relative hover:-translate-y-4 transition-transform duration-300 sm:transform sm:-rotate-2 h-full">
                 <div class="glass-card p-5 rounded-3xl border-2 border-white shadow-md hover:border-indigo-400 transition-colors text-center h-full">
                     <div class="w-16 h-16 mx-auto rounded-full bg-indigo-50 border-2 border-white shadow-sm overflow-hidden mb-3">
                         <img src="https://api.dicebear.com/9.x/micah/svg?seed=Lucas&backgroundColor=transparent" class="w-full h-full object-cover">
@@ -340,10 +360,12 @@
             </div>
         </div>
         
-        <div class="mt-8 p-4 bg-brand-blue/5 border border-brand-blue/20 rounded-2xl text-center shadow-sm max-w-3xl mx-auto">
-            <p class="text-sm font-semibold text-brand-blue">
-                💡 Info Penting: Panitia di atas tetep ikutan nge-games & seru-seruan bareng ya, jaganya kita gilir santuy aja wkwk! 
-            </p>
+        <div class="mt-4 sm:mt-8 px-4 mx-auto max-w-3xl">
+            <div class="p-4 bg-brand-blue/5 border border-brand-blue/20 rounded-2xl text-center shadow-sm">
+                <p class="text-sm font-semibold text-brand-blue">
+                    💡 Info Penting: Panitia di atas tetep ikutan nge-games & seru-seruan bareng ya, jaganya kita gilir santuy aja wkwk! 
+                </p>
+            </div>
         </div>
     </section>
 
@@ -353,7 +375,14 @@
             <div class="absolute inset-0 bg-cover bg-center opacity-20 filter blur-sm group-hover:scale-105 transition-transform duration-700" style="background-image: url('villa-1.webp');"></div>
             <div class="relative z-10">
                 <h2 class="text-xs font-bold uppercase tracking-wider text-brand-blue mb-2">Sneak Peek Akomodasi</h2>
-                <h3 class="text-3xl font-extrabold text-slate-900 mb-4">Spot Villa Kamela</h3>
+                
+                <!-- Link Judul Villa Baru -->
+                <h3 class="text-3xl font-extrabold text-slate-900 mb-4 relative inline-block">
+                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="hover:text-brand-blue transition-colors underline decoration-dashed decoration-brand-blue/50 underline-offset-4">
+                        Spot Villa Kamela by ngevillayuk
+                    </a>
+                </h3>
+                
                 <p class="text-slate-600 text-sm mb-6 max-w-md mx-auto">Fasilitas dan penampakan villa yang bakal kita acak-acak. Ada private pool, ruang karaoke, sampe meja billiard!</p>
                 
                 <button onclick="openGallery()" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-white bg-slate-900 hover:bg-slate-800 transition-all hover:shadow-lg hover:-translate-y-1">
@@ -361,7 +390,7 @@
                 </button>
                 
                 <!-- NOTE DARI PJ -->
-                <div class="mt-8 mx-auto max-w-md p-4 bg-white/70 backdrop-blur-sm border border-slate-200/80 rounded-2xl text-left transform rotate-1 shadow-sm">
+                <div class="mt-8 mx-auto max-w-md p-4 bg-white/80 backdrop-blur-sm border border-slate-200/80 rounded-2xl text-left transform rotate-1 shadow-sm transition-transform hover:scale-105">
                     <p class="text-xs font-medium text-slate-600 leading-relaxed">
                         <span class="text-xl">📝</span> <strong class="text-slate-900">Note dari PJ:</strong> Kenapa milih Villa Kamela? Karena cuma ini doang yang masuk akal dan paling kompatibel sama jumlah orang dan budget kita yang pas-pasan wkwk.
                     </p>
@@ -413,17 +442,38 @@
 
         <div class="glass-card rounded-[2.5rem] p-6 sm:p-8 border border-slate-200/80 shadow-xl">
             
-            <!-- Alert DP Box -->
+            <!-- Alert DP Box & FITUR BAYAR -->
             <div class="mb-8 p-5 bg-rose-50 border border-rose-200 rounded-3xl relative overflow-hidden shadow-sm">
                 <div class="flex items-start gap-4 relative z-10">
                     <span class="text-3xl drop-shadow-sm">⚠️</span>
-                    <div>
+                    <div class="w-full">
                         <h4 class="font-bold text-rose-800 text-sm mb-1">INFO PENTING PELUNASAN</h4>
-                        <p class="text-xs text-rose-700 font-medium leading-relaxed">
+                        <p class="text-xs text-rose-700 font-medium leading-relaxed mb-3">
                             DP Villa 50% harus <strong>segera dilunasi</strong> agar tanggal kita aman dan di-keep pemilik! <br>
-                            Pelunasan iuran per orang (Rp 120.000) paling lambat ditunggu <strong>Tanggal 1 Agustus</strong> (kalau bisa lebih cepat lebih baik). <br>
-                            <strong>Silakan transfer ke: DANA 088290073130 a.n Sintia Sari.</strong>
+                            Pelunasan iuran per orang (Rp 120.000) paling lambat ditunggu <strong>Tanggal 1 Agustus</strong> (kalau bisa lebih cepat lebih baik).
                         </p>
+                        
+                        <!-- FITUR AUTO COPY & TAMPILKAN QR -->
+                        <div class="mt-4 flex flex-col sm:flex-row gap-3">
+                            <!-- Copy Button -->
+                            <div class="flex items-center bg-white border border-rose-200 rounded-xl overflow-hidden shadow-sm">
+                                <div class="px-3 py-2 bg-slate-50 border-r border-rose-200 text-slate-500 font-bold text-xs">DANA</div>
+                                <input type="text" id="danaNumber" value="088290073130" readonly class="w-32 px-3 text-sm font-bold text-slate-800 outline-none bg-white">
+                                <button onclick="copyDana()" id="copyBtn" class="px-4 py-2 bg-brand-blue text-white font-bold text-xs hover:bg-blue-700 transition-colors">Salin</button>
+                            </div>
+                            
+                            <!-- QRIS Button Trigger -->
+                            <button onclick="document.getElementById('qrisBox').classList.toggle('hidden')" class="px-4 py-2 bg-rose-600 text-white font-bold text-xs rounded-xl hover:bg-rose-700 transition-colors shadow-sm flex items-center justify-center gap-2">
+                                <span>📱</span> Tampilkan QR DANA
+                            </button>
+                        </div>
+
+                        <!-- Hidden QR Box -->
+                        <div id="qrisBox" class="hidden mt-4 p-4 bg-white border border-rose-200 rounded-2xl text-center shadow-sm max-w-xs mx-auto sm:mx-0">
+                            <p class="text-xs font-bold text-slate-600 mb-2">Scan QR DANA Sintia</p>
+                            <img src="qris-dana.webp" alt="QR DANA Sintia" class="w-full h-auto rounded-xl border border-slate-100" onerror="this.outerHTML='<div class=\'w-full aspect-square bg-slate-100 rounded-xl flex items-center justify-center text-xs text-slate-400 p-4 border-2 border-dashed border-slate-300\'>Sintia belum upload screenshot QR DANA-nya (save foto QR pake nama qris-dana.webp ya!)</div>'">
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -451,6 +501,32 @@
                 <button onclick="openBudget()" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-brand-blue bg-blue-50 hover:bg-blue-100 border border-brand-blue/20 transition-all hover:-translate-y-1 hover:shadow-md">
                     📄 Lihat Detail Rincian Belanja
                 </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist Pelunasan (LOCAL STORAGE - NO DATABASE) -->
+    <section id="pelunasan" class="py-4 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div class="text-center space-y-2 mb-6">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Buku Kas Digital</h2>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">Live Checklist Pelunasan</h3>
+            <p class="text-slate-500 text-xs sm:text-sm max-w-md mx-auto">Fitur khusus buat nge-track siapa aja yang udah lunas. (Data kesimpen otomatis di browser HP lu tanpa butuh database!).</p>
+        </div>
+
+        <div class="glass-card rounded-3xl p-5 border border-slate-200/80 shadow-md">
+            <div class="flex justify-between items-center mb-5 pb-4 border-b border-slate-200">
+                <div>
+                    <p class="text-xs text-slate-500 font-bold uppercase">Total Kas Masuk</p>
+                    <p id="totalTerkumpul" class="text-lg font-extrabold text-emerald-600 mt-0.5">Rp 0</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-slate-500 font-bold uppercase">Status Pasukan</p>
+                    <p class="text-lg font-extrabold text-slate-800 mt-0.5"><span id="countLunas" class="text-emerald-600">0</span>/12 Lunas</p>
+                </div>
+            </div>
+            
+            <div id="checklistContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <!-- Data digenerate via Javascript LocalStorage di bawah -->
             </div>
         </div>
     </section>
@@ -549,7 +625,7 @@
             </div>
 
             <div class="space-y-12">
-                <!-- Item 1 (Kiri) -->
+                <!-- Item 1 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
                         <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-2 inline-block w-full shadow-sm border border-slate-200/80">
@@ -559,12 +635,10 @@
                         </div>
                     </div>
                     
-                    <!-- Simbol/Kartun Tengah -->
                     <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:-rotate-12 transition-transform cursor-default">
                         🛵
                     </div>
                     
-                    <!-- Tampilan Mobile (Kanan) -->
                     <div class="md:hidden w-full pl-20 pr-2">
                         <div class="glass-card p-5 rounded-3xl transform transition-transform hover:scale-105 hover:-rotate-1 shadow-sm border border-slate-200/80">
                             <span class="text-xs font-extrabold text-brand-blue bg-blue-50 px-3 py-1 rounded-full mb-2 inline-block">13:00 - 14:30</span>
@@ -574,7 +648,7 @@
                     </div>
                 </div>
 
-                <!-- Item 2 (Kanan) -->
+                <!-- Item 2 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
                     <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
@@ -589,7 +663,7 @@
                     </div>
                 </div>
 
-                <!-- Item 3 (Kiri) -->
+                <!-- Item 3 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
                         <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-1 inline-block w-full shadow-sm border border-slate-200/80">
@@ -611,7 +685,7 @@
                     </div>
                 </div>
 
-                <!-- Item 4 (Kanan) -->
+                <!-- Item 4 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
                     <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
@@ -626,7 +700,7 @@
                     </div>
                 </div>
 
-                <!-- Item 5 (Kiri) -->
+                <!-- Item 5 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
                         <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-2 inline-block w-full shadow-sm border border-slate-200/80">
@@ -648,7 +722,7 @@
                     </div>
                 </div>
 
-                <!-- Item 6 (Kanan) -->
+                <!-- Item 6 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
                     <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
@@ -663,7 +737,7 @@
                     </div>
                 </div>
                 
-                <!-- Item 7 (Kiri) -->
+                <!-- Item 7 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
                         <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-1 inline-block w-full shadow-sm border border-slate-200/80">
@@ -695,7 +769,7 @@
             </div>
 
             <div class="space-y-12">
-                <!-- Item 8 (Kanan) -->
+                <!-- Item 8 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
                     <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
@@ -710,7 +784,7 @@
                     </div>
                 </div>
 
-                <!-- Item 9 (Kiri) -->
+                <!-- Item 9 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
                         <div class="glass-card p-5 rounded-3xl transform transition-transform duration-300 hover:scale-105 hover:-rotate-1 inline-block w-full shadow-sm border border-slate-200/80">
@@ -732,7 +806,7 @@
                     </div>
                 </div>
 
-                <!-- Item 10 (Kanan) -->
+                <!-- Item 10 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
                     <div class="absolute left-8 md:left-1/2 w-12 h-12 rounded-full bg-white border-2 border-slate-200 shadow-lg -translate-x-1/2 z-10 flex items-center justify-center text-2xl group-hover:scale-125 group-hover:rotate-12 transition-transform cursor-default">
@@ -759,7 +833,7 @@
         <div class="glass-card p-6 rounded-3xl transform -rotate-2 hover:rotate-1 transition-transform border-2 border-dashed border-brand-blue/30 shadow-lg text-center bg-blue-50/50">
             <h4 class="font-doodle text-xl text-brand-blue mb-2">Pliiiis Banget... 🙏</h4>
             <p class="text-slate-700 font-medium text-sm leading-relaxed">
-                Tolong realisasiin acara ini ya, Guys! Jangan sampe wacana yak 🥺 Ini momen terakhir banget nih sebelum pada sibuk nyari lokerrr. Gassskeunn yak!!
+                Tolong realisasiin acara ini ya, *Guys*! Udah wacana dari kapan tau masa mau gitu-gitu aja? 🥺 Ini momen *healing* terakhir nih sebelum pada sibuk ngurusin revisian skripsi sama pusing nyari loker masing-masing. Gassskeunn!! 🚀
             </p>
         </div>
     </div>
@@ -768,7 +842,7 @@
     <footer class="pt-16 pb-12 text-center relative overflow-hidden">
         <div class="max-w-2xl mx-auto px-4 relative z-10">
             <!-- YNKTS Doodle Quote -->
-            <p class="font-doodle text-2xl sm:text-4xl text-slate-800 -rotate-2 transform mb-6 inline-block opacity-80 decoration-brand-blue underline decoration-wavy underline-offset-4 hover:scale-105 transition-transform">
+            <p class="font-doodle text-2xl sm:text-4xl text-slate-800 -rotate-2 transform mb-6 inline-block opacity-80 decoration-brand-blue underline decoration-wavy underline-offset-4 hover:scale-105 transition-transform animate-float">
                 "YNKTS - Yo Ndak Tau<br>Kok Tanya Saya"
             </p>
             <p class="font-bold text-slate-400 text-sm mt-8">
@@ -777,8 +851,68 @@
         </div>
     </footer>
 
-    <!-- JS Logic for Modals & Slider -->
+    <!-- JS Logic for Modals, Copy Dana, and LocalStorage Checklist -->
     <script>
+        // --- COPY DANA LOGIC ---
+        function copyDana() {
+            var copyText = document.getElementById("danaNumber");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); 
+            navigator.clipboard.writeText(copyText.value);
+            
+            var copyBtn = document.getElementById("copyBtn");
+            var originalText = copyBtn.innerText;
+            copyBtn.innerText = "Tersalin! ✅";
+            copyBtn.classList.remove("bg-brand-blue");
+            copyBtn.classList.add("bg-emerald-500");
+            
+            setTimeout(function() {
+                copyBtn.innerText = originalText;
+                copyBtn.classList.remove("bg-emerald-500");
+                copyBtn.classList.add("bg-brand-blue");
+            }, 2000);
+        }
+
+        // --- CHECKLIST PELUNASAN (LOCAL STORAGE) ---
+        const memberList = ["Rofi", "Ammar", "Akbar", "Sultan", "Ayub", "Sina", "Roza", "Reva", "Sintia", "Uci", "Zidan", "Rika"];
+        const checklistContainer = document.getElementById('checklistContainer');
+        const totalEl = document.getElementById('totalTerkumpul');
+        const countEl = document.getElementById('countLunas');
+
+        function renderChecklist() {
+            let savedData = JSON.parse(localStorage.getItem('if8_payments')) || {};
+            checklistContainer.innerHTML = '';
+            let lunasCount = 0;
+
+            memberList.forEach(name => {
+                let isLunas = savedData[name] || false;
+                if(isLunas) lunasCount++;
+                
+                let card = document.createElement('div');
+                card.className = `flex justify-between items-center px-4 py-3 rounded-2xl border ${isLunas ? 'bg-emerald-50 border-emerald-200' : 'bg-slate-50 border-slate-200'} transition-colors`;
+                card.innerHTML = `
+                    <span class="font-bold text-sm ${isLunas ? 'text-emerald-700' : 'text-slate-600'}">${name}</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" class="sr-only peer" ${isLunas ? 'checked' : ''} onchange="togglePayment('${name}', this.checked)">
+                      <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                    </label>
+                `;
+                checklistContainer.appendChild(card);
+            });
+
+            countEl.innerText = lunasCount;
+            totalEl.innerText = 'Rp ' + (lunasCount * 120000).toLocaleString('id-ID');
+        }
+
+        function togglePayment(name, status) {
+            let savedData = JSON.parse(localStorage.getItem('if8_payments')) || {};
+            savedData[name] = status;
+            localStorage.setItem('if8_payments', JSON.stringify(savedData));
+            renderChecklist();
+        }
+
+        document.addEventListener('DOMContentLoaded', renderChecklist);
+
         // --- MOBILE MENU LOGIC ---
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
