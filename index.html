@@ -12,27 +12,27 @@
                 extend: {
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        serif: ['DM Serif Display', 'serif'], // Font Serif tegak, struktural, mewah
                     },
                     colors: {
                         brand: {
-                            blue: '#2563eb',
-                            cyan: '#06b6d4',
-                            purple: '#8b5cf6',
-                            pink: '#ec4899',
-                            dark: '#09090b',
-                            surface: '#18181b',
+                            // Palet Earthy & Warm (Aesthetic Modern Minimalist)
+                            bg: '#F5F4F0',
+                            card: '#FFFFFF',
+                            text: '#292524', // stone-800
+                            muted: '#78716C', // stone-500
+                            accent: '#D6D3D1', // stone-300
+                            primary: '#1C1917', // stone-900
                         }
                     },
                     animation: {
-                        'float': 'float 10s ease-in-out infinite',
-                        'float-delayed': 'float 10s ease-in-out 5s infinite',
-                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'float-delayed': 'float 8s ease-in-out 4s infinite',
                     },
                     keyframes: {
                         float: {
-                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
-                            '50%': { transform: 'translateY(-20px) scale(1.05)' },
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
                         }
                     }
                 }
@@ -40,47 +40,50 @@
         }
     </script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Ambient Aurora Backgrounds */
+        /* Modern Minimalist Background */
         body {
-            background-color: #09090b; /* Zinc 950 */
-            color: #e4e4e7; /* Zinc 200 */
+            background-color: #F5F4F0;
+            color: #292524;
         }
         
-        /* Premium Glassmorphism */
+        /* Clean Glass/Card Effect */
         .glass-panel {
-            background: rgba(24, 24, 27, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 1);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
         }
         
-        .glass-panel:hover {
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        .solid-card {
+            background: #FFFFFF;
+            border-radius: 2rem;
+            box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .solid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
         }
 
-        .text-gradient {
-            background: linear-gradient(to right, #e4e4e7, #a1a1aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Modal & Slider Animation */
+        /* Modal & Slider Animation - Smooth Fade & Scale */
         .modal {
             opacity: 0;
             visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease-in-out;
         }
         .modal.active {
             opacity: 1;
             visibility: visible;
         }
         .modal-content {
-            transform: scale(0.95) translateY(20px);
+            transform: scale(0.98) translateY(10px);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease-in-out;
         }
         .modal.active .modal-content {
             transform: scale(1) translateY(0);
@@ -89,18 +92,18 @@
         
         /* Custom Elegant Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #09090b;
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: #3f3f46;
+            background: #D6D3D1;
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #52525b;
+            background: #A8A29E;
         }
         
         /* Hide scrollbar for horizontal slider */
@@ -113,191 +116,189 @@
         }
     </style>
 </head>
-<body class="font-sans min-h-screen selection:bg-brand-purple/40 selection:text-white pb-10 pt-24 relative z-0">
+<body class="font-sans min-h-screen selection:bg-stone-300 selection:text-stone-900 pb-10 pt-24 relative z-0">
 
-    <!-- Ambient Mesh Gradient Backgrounds -->
+    <!-- Ambient Subtle Shapes Background -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-purple-600/20 rounded-full blur-[100px] animate-float mix-blend-screen"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-orange-500/10 rounded-full blur-[120px] animate-float-delayed mix-blend-screen"></div>
-        <div class="absolute top-[40%] left-[20%] w-[30vw] h-[30vw] bg-cyan-500/10 rounded-full blur-[90px] animate-pulse-slow mix-blend-screen"></div>
+        <div class="absolute top-[-10%] left-[10%] w-[40vw] h-[40vw] bg-white rounded-full blur-[100px] animate-float-slow"></div>
+        <div class="absolute bottom-[10%] right-[-5%] w-[50vw] h-[50vw] bg-[#EAE8E1] rounded-full blur-[120px] animate-float-delayed"></div>
     </div>
 
-    <!-- Floating Navbar Kapsul -->
+    <!-- Floating Navbar -->
     <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass-panel rounded-full transition-all duration-500 px-3 py-2 w-max max-w-[95vw]">
         <div class="flex items-center gap-3 sm:gap-8">
             
             <!-- Mobile Menu Button -->
-            <button id="menu-btn" class="md:hidden text-zinc-300 p-2 rounded-full hover:bg-white/10 transition-colors">
+            <button id="menu-btn" class="md:hidden text-stone-600 p-2 rounded-full hover:bg-stone-100 transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
 
             <!-- Menu Kiri (Desktop) -->
-            <nav class="hidden md:flex items-center space-x-8 font-medium text-xs tracking-wider uppercase text-zinc-400 pl-6">
-                <a href="#squad" class="hover:text-white transition-colors duration-300">Peserta</a>
-                <a href="#panitia" class="hover:text-white transition-colors duration-300">Panitia</a>
+            <nav class="hidden md:flex items-center space-x-8 font-semibold text-xs tracking-widest uppercase text-stone-500 pl-6">
+                <a href="#squad" class="hover:text-stone-900 transition-colors duration-300">Peserta</a>
+                <a href="#panitia" class="hover:text-stone-900 transition-colors duration-300">Panitia</a>
             </nav>
 
             <!-- LOGO TENGAH (Bulat) -->
             <a href="#" class="flex-shrink-0 relative group">
-                <div class="absolute inset-0 bg-white/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <img src="logo.jpg" alt="Logo" class="relative h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border border-white/20 shadow-lg group-hover:scale-105 transition-transform duration-500" onerror="this.outerHTML='<div class=\'relative h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-brand-surface text-white flex items-center justify-center font-serif italic text-xs shadow-lg border border-white/20\'>IF-8</div>'">
+                <img src="logo.jpg" alt="Logo" class="relative h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border border-stone-200 shadow-sm transition-transform duration-500 group-hover:scale-105" onerror="this.outerHTML='<div class=\'relative h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-stone-900 text-white flex items-center justify-center font-sans font-bold text-xs shadow-sm border border-white\'>IF-8</div>'">
             </a>
 
             <!-- Menu Kanan (Desktop) -->
-            <nav class="hidden md:flex items-center space-x-8 font-medium text-xs tracking-wider uppercase text-zinc-400 pr-6">
-                <a href="#villa" class="hover:text-white transition-colors duration-300">Spot Villa</a>
-                <a href="#audit" class="hover:text-white transition-colors duration-300">Budget</a>
-                <a href="#itinerary" class="hover:text-white transition-colors duration-300">Rundown</a>
+            <nav class="hidden md:flex items-center space-x-8 font-semibold text-xs tracking-widest uppercase text-stone-500 pr-6">
+                <a href="#villa" class="hover:text-stone-900 transition-colors duration-300">Spot Villa</a>
+                <a href="#audit" class="hover:text-stone-900 transition-colors duration-300">Budget</a>
+                <a href="#itinerary" class="hover:text-stone-900 transition-colors duration-300">Rundown</a>
             </nav>
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full mt-4 left-0 w-full glass-panel rounded-2xl px-4 py-6 space-y-4 font-medium text-sm tracking-wide text-center">
-            <a href="#squad" class="block text-zinc-300 hover:text-white mobile-link">Peserta</a>
-            <a href="#panitia" class="block text-zinc-300 hover:text-white mobile-link">Panitia</a>
-            <a href="#villa" class="block text-zinc-300 hover:text-white mobile-link">Spot Villa</a>
-            <a href="#audit" class="block text-zinc-300 hover:text-white mobile-link">Budget</a>
-            <a href="#itinerary" class="block text-zinc-300 hover:text-white mobile-link">Rundown</a>
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full mt-4 left-0 w-full glass-panel rounded-2xl px-4 py-6 space-y-4 font-semibold text-sm tracking-wide text-center">
+            <a href="#squad" class="block text-stone-600 hover:text-stone-900 mobile-link">Peserta</a>
+            <a href="#panitia" class="block text-stone-600 hover:text-stone-900 mobile-link">Panitia</a>
+            <a href="#villa" class="block text-stone-600 hover:text-stone-900 mobile-link">Spot Villa</a>
+            <a href="#audit" class="block text-stone-600 hover:text-stone-900 mobile-link">Budget</a>
+            <a href="#itinerary" class="block text-stone-600 hover:text-stone-900 mobile-link">Rundown</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative py-20 sm:py-28 px-4 overflow-hidden text-center z-10">
+    <section class="relative py-20 sm:py-28 px-4 text-center z-10">
         <div class="max-w-4xl mx-auto space-y-8">
-            <h1 class="text-5xl sm:text-7xl md:text-8xl tracking-tight text-white font-serif italic font-medium leading-tight">
+            <h1 class="text-5xl sm:text-7xl md:text-8xl text-stone-900 font-serif leading-tight">
                 The Last Dance
             </h1>
             
             <!-- Address & Event Info -->
             <div class="flex flex-col items-center gap-4 pt-6 text-sm max-w-xl mx-auto">
                 <div class="flex flex-wrap justify-center gap-4">
-                    <div class="flex items-center gap-2 px-5 py-3 rounded-2xl glass-panel text-zinc-200 shadow-xl">
-                        <span class="text-orange-300/80">📅</span> Selasa - Rabu, 11-12 Agustus 2026
+                    <div class="flex items-center gap-2 px-5 py-3 rounded-full bg-white border border-stone-200 text-stone-700 shadow-sm font-medium">
+                        <span class="text-stone-400">📅</span> Selasa - Rabu, 11-12 Agustus 2026
                     </div>
-                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-2xl glass-panel text-zinc-200 hover:bg-white/10 hover:text-white transition-all duration-300 cursor-pointer shadow-xl border-purple-500/30">
-                        <span class="text-cyan-300/80">📍</span> Villa Kamela by ngevillayuk
+                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-full bg-stone-900 text-white hover:bg-stone-800 transition-colors duration-300 shadow-md font-medium cursor-pointer">
+                        <span class="text-stone-300">📍</span> Villa Kamela by ngevillayuk
                     </a>
                 </div>
-                <div class="px-5 py-3 rounded-2xl glass-panel text-zinc-400 text-xs text-center w-full shadow-lg font-light tracking-wide">
+                <div class="px-5 py-3 rounded-full bg-white/60 text-stone-500 text-xs text-center w-full shadow-sm font-medium tracking-wide">
                     🗺️ Sukaresmi, Megamendung, Bogor Regency, West Java 16770
                 </div>
             </div>
 
             <!-- Countdown Display -->
             <div class="mt-10 flex justify-center gap-6 text-center">
-                <div class="glass-panel p-4 rounded-3xl w-24 flex flex-col items-center justify-center">
-                    <span id="c-days" class="block text-3xl font-serif text-white">00</span>
-                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-2">Hari</span>
+                <div class="bg-white p-5 rounded-3xl w-24 flex flex-col items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100">
+                    <span id="c-days" class="block text-3xl font-serif text-stone-900">00</span>
+                    <span class="text-[9px] font-bold text-stone-400 uppercase tracking-widest mt-2">Hari</span>
                 </div>
-                <div class="glass-panel p-4 rounded-3xl w-24 flex flex-col items-center justify-center">
-                    <span id="c-hours" class="block text-3xl font-serif text-white">00</span>
-                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-2">Jam</span>
+                <div class="bg-white p-5 rounded-3xl w-24 flex flex-col items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100">
+                    <span id="c-hours" class="block text-3xl font-serif text-stone-900">00</span>
+                    <span class="text-[9px] font-bold text-stone-400 uppercase tracking-widest mt-2">Jam</span>
                 </div>
-                <div class="glass-panel p-4 rounded-3xl w-24 flex flex-col items-center justify-center">
-                    <span id="c-mins" class="block text-3xl font-serif text-white">00</span>
-                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-2">Menit</span>
+                <div class="bg-white p-5 rounded-3xl w-24 flex flex-col items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-stone-100">
+                    <span id="c-mins" class="block text-3xl font-serif text-stone-900">00</span>
+                    <span class="text-[9px] font-bold text-stone-400 uppercase tracking-widest mt-2">Menit</span>
                 </div>
             </div>
 
-            <p class="text-zinc-400 italic max-w-lg mx-auto text-sm sm:text-base pt-6 font-serif">
+            <p class="text-stone-500 max-w-lg mx-auto text-sm sm:text-base pt-6 font-serif">
                 "Lighthearted banter before graduation. Momen ngobrol santai dan ketawa-tawi bareng sebelum sibuk nyari loker & kelarin urusan kampus!"
             </p>
         </div>
     </section>
 
     <!-- The Squad Section -->
-    <section id="squad" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden z-10 relative">
+    <section id="squad" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto z-10 relative">
         <div class="text-center space-y-4 mb-20">
-            <h2 class="text-xs font-bold uppercase tracking-widest text-purple-400/80">Daftar Pasukan</h2>
-            <h3 class="text-3xl sm:text-4xl font-serif italic text-white">Siapa Aja Yang Berangkat?</h3>
+            <h2 class="text-xs font-bold uppercase tracking-widest text-stone-400">Daftar Pasukan</h2>
+            <h3 class="text-3xl sm:text-4xl font-serif text-stone-900">Siapa Aja Yang Berangkat?</h3>
         </div>
 
         <div class="flex flex-wrap justify-center gap-10 sm:gap-14">
             <!-- Rofi -->
             <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Leo&backgroundColor=transparent" alt="Rofi" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Leo&backgroundColor=transparent" alt="Rofi" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Rofi</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Rofi</h4>
             </div>
             <!-- Ammar -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-4">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(167,139,250,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" alt="Ammar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" alt="Ammar" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Ammar</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Ammar</h4>
             </div>
             <!-- Akbar -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 -mt-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(244,114,182,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ethan&backgroundColor=transparent" alt="Akbar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ethan&backgroundColor=transparent" alt="Akbar" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Akbar</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Akbar</h4>
             </div>
             <!-- Sultan -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-2">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(52,211,153,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Noah&backgroundColor=transparent" alt="Sultan" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Noah&backgroundColor=transparent" alt="Sultan" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Sultan</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Sultan</h4>
             </div>
             <!-- Ayub -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 -mt-4">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(251,146,60,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Liam&backgroundColor=transparent" alt="Ayub" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Liam&backgroundColor=transparent" alt="Ayub" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Ayub</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Ayub</h4>
             </div>
             <!-- Sina -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-4">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" alt="Sina" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" alt="Sina" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Sina</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Sina</h4>
             </div>
             <!-- Roza -->
             <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(250,204,21,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" alt="Roza" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" alt="Roza" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Roza</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Roza</h4>
             </div>
             <!-- Reva -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-3">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(244,114,182,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" alt="Reva" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" alt="Reva" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Reva</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Reva</h4>
             </div>
             <!-- Sintia -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 -mt-3">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(52,211,153,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" alt="Sintia" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" alt="Sintia" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Sintia</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Sintia</h4>
             </div>
             <!-- Uci -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-5">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(251,146,60,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" alt="Uci" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" alt="Uci" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Uci</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Uci</h4>
             </div>
             <!-- Zidan -->
             <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Zidan</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Zidan</h4>
             </div>
             <!-- Rika -->
-            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 -mt-4">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(250,204,21,0.3)] group-hover:border-white/30 transition-all duration-500">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" alt="Rika" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-white border border-stone-200 shadow-sm overflow-hidden group-hover:shadow-md transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" alt="Rika" class="w-full h-full object-cover">
                 </div>
-                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Rika</h4>
+                <h4 class="font-serif text-lg text-stone-600 text-center mt-4 group-hover:text-stone-900 transition-colors">Rika</h4>
             </div>
         </div>
     </section>
@@ -305,141 +306,141 @@
     <!-- Panitia Acara Dadakan Section -->
     <section id="panitia" class="py-20 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 relative">
         <div class="text-center space-y-4 mb-16 px-4 sm:px-0">
-            <h3 class="text-3xl sm:text-4xl font-serif italic text-white">Panitia Dadakan</h3>
+            <h3 class="text-3xl sm:text-4xl font-serif text-stone-900">Panitia Dadakan</h3>
         </div>
 
         <div class="flex overflow-x-auto sm:flex-wrap sm:justify-center snap-x snap-mandatory gap-6 pb-8 px-6 sm:px-0 hide-scrollbar">
             
             <!-- Zidan -->
-            <div class="snap-center shrink-0 w-[260px] group h-full">
-                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
+            <div class="snap-center shrink-0 w-[280px] group h-full">
+                <div class="solid-card p-8 text-center h-full flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-stone-50 border border-stone-200 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
-                    <h4 class="font-serif italic text-lg text-white mb-3">Zidan</h4>
-                    <span class="text-[10px] font-bold text-cyan-300 bg-cyan-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🎯 PJ & Acara</span>
-                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Nge-carry konsep acara dari A-Z biar sesuai rencana.</p>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-3">Zidan</h4>
+                    <span class="text-[10px] font-bold text-stone-600 bg-stone-100 border border-stone-200 px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">🎯 PJ & Acara</span>
+                    <p class="text-sm text-stone-500 leading-relaxed mt-auto">Nge-carry konsep acara dari A-Z biar sesuai rencana.</p>
                 </div>
             </div>
 
             <!-- Sintia -->
-            <div class="snap-center shrink-0 w-[260px] group h-full">
-                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
+            <div class="snap-center shrink-0 w-[280px] group h-full">
+                <div class="solid-card p-8 text-center h-full flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-stone-50 border border-stone-200 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
-                    <h4 class="font-serif italic text-lg text-white mb-3">Sintia</h4>
-                    <span class="text-[10px] font-bold text-emerald-300 bg-emerald-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">💰 Bundahara</span>
-                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Menteri keuangan penagih kas & nyatet tiap rupiah.</p>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-3">Sintia</h4>
+                    <span class="text-[10px] font-bold text-stone-600 bg-stone-100 border border-stone-200 px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">💰 Bundahara</span>
+                    <p class="text-sm text-stone-500 leading-relaxed mt-auto">Menteri keuangan penagih kas & nyatet tiap rupiah.</p>
                 </div>
             </div>
 
             <!-- Rika -->
-            <div class="snap-center shrink-0 w-[260px] group h-full">
-                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
+            <div class="snap-center shrink-0 w-[280px] group h-full">
+                <div class="solid-card p-8 text-center h-full flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-stone-50 border border-stone-200 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
-                    <h4 class="font-serif italic text-lg text-white mb-3">Rika</h4>
-                    <span class="text-[10px] font-bold text-purple-300 bg-purple-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🏡 Akomodasi</span>
-                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Ngerusuhin booking villa sampe dapet tempat terbaik.</p>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-3">Rika</h4>
+                    <span class="text-[10px] font-bold text-stone-600 bg-stone-100 border border-stone-200 px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">🏡 Akomodasi</span>
+                    <p class="text-sm text-stone-500 leading-relaxed mt-auto">Ngerusuhin booking villa sampe dapet tempat terbaik.</p>
                 </div>
             </div>
 
             <!-- Ammar -->
-            <div class="snap-center shrink-0 w-[260px] group h-full">
-                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
+            <div class="snap-center shrink-0 w-[280px] group h-full">
+                <div class="solid-card p-8 text-center h-full flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-stone-50 border border-stone-200 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
-                    <h4 class="font-serif italic text-lg text-white mb-3">Ammar</h4>
-                    <span class="text-[10px] font-bold text-orange-300 bg-orange-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">📢 Humas / PR</span>
-                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Tukang nge-ping di grup biar pada berangkat tepat waktu.</p>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-3">Ammar</h4>
+                    <span class="text-[10px] font-bold text-stone-600 bg-stone-100 border border-stone-200 px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">📢 Humas / PR</span>
+                    <p class="text-sm text-stone-500 leading-relaxed mt-auto">Tukang nge-ping di grup biar pada berangkat tepat waktu.</p>
                 </div>
             </div>
 
             <!-- Roza -->
-            <div class="snap-center shrink-0 w-[260px] group h-full">
-                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
+            <div class="snap-center shrink-0 w-[280px] group h-full">
+                <div class="solid-card p-8 text-center h-full flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-stone-50 border border-stone-200 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
-                    <h4 class="font-serif italic text-lg text-white mb-3">Roza</h4>
-                    <span class="text-[10px] font-bold text-yellow-300 bg-yellow-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🗺️ Tour Guide</span>
-                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Penunjuk rute jalan Puncak biar kawan-kawan ga nyasar.</p>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-3">Roza</h4>
+                    <span class="text-[10px] font-bold text-stone-600 bg-stone-100 border border-stone-200 px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">🗺️ Tour Guide</span>
+                    <p class="text-sm text-stone-500 leading-relaxed mt-auto">Penunjuk rute jalan Puncak biar kawan-kawan ga nyasar.</p>
                 </div>
             </div>
 
             <!-- Reva -->
-            <div class="snap-center shrink-0 w-[260px] group h-full">
-                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
+            <div class="snap-center shrink-0 w-[280px] group h-full">
+                <div class="solid-card p-8 text-center h-full flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-stone-50 border border-stone-200 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
-                    <h4 class="font-serif italic text-lg text-white mb-3">Reva</h4>
-                    <span class="text-[10px] font-bold text-pink-300 bg-pink-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">👩‍🍳 Si Paling Chef</span>
-                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Ahli racik bumbu dapur dan per-BBQ-an duniawi.</p>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-3">Reva</h4>
+                    <span class="text-[10px] font-bold text-stone-600 bg-stone-100 border border-stone-200 px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">👩‍🍳 Si Paling Chef</span>
+                    <p class="text-sm text-stone-500 leading-relaxed mt-auto">Ahli racik bumbu dapur dan per-BBQ-an duniawi.</p>
                 </div>
             </div>
 
             <!-- Sina -->
-            <div class="snap-center shrink-0 w-[260px] group h-full">
-                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
+            <div class="snap-center shrink-0 w-[280px] group h-full">
+                <div class="solid-card p-8 text-center h-full flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-stone-50 border border-stone-200 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
-                    <h4 class="font-serif italic text-lg text-white mb-3">Sina</h4>
-                    <span class="text-[10px] font-bold text-red-300 bg-red-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🔥 Si Paling Acara</span>
-                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Pemandu game bareng Zidan biar acaranya idup.</p>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-3">Sina</h4>
+                    <span class="text-[10px] font-bold text-stone-600 bg-stone-100 border border-stone-200 px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">🔥 Si Paling Acara</span>
+                    <p class="text-sm text-stone-500 leading-relaxed mt-auto">Pemandu game bareng Zidan biar acaranya idup.</p>
                 </div>
             </div>
 
             <!-- Uci -->
-            <div class="snap-center shrink-0 w-[260px] group h-full">
-                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
+            <div class="snap-center shrink-0 w-[280px] group h-full">
+                <div class="solid-card p-8 text-center h-full flex flex-col items-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-stone-50 border border-stone-200 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" class="w-full h-full object-cover">
                     </div>
-                    <h4 class="font-serif italic text-lg text-white mb-3">Uci</h4>
-                    <span class="text-[10px] font-bold text-blue-300 bg-blue-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🎭 Si Paling Acara</span>
-                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Partner Sina buat nyediain topik deep talk & games malam.</p>
+                    <h4 class="font-serif text-2xl text-stone-900 mb-3">Uci</h4>
+                    <span class="text-[10px] font-bold text-stone-600 bg-stone-100 border border-stone-200 px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">🎭 Si Paling Acara</span>
+                    <p class="text-sm text-stone-500 leading-relaxed mt-auto">Partner Sina buat nyediain topik deep talk & games malam.</p>
                 </div>
             </div>
         </div>
         
         <div class="mt-8 px-4 mx-auto max-w-3xl">
-            <div class="p-5 glass-panel rounded-2xl text-center border-orange-500/20">
-                <p class="text-xs sm:text-sm font-light text-zinc-300">
-                    <span class="text-orange-300">💡 Info Penting:</span> Panitia di atas tetep ikutan nge-games & seru-seruan bareng ya, jaganya kita gilir santuy aja wkwk! 
+            <div class="p-5 bg-white rounded-2xl text-center border border-stone-100 shadow-sm">
+                <p class="text-sm text-stone-600">
+                    <span class="text-stone-400">💡 Info Penting:</span> Panitia di atas tetep ikutan nge-games & seru-seruan bareng ya, jaganya kita gilir santuy aja wkwk! 
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Galeri Spot Villa Section -->
-    <section id="villa" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10 relative">
-        <div class="glass-panel rounded-[2.5rem] p-8 sm:p-12 text-center overflow-hidden relative group border-white/5">
-            <div class="absolute inset-0 bg-cover bg-center opacity-30 filter blur-sm group-hover:scale-105 transition-transform duration-1000 ease-out mix-blend-overlay" style="background-image: url('villa-1.webp');"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/60 to-transparent"></div>
+    <section id="villa" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto z-10 relative">
+        <div class="bg-[#EAE8E1] rounded-[2.5rem] overflow-hidden shadow-xl border border-white flex flex-col md:flex-row items-center">
             
-            <div class="relative z-10">
-                <h2 class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-4">Sneak Peek Akomodasi</h2>
+            <div class="w-full md:w-1/2 h-64 md:h-full min-h-[400px] relative group overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-1000 ease-out" style="background-image: url('villa-1.webp');"></div>
+            </div>
+
+            <div class="w-full md:w-1/2 p-10 sm:p-14 relative z-10 text-left">
+                <h2 class="text-[10px] font-bold uppercase tracking-widest text-stone-500 mb-4 border border-stone-300 rounded-full px-3 py-1 inline-block">Sneak Peek Akomodasi</h2>
                 
-                <h3 class="text-4xl sm:text-5xl font-serif italic text-white mb-6">
-                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="hover:text-cyan-300 transition-colors">
-                        Spot Villa Kamela by ngevillayuk
-                    </a>
+                <h3 class="text-4xl sm:text-5xl font-serif text-stone-900 mb-6 leading-tight">
+                    Spot Villa Kamela by ngevillayuk
                 </h3>
                 
-                <p class="text-zinc-300 text-sm mb-10 max-w-lg mx-auto font-light leading-relaxed">Fasilitas dan penampakan villa yang bakal kita acak-acak. Ada private pool, ruang karaoke, sampe meja billiard!</p>
+                <p class="text-stone-600 text-sm mb-10 leading-relaxed">Fasilitas dan penampakan villa yang bakal kita acak-acak. Ada private pool, ruang karaoke, sampe meja billiard!</p>
                 
-                <button onclick="openGallery()" class="inline-flex items-center gap-3 px-8 py-4 rounded-full font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.2)] backdrop-blur-md">
+                <button onclick="openGallery()" class="inline-flex items-center gap-3 px-8 py-4 rounded-full font-medium text-white bg-stone-900 hover:bg-stone-800 transition-all shadow-md">
                     📸 Buka Galeri Foto Villa
                 </button>
                 
-                <div class="mt-12 mx-auto max-w-md p-5 bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-2xl text-left shadow-2xl">
-                    <p class="text-xs font-light text-zinc-300 leading-relaxed">
-                        <span class="text-base mr-1">📝</span> <strong class="text-white font-medium">Note dari PJ:</strong> Kenapa milih Villa Kamela? Karena cuma ini doang yang masuk akal dan paling kompatibel sama jumlah orang dan budget kita yang pas-pasan wkwk.
+                <div class="mt-12 p-5 bg-white/50 border border-white rounded-2xl text-left shadow-sm">
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        <span class="text-base mr-1">📝</span> <strong class="text-stone-900 font-medium">Note dari PJ:</strong> Kenapa milih Villa Kamela? Karena cuma ini doang yang masuk akal dan paling kompatibel sama jumlah orang dan budget kita yang pas-pasan wkwk.
                     </p>
                 </div>
             </div>
@@ -447,65 +448,65 @@
     </section>
 
     <!-- Galeri Modal (Pop-Up Slider) -->
-    <div id="galleryModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-[#09090b]/95 backdrop-blur-xl p-4 sm:p-8">
-        <div class="modal-content relative w-full max-w-5xl bg-slate-900/80 border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col backdrop-blur-2xl">
+    <div id="galleryModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-stone-900/95 backdrop-blur-md p-4 sm:p-8">
+        <div class="modal-content relative w-full max-w-5xl bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col">
             <!-- Header Modal -->
-            <div class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-20 bg-gradient-to-b from-black/60 to-transparent">
-                <span class="text-white/80 font-medium text-xs tracking-widest bg-black/40 px-4 py-2 rounded-full backdrop-blur-md border border-white/10">
+            <div class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-20">
+                <span class="text-stone-900 font-medium text-xs tracking-widest bg-white/90 px-4 py-2 rounded-full shadow-sm">
                     <span id="slideCounter">1</span> / 7
                 </span>
-                <button onclick="closeGallery()" class="text-zinc-400 hover:text-white bg-black/40 rounded-full p-2.5 transition-colors backdrop-blur-md border border-white/10">
+                <button onclick="closeGallery()" class="text-stone-500 hover:text-stone-900 bg-white/90 rounded-full p-2.5 transition-colors shadow-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
             <!-- Image Area -->
-            <div class="relative h-[55vh] sm:h-[70vh] w-full flex items-center justify-center bg-transparent">
-                <img id="sliderImage" src="" alt="Villa Image" class="max-h-full max-w-full object-contain drop-shadow-2xl" loading="lazy">
+            <div class="relative h-[55vh] sm:h-[70vh] w-full flex items-center justify-center bg-[#F5F4F0]">
+                <img id="sliderImage" src="" alt="Villa Image" class="max-h-full max-w-full object-contain" loading="lazy">
                 
                 <!-- Nav Arrows -->
-                <button onclick="prevSlide()" class="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-black/40 hover:bg-white/10 text-white rounded-full transition-all border border-white/10 backdrop-blur-md hover:scale-105">
+                <button onclick="prevSlide()" class="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-white/80 hover:bg-white text-stone-900 rounded-full transition-all shadow-md hover:scale-105">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
-                <button onclick="nextSlide()" class="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-black/40 hover:bg-white/10 text-white rounded-full transition-all border border-white/10 backdrop-blur-md hover:scale-105">
+                <button onclick="nextSlide()" class="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-white/80 hover:bg-white text-stone-900 rounded-full transition-all shadow-md hover:scale-105">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
             </div>
             
             <!-- Caption Area -->
-            <div class="p-6 sm:p-8 bg-slate-900/90 border-t border-white/5 text-center sm:text-left">
-                <h4 id="sliderTitle" class="text-xl font-serif italic text-white mb-2"></h4>
-                <p id="sliderDesc" class="text-sm font-light text-zinc-400"></p>
+            <div class="p-6 sm:p-8 bg-white border-t border-stone-100 text-center sm:text-left">
+                <h4 id="sliderTitle" class="text-2xl font-serif text-stone-900 mb-2"></h4>
+                <p id="sliderDesc" class="text-sm text-stone-500"></p>
             </div>
         </div>
     </div>
 
     <!-- Financial Audit Section -->
-    <section id="audit" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto z-10 relative">
+    <section id="audit" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10 relative">
         <div class="text-center space-y-4 mb-12">
-            <h2 class="text-xs font-bold uppercase tracking-widest text-emerald-400/80">Transparansi Kas</h2>
-            <h3 class="text-3xl sm:text-4xl font-serif italic text-white">Status Budget Acara</h3>
+            <h2 class="text-xs font-bold uppercase tracking-widest text-stone-400">Transparansi Kas</h2>
+            <h3 class="text-3xl sm:text-4xl font-serif text-stone-900">Status Budget Acara</h3>
         </div>
 
-        <div class="glass-panel rounded-[2.5rem] p-6 sm:p-10">
+        <div class="bg-white rounded-[2.5rem] p-6 sm:p-10 shadow-sm border border-stone-100">
             
             <!-- Alert DP Box -->
-            <div class="mb-10 p-6 bg-rose-500/10 border border-rose-500/20 rounded-3xl relative overflow-hidden">
+            <div class="mb-10 p-6 bg-[#FDF8F6] border border-[#EAE6DF] rounded-3xl relative overflow-hidden">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 relative z-10">
-                    <div class="w-12 h-12 shrink-0 rounded-full bg-rose-500/20 flex items-center justify-center border border-rose-500/30 text-rose-300 text-xl">⚠️</div>
+                    <div class="w-12 h-12 shrink-0 rounded-full bg-white flex items-center justify-center shadow-sm text-stone-500 text-xl border border-stone-100">⚠️</div>
                     <div class="w-full">
-                        <h4 class="font-serif italic text-rose-200 text-lg mb-1">INFO PENTING PELUNASAN</h4>
-                        <p class="text-xs text-rose-200/80 font-light leading-relaxed mb-4">
-                            DP Villa 50% harus <strong class="text-rose-300 font-medium">segera dilunasi</strong> agar tanggal kita aman dan di-keep pemilik! <br>
-                            Pelunasan iuran per orang (Rp 120.000) paling lambat ditunggu <strong class="text-rose-300 font-medium">Tanggal 1 Agustus</strong>.
+                        <h4 class="font-serif text-stone-900 text-lg mb-1">INFO PENTING PELUNASAN</h4>
+                        <p class="text-xs text-stone-600 leading-relaxed mb-4">
+                            DP Villa 50% harus <strong class="text-stone-900">segera dilunasi</strong> agar tanggal kita aman dan di-keep pemilik! <br>
+                            Pelunasan iuran per orang (Rp 120.000) paling lambat ditunggu <strong class="text-stone-900">Tanggal 1 Agustus</strong>.
                         </p>
                         
                         <!-- Box Salin DANA yang Responsif -->
                         <div class="flex items-center justify-start w-full max-w-[320px]">
-                            <div class="flex items-center bg-black/40 border border-rose-500/30 rounded-xl overflow-hidden shadow-inner w-full">
-                                <div class="px-4 py-2.5 bg-white/5 border-r border-rose-500/30 text-rose-200/80 font-medium tracking-widest text-[10px] shrink-0 uppercase">DANA</div>
-                                <input type="text" id="danaNumber" value="088290073130" readonly class="w-full px-3 text-sm font-medium text-white outline-none bg-transparent min-w-0 text-left">
-                                <button onclick="copyDana()" id="copyBtn" class="px-4 py-2.5 bg-rose-500/20 text-rose-200 font-medium text-xs hover:bg-rose-500/40 transition-colors shrink-0 border-l border-rose-500/30">Salin</button>
+                            <div class="flex items-center bg-white border border-stone-200 rounded-full overflow-hidden shadow-sm w-full">
+                                <div class="px-4 py-2.5 bg-stone-50 border-r border-stone-200 text-stone-500 font-medium tracking-widest text-[10px] shrink-0 uppercase">DANA</div>
+                                <input type="text" id="danaNumber" value="088290073130" readonly class="w-full px-3 text-sm font-medium text-stone-900 outline-none bg-transparent min-w-0 text-left">
+                                <button onclick="copyDana()" id="copyBtn" class="px-4 py-2.5 bg-stone-900 text-white font-medium text-xs hover:bg-stone-800 transition-colors shrink-0">Salin</button>
                             </div>
                         </div>
 
@@ -515,25 +516,25 @@
 
             <!-- Cards Summary -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
-                <div class="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-center sm:text-left">
-                    <p class="text-[10px] font-medium text-zinc-500 uppercase tracking-widest">Target Budget</p>
-                    <p class="text-2xl font-serif italic text-white mt-2">Rp 1.440.000</p>
-                    <p class="text-[10px] font-light text-zinc-400 mt-2">12 Orang × Rp 120.000</p>
+                <div class="p-6 rounded-3xl bg-[#F5F4F0] border border-stone-100 text-center sm:text-left">
+                    <p class="text-[10px] font-medium text-stone-500 uppercase tracking-widest">Target Budget</p>
+                    <p class="text-2xl font-serif text-stone-900 mt-2">Rp 1.440.000</p>
+                    <p class="text-[10px] text-stone-500 mt-2">12 Orang × Rp 120.000</p>
                 </div>
-                <div class="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-center sm:text-left">
-                    <p class="text-[10px] font-medium text-zinc-500 uppercase tracking-widest">Estimasi Keluar</p>
-                    <p class="text-2xl font-serif italic text-rose-300 mt-2">Rp 1.289.000</p>
-                    <p class="text-[10px] font-light text-zinc-400 mt-2">Villa + Logistik</p>
+                <div class="p-6 rounded-3xl bg-white border border-stone-200 shadow-sm text-center sm:text-left">
+                    <p class="text-[10px] font-medium text-stone-500 uppercase tracking-widest">Estimasi Keluar</p>
+                    <p class="text-2xl font-serif text-stone-900 mt-2">Rp 1.289.000</p>
+                    <p class="text-[10px] text-stone-500 mt-2">Villa + Logistik</p>
                 </div>
-                <div class="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-center sm:text-left">
-                    <p class="text-[10px] font-medium text-zinc-500 uppercase tracking-widest">Dana Darurat</p>
-                    <p class="text-2xl font-serif italic text-emerald-300 mt-2">Rp 151.000</p>
-                    <p class="text-[10px] font-light text-zinc-400 mt-2">Sisa saldo diamankan</p>
+                <div class="p-6 rounded-3xl bg-[#F5F4F0] border border-stone-100 text-center sm:text-left">
+                    <p class="text-[10px] font-medium text-stone-500 uppercase tracking-widest">Dana Darurat</p>
+                    <p class="text-2xl font-serif text-stone-900 mt-2">Rp 151.000</p>
+                    <p class="text-[10px] text-stone-500 mt-2">Sisa saldo diamankan</p>
                 </div>
             </div>
 
             <div class="text-center">
-                <button onclick="openBudget()" class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-medium text-sm text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all hover:-translate-y-1">
+                <button onclick="openBudget()" class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-medium text-sm text-stone-700 bg-white hover:bg-stone-50 border border-stone-200 transition-all shadow-sm">
                     📄 Lihat Detail Rincian Belanja
                 </button>
             </div>
@@ -543,35 +544,35 @@
     <!-- Checklist Pelunasan -->
     <section id="pelunasan" class="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto z-10 relative">
         <div class="text-center space-y-3 mb-10">
-            <h3 class="text-2xl sm:text-3xl font-serif italic text-white">Live Checklist Pelunasan</h3>
-            <p class="text-zinc-400 text-xs sm:text-sm font-light max-w-md mx-auto">Data otomatis sinkron real-time dari Google Sheets Bundahara Sintia.</p>
+            <h3 class="text-2xl sm:text-3xl font-serif text-stone-900">Live Checklist Pelunasan</h3>
+            <p class="text-stone-500 text-xs sm:text-sm max-w-md mx-auto">Data otomatis sinkron real-time dari Google Sheets Bundahara Sintia.</p>
         </div>
 
-        <div class="glass-panel rounded-[2rem] p-6 sm:p-8">
-            <div class="flex justify-between items-end mb-8 pb-6 border-b border-white/10">
+        <div class="bg-white border border-stone-100 shadow-sm rounded-[2rem] p-6 sm:p-8">
+            <div class="flex justify-between items-end mb-8 pb-6 border-b border-stone-100">
                 <div>
-                    <p class="text-[10px] tracking-widest text-zinc-500 font-medium uppercase mb-1">Total Kas Masuk</p>
-                    <p id="totalTerkumpul" class="text-2xl font-serif italic text-emerald-300">Rp 0</p>
+                    <p class="text-[10px] tracking-widest text-stone-400 font-medium uppercase mb-1">Total Kas Masuk</p>
+                    <p id="totalTerkumpul" class="text-2xl font-serif text-stone-900">Rp 0</p>
                 </div>
                 <div class="text-right">
-                    <p class="text-[10px] tracking-widest text-zinc-500 font-medium uppercase mb-1">Status Pasukan</p>
-                    <p class="text-2xl font-serif italic text-white"><span id="countLunas" class="text-emerald-300">0</span><span class="text-zinc-600 text-lg">/12 Lunas</span></p>
+                    <p class="text-[10px] tracking-widest text-stone-400 font-medium uppercase mb-1">Status Pasukan</p>
+                    <p class="text-2xl font-serif text-stone-900"><span id="countLunas" class="text-stone-900">0</span><span class="text-stone-400 text-lg">/12 Lunas</span></p>
                 </div>
             </div>
             
             <div id="checklistContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- Loading text -->
-                <p class="text-sm font-light text-zinc-500 col-span-full text-center py-6 animate-pulse">⏳ Sedang nge-sync data dari Excel Bundahara...</p>
+                <p class="text-sm text-stone-400 col-span-full text-center py-6 animate-pulse">⏳ Sedang nge-sync data dari Excel Bundahara...</p>
             </div>
         </div>
     </section>
 
     <!-- Budget Detail Modal -->
-    <div id="budgetModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-[#09090b]/95 backdrop-blur-xl p-4">
-        <div class="modal-content relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[2rem] shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
-            <div class="p-6 border-b border-white/5 flex justify-between items-center bg-slate-900/50">
-                <h3 class="font-serif italic text-xl text-white">Rincian Belanja (Detail)</h3>
-                <button onclick="closeBudget()" class="text-zinc-500 hover:text-white transition-colors p-2 bg-white/5 hover:bg-white/10 rounded-full">
+    <div id="budgetModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-stone-900/60 backdrop-blur-sm p-4">
+        <div class="modal-content relative w-full max-w-2xl bg-white rounded-[2rem] shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+            <div class="p-6 border-b border-stone-100 flex justify-between items-center bg-[#F5F4F0]">
+                <h3 class="font-serif text-xl text-stone-900">Rincian Belanja (Detail)</h3>
+                <button onclick="closeBudget()" class="text-stone-400 hover:text-stone-900 transition-colors p-2 bg-white rounded-full shadow-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
@@ -579,57 +580,57 @@
             <div class="p-6 overflow-y-auto custom-scrollbar">
                 <table class="w-full text-left text-sm">
                     <thead>
-                        <tr class="border-b border-white/10 text-zinc-500 text-[10px] tracking-widest uppercase font-medium">
+                        <tr class="border-b border-stone-200 text-stone-400 text-[10px] tracking-widest uppercase font-medium">
                             <th class="pb-4 pr-2 font-medium">Item Belanja</th>
                             <th class="pb-4 px-2 text-right font-medium">Harga</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-white/5 text-zinc-300 font-light">
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Sewa Villa Kamela</p><p class="text-[11px] text-zinc-500 mt-1">1 Malam (Inc. DP & Pelunasan)</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 900.000</td>
+                    <tbody class="divide-y divide-stone-100 text-stone-600">
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Sewa Villa Kamela</p><p class="text-[11px] text-stone-500 mt-1">1 Malam (Inc. DP & Pelunasan)</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 900.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Daging Ayam Segar</p><p class="text-[11px] text-zinc-500 mt-1">1 Ekor (@ Rp 55.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 55.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Daging Ayam Segar</p><p class="text-[11px] text-stone-500 mt-1">1 Ekor (@ Rp 55.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 55.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Sosis Bakar</p><p class="text-[11px] text-zinc-500 mt-1">2 Pack (@ Rp 18.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 36.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Sosis Bakar</p><p class="text-[11px] text-stone-500 mt-1">2 Pack (@ Rp 18.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 36.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Beras</p><p class="text-[11px] text-zinc-500 mt-1">5 Liter (@ Rp 11.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 55.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Beras</p><p class="text-[11px] text-stone-500 mt-1">5 Liter (@ Rp 11.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 55.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Telur Ayam</p><p class="text-[11px] text-zinc-500 mt-1">1,5 Kg (@ Rp 28.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 42.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Telur Ayam</p><p class="text-[11px] text-stone-500 mt-1">1,5 Kg (@ Rp 28.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 42.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Bumbu Dapur, Minyak</p><p class="text-[11px] text-zinc-500 mt-1">Penyedap rasa, saos BBQ, dsb</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 40.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Bumbu Dapur, Minyak</p><p class="text-[11px] text-stone-500 mt-1">Penyedap rasa, saos BBQ, dsb</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 40.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Snack Bal-an</p><p class="text-[11px] text-zinc-500 mt-1">2 Bungkus Besar (@ Rp 40.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 80.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Snack Bal-an</p><p class="text-[11px] text-stone-500 mt-1">2 Bungkus Besar (@ Rp 40.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 80.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Kopi, Teh, Gula</p><p class="text-[11px] text-zinc-500 mt-1">Amunisi begadang</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 42.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Kopi, Teh, Gula</p><p class="text-[11px] text-stone-500 mt-1">Amunisi begadang</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 42.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Arang BBQ</p><p class="text-[11px] text-zinc-500 mt-1">2 Bungkus (@ Rp 7.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 14.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Arang BBQ</p><p class="text-[11px] text-stone-500 mt-1">2 Bungkus (@ Rp 7.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 14.000</td>
                         </tr>
-                        <tr class="hover:bg-white/[0.02] transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Es Batu & Galon Air</p><p class="text-[11px] text-zinc-500 mt-1">Isi ulang galon + es batu balok</p></td>
-                            <td class="py-4 px-2 text-right font-medium">Rp 25.000</td>
+                        <tr class="hover:bg-stone-50 transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-stone-900">Es Batu & Galon Air</p><p class="text-[11px] text-stone-500 mt-1">Isi ulang galon + es batu balok</p></td>
+                            <td class="py-4 px-2 text-right font-medium text-stone-900">Rp 25.000</td>
                         </tr>
                     </tbody>
                     <tfoot>
-                        <tr class="bg-rose-500/10 border-t border-rose-500/20 text-rose-200">
-                            <td class="py-5 px-4 font-medium text-xs tracking-widest uppercase rounded-bl-2xl">TOTAL ESTIMASI</td>
-                            <td class="py-5 px-4 text-right font-serif italic text-xl rounded-br-2xl">Rp 1.289.000</td>
+                        <tr class="bg-[#F5F4F0] border-t border-stone-200">
+                            <td class="py-5 px-4 font-medium text-xs tracking-widest text-stone-500 uppercase rounded-bl-2xl">TOTAL ESTIMASI</td>
+                            <td class="py-5 px-4 text-right font-serif text-xl text-stone-900 rounded-br-2xl">Rp 1.289.000</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -640,21 +641,21 @@
     <!-- Timeline / Itinerary Section -->
     <section id="itinerary" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto overflow-hidden z-10 relative">
         <div class="text-center space-y-4 mb-20">
-            <h2 class="text-xs font-bold uppercase tracking-widest text-blue-400/80">Susunan Agenda</h2>
-            <h3 class="text-3xl sm:text-4xl font-serif italic text-white">Journey Map Acara</h3>
+            <h2 class="text-xs font-bold uppercase tracking-widest text-stone-400">Susunan Agenda</h2>
+            <h3 class="text-3xl sm:text-4xl font-serif text-stone-900">Journey Map Acara</h3>
         </div>
 
         <div class="relative w-full max-w-4xl mx-auto">
             
-            <!-- Garis Putus-putus Tengah -->
-            <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-white/10 md:-translate-x-1/2"></div>
+            <!-- Garis Lurus Tengah -->
+            <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-stone-300 md:-translate-x-1/2"></div>
             
             <!-- Bendera Start -->
-            <div class="absolute left-8 md:left-1/2 top-0 -translate-x-1/2 -mt-4 z-20 text-2xl drop-shadow-lg">🏁</div>
+            <div class="absolute left-8 md:left-1/2 top-0 -translate-x-1/2 -mt-4 z-20 text-xl bg-white p-2 rounded-full border border-stone-200 shadow-sm">🏁</div>
 
             <!-- Hari 1 Label -->
             <div class="relative flex justify-start md:justify-center mb-14 pl-20 md:pl-0 z-20">
-                <div class="px-6 py-2.5 rounded-full glass-panel text-white font-medium text-xs tracking-widest uppercase shadow-xl border-purple-500/30 text-purple-200">
+                <div class="px-6 py-2.5 rounded-full bg-stone-900 text-white font-medium text-xs tracking-widest uppercase shadow-md">
                     DAY 1 — Selasa, 11 Agustus 2026
                 </div>
             </div>
@@ -663,20 +664,20 @@
                 <!-- Item 1 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-blue-500/20 hover:border-blue-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-3 block">13:00 - 14:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Tikum & Otw Puncak</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">13:00 - 14:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Tikum & Otw Puncak</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
                         </div>
                     </div>
                     
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-blue-400 shadow-[0_0_15px_#60a5fa] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-900 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     
                     <div class="md:hidden w-full pl-20 pr-2">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-blue-500/20 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-3 block">13:00 - 14:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Tikum & Otw Puncak</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+                        <div class="solid-card p-6 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">13:00 - 14:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Tikum & Otw Puncak</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
                         </div>
                     </div>
                 </div>
@@ -684,12 +685,12 @@
                 <!-- Item 2 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-purple-400 shadow-[0_0_15px_#c084fc] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-400 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-purple-500/20 hover:border-purple-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-purple-300 uppercase mb-3 block">14:30 - 15:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Check-in & Unboxing Barang</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Nyampe villa, milih kamar rebutan kasur, naruh tas, dan rapihin bahan makanan di dapur.</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">14:30 - 15:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Check-in & Unboxing Barang</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Nyampe villa, milih kamar rebutan kasur, naruh tas, dan rapihin bahan makanan di dapur.</p>
                         </div>
                     </div>
                 </div>
@@ -697,19 +698,19 @@
                 <!-- Item 3 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-cyan-500/20 hover:border-cyan-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-cyan-300 uppercase mb-3 block">15:30 - 16:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Ganjal Perut & Ashar</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">15:30 - 16:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Ganjal Perut & Ashar</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
                         </div>
                     </div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_15px_#22d3ee] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-400 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     
                     <div class="md:hidden w-full pl-20 pr-2">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-cyan-500/20 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-cyan-300 uppercase mb-3 block">15:30 - 16:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Ganjal Perut & Ashar</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                        <div class="solid-card p-6 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">15:30 - 16:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Ganjal Perut & Ashar</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
                         </div>
                     </div>
                 </div>
@@ -717,12 +718,12 @@
                 <!-- Item 4 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-emerald-400 shadow-[0_0_15px_#34d399] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-400 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-emerald-500/20 hover:border-emerald-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-emerald-300 uppercase mb-3 block">16:30 - 18:00</span>
-                            <h4 class="font-serif italic text-white text-xl">Game Santai & Ngopi</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Buka snack bal-an, bikin kopi hangat, main game ringan sambil menikmati sore.</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">16:30 - 18:00</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Game Santai & Ngopi</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Buka snack bal-an, bikin kopi hangat, main game ringan sambil menikmati sore.</p>
                         </div>
                     </div>
                 </div>
@@ -730,19 +731,19 @@
                 <!-- Item 5 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-amber-500/20 hover:border-amber-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-amber-300 uppercase mb-3 block">18:00 - 19:30</span>
-                            <h4 class="font-serif italic text-white text-xl">ISHOMA & Prep Nasi Liwet</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">18:00 - 19:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">ISHOMA & Prep Nasi Liwet</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
                         </div>
                     </div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-amber-400 shadow-[0_0_15px_#fbbf24] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-400 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     
                     <div class="md:hidden w-full pl-20 pr-2">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-amber-500/20 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-amber-300 uppercase mb-3 block">18:00 - 19:30</span>
-                            <h4 class="font-serif italic text-white text-xl">ISHOMA & Prep Nasi Liwet</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
+                        <div class="solid-card p-6 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">18:00 - 19:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">ISHOMA & Prep Nasi Liwet</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
                         </div>
                     </div>
                 </div>
@@ -750,12 +751,12 @@
                 <!-- Item 6 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-rose-400 shadow-[0_0_15px_#fb7185] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-400 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-rose-500/20 hover:border-rose-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-rose-300 uppercase mb-3 block">19:30 - 21:00</span>
-                            <h4 class="font-serif italic text-white text-xl">The Last Dance Dinner</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Puncak acara! Sikat habis panggangan ayam, sosis, dan santap nasi liwet di daun pisang.</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">19:30 - 21:00</span>
+                            <h4 class="font-serif text-stone-900 text-xl">The Last Dance Dinner</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Puncak acara! Sikat habis panggangan ayam, sosis, dan santap nasi liwet di daun pisang.</p>
                         </div>
                     </div>
                 </div>
@@ -763,19 +764,19 @@
                 <!-- Item 7 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-indigo-500/20 hover:border-indigo-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-indigo-300 uppercase mb-3 block">21:00 - 23:00</span>
-                            <h4 class="font-serif italic text-white text-xl">Deep Talk & Curhat Malam</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">21:00 - 23:00</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Deep Talk & Curhat Malam</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
                         </div>
                     </div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-indigo-400 shadow-[0_0_15px_#818cf8] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-900 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     
                     <div class="md:hidden w-full pl-20 pr-2">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-indigo-500/20 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-indigo-300 uppercase mb-3 block">21:00 - 23:00</span>
-                            <h4 class="font-serif italic text-white text-xl">Deep Talk & Curhat Malam</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                        <div class="solid-card p-6 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">21:00 - 23:00</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Deep Talk & Curhat Malam</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
                         </div>
                     </div>
                 </div>
@@ -784,7 +785,7 @@
 
             <!-- Hari 2 Label -->
             <div class="relative flex justify-start md:justify-center mt-14 mb-14 pl-20 md:pl-0 z-20">
-                <div class="px-6 py-2.5 rounded-full glass-panel text-white font-medium text-xs tracking-widest uppercase shadow-xl border-orange-500/30 text-orange-200">
+                <div class="px-6 py-2.5 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-xs tracking-widest uppercase shadow-sm">
                     DAY 2 — Rabu, 12 Agustus 2026
                 </div>
             </div>
@@ -793,12 +794,12 @@
                 <!-- Item 8 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-yellow-400 shadow-[0_0_15px_#facc15] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-400 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-yellow-500/20 hover:border-yellow-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-yellow-300 uppercase mb-3 block">07:00 - 08:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Bangun Pagi & Nasi Goreng</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Hirup udara dingin Puncak, lanjut olah sisa liwetan semalam jadi nasi goreng.</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">07:00 - 08:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Bangun Pagi & Nasi Goreng</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Hirup udara dingin Puncak, lanjut olah sisa liwetan semalam jadi nasi goreng.</p>
                         </div>
                     </div>
                 </div>
@@ -806,19 +807,19 @@
                 <!-- Item 9 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-pink-500/20 hover:border-pink-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-pink-300 uppercase mb-3 block">08:30 - 10:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Capturing Memories</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">08:30 - 10:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Capturing Memories</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
                         </div>
                     </div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-pink-400 shadow-[0_0_15px_#f472b6] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-400 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     
                     <div class="md:hidden w-full pl-20 pr-2">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-pink-500/20 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-pink-300 uppercase mb-3 block">08:30 - 10:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Capturing Memories</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+                        <div class="solid-card p-6 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">08:30 - 10:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Capturing Memories</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
                         </div>
                     </div>
                 </div>
@@ -826,28 +827,28 @@
                 <!-- Item 10 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-slate-400 shadow-[0_0_15px_#94a3b8] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-stone-900 ring-4 ring-white -translate-x-1/2 z-10 group-hover:scale-125 transition-transform duration-300"></div>
                     <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
-                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-slate-500/20 hover:border-slate-500/40 hover:bg-white/10 text-left">
-                            <span class="text-[10px] font-bold tracking-widest text-zinc-300 uppercase mb-3 block">10:30 - 11:30</span>
-                            <h4 class="font-serif italic text-white text-xl">Check-out & Pulang</h4>
-                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Beres-beres kamar, pastikan ga ada barang yang ketinggalan, lalu konvoi pulang!</p>
+                        <div class="solid-card p-6 inline-block w-full text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-stone-400 uppercase mb-3 block">10:30 - 11:30</span>
+                            <h4 class="font-serif text-stone-900 text-xl">Check-out & Pulang</h4>
+                            <p class="text-stone-500 text-xs mt-3 leading-relaxed">Beres-beres kamar, pastikan ga ada barang yang ketinggalan, lalu konvoi pulang!</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Bendera Finish -->
-            <div class="absolute left-8 md:left-1/2 bottom-0 -translate-x-1/2 translate-y-6 z-20 text-2xl drop-shadow-lg">🏠</div>
+            <div class="absolute left-8 md:left-1/2 bottom-0 -translate-x-1/2 translate-y-6 z-20 text-xl bg-white p-2 rounded-full border border-stone-200 shadow-sm">🏠</div>
 
         </div>
     </section>
 
-    <!-- Pleading / Mohon-mohon Notes Sticky Area -->
+    <!-- Pleading Notes -->
     <div class="max-w-xl mx-auto px-4 mt-12 z-10 relative">
-        <div class="glass-panel p-8 rounded-[2rem] hover:-translate-y-1 transition-transform border border-cyan-500/20 shadow-2xl text-center">
-            <h4 class="font-serif italic text-2xl text-cyan-300 mb-3">Pliiiis Banget... 🙏</h4>
-            <p class="text-zinc-300 font-light text-sm leading-relaxed">
+        <div class="bg-white p-8 rounded-[2rem] border border-stone-100 shadow-sm text-center">
+            <h4 class="font-serif text-2xl text-stone-900 mb-3">Pliiiis Banget... 🙏</h4>
+            <p class="text-stone-500 text-sm leading-relaxed">
                 Tolong realisasiin acara ini ya, *Guys*! Udah wacana dari kapan tau masa mau gitu-gitu aja? 🥺 Ini momen *healing* terakhir nih sebelum pada sibuk ngurusin revisian skripsi sama pusing nyari loker masing-masing. Gassskeunn!! 🚀
             </p>
         </div>
@@ -855,19 +856,19 @@
 
     <!-- Spotify Playlist Section -->
     <section class="py-16 px-4 max-w-2xl mx-auto z-10 relative">
-        <div class="glass-panel p-6 rounded-[2rem] border border-white/5 shadow-2xl">
-            <h4 class="font-serif italic text-white text-xl text-center mb-6">🎵 Playlist The Last Dance</h4>
-            <iframe style="border-radius:16px; background-color: rgba(255,255,255,0.02);" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div class="bg-white p-6 rounded-[2rem] border border-stone-100 shadow-sm">
+            <h4 class="font-serif text-stone-900 text-xl text-center mb-6">🎵 Playlist The Last Dance</h4>
+            <iframe style="border-radius:16px; background-color: #F5F4F0;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="pt-10 pb-16 text-center relative overflow-hidden z-10">
         <div class="max-w-2xl mx-auto px-4 relative z-10">
-            <p class="font-serif italic text-2xl sm:text-3xl text-zinc-400 mb-8 inline-block font-light">
+            <p class="font-serif text-2xl sm:text-3xl text-stone-400 mb-8 inline-block">
                 "YNKTS - Yo Ndak Tau<br>Kok Tanya Saya"
             </p>
-            <p class="font-light tracking-widest uppercase text-zinc-600 text-[10px]">
+            <p class="font-medium tracking-widest uppercase text-stone-400 text-[10px]">
                 The Last Dance © 2026. Made with ❤️ untuk kita semua.
             </p>
         </div>
@@ -890,12 +891,12 @@
                 if(isLunas) lunasCount++;
                 
                 let card = document.createElement('div');
-                card.className = `flex justify-between items-center px-5 py-4 rounded-2xl border transition-all duration-300 ${isLunas ? 'bg-emerald-500/10 border-emerald-500/30 shadow-[0_0_15px_rgba(52,211,153,0.1)]' : 'bg-white/5 border-white/5 hover:bg-white/10'}`;
+                card.className = `flex justify-between items-center px-5 py-4 rounded-2xl border transition-all duration-300 ${isLunas ? 'bg-[#F2F7F4] border-[#D1E2D9]' : 'bg-[#F5F4F0] border-stone-200 hover:bg-stone-100'}`;
                 card.innerHTML = `
-                    <span class="font-medium text-sm tracking-wide ${isLunas ? 'text-emerald-300' : 'text-zinc-400'}">${name}</span>
+                    <span class="font-medium text-sm tracking-wide ${isLunas ? 'text-emerald-700' : 'text-stone-500'}">${name}</span>
                     <label class="relative inline-flex items-center cursor-not-allowed">
                       <input type="checkbox" class="sr-only peer" ${isLunas ? 'checked' : ''} disabled>
-                      <div class="w-10 h-5 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500/80"></div>
+                      <div class="w-10 h-5 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
                     </label>
                 `;
                 checklistContainer.appendChild(card);
@@ -944,7 +945,7 @@
                 renderChecklist(statusPelunasan);
             } catch (error) {
                 renderChecklist(statusPelunasan);
-                checklistContainer.insertAdjacentHTML('afterbegin', '<p class="text-xs text-rose-400 col-span-full text-center mb-2 font-light">Gagal narik data dari Google Sheets. Pastiin link Excelnya public ya!</p>');
+                checklistContainer.insertAdjacentHTML('afterbegin', '<p class="text-xs text-red-500 col-span-full text-center mb-2 font-medium">Gagal narik data dari Google Sheets. Pastiin link Excelnya public ya!</p>');
             }
         }
 
@@ -996,11 +997,6 @@
         const mobileLinks = document.querySelectorAll('.mobile-link');
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
-            if(!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('animate-pulse-slow');
-            } else {
-                mobileMenu.classList.remove('animate-pulse-slow');
-            }
         });
         mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
