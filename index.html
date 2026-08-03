@@ -12,569 +12,653 @@
                 extend: {
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'], // Modern tech font
+                        doodle: ['Rock Salt', 'cursive'],
+                        graffiti: ['Permanent Marker', 'cursive'],
                     },
                     colors: {
-                        dark: {
-                            900: '#0a0a0a',
-                            800: '#171717',
-                            700: '#262626',
+                        brand: {
+                            blue: '#2563eb',
+                            cyan: '#06b6d4',
+                            purple: '#8b5cf6',
+                            pink: '#ec4899',
+                            dark: '#0f172a'
                         },
-                        accent: {
+                        gta: {
+                            sunset: '#fcd34d',
+                            orange: '#f97316',
+                            pink: '#ec4899',
+                            purple: '#8b5cf6',
                             cyan: '#22d3ee',
-                            indigo: '#818cf8',
-                            purple: '#c084fc',
+                            dark: '#27272a',
+                            bg: '#FFFaf0'
                         }
                     },
                     animation: {
-                        'aurora-1': 'aurora 15s ease-in-out infinite alternate',
-                        'aurora-2': 'aurora 20s ease-in-out infinite alternate-reverse',
-                        'aurora-3': 'aurora 25s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 8s ease-in-out 3s infinite',
+                        'wobble': 'wobble 5s ease-in-out infinite',
                     },
                     keyframes: {
-                        aurora: {
-                            '0%': { transform: 'translate(0%, 0%) scale(1)' },
-                            '50%': { transform: 'translate(5%, 10%) scale(1.1)' },
-                            '100%': { transform: 'translate(-5%, -5%) scale(0.9)' },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        wobble: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
                         }
                     }
                 }
             }
         }
     </script>
-    <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Rock+Salt&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #0a0a0a;
-            color: #e5e5e5;
-        }
-
-        /* Bento UI / Modern Glassmorphism */
-        .bento-card {
-            background: rgba(23, 23, 23, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #FFFaf0; /* Warm cream/off-white, very easy on the eyes */
+            color: #27272a;
         }
         
-        .bento-card:hover {
-            background: rgba(38, 38, 38, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        /* Comic/GTA Style Cards */
+        .comic-card {
+            background-color: #ffffff;
+            border: 3px solid #27272a;
+            border-radius: 1rem;
+            box-shadow: 4px 4px 0px #27272a;
+            transition: all 0.2s ease-in-out;
+        }
+        .comic-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #27272a;
         }
 
-        .text-glow {
-            text-shadow: 0 0 30px rgba(129, 140, 248, 0.5);
+        .comic-btn {
+            background-color: #f97316;
+            color: white;
+            border: 3px solid #27272a;
+            box-shadow: 3px 3px 0px #27272a;
+            font-weight: 800;
+            transition: all 0.15s ease-out;
+        }
+        .comic-btn:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px #27272a;
         }
 
-        /* Modal Animation */
+        /* Modal & Slider Animation */
         .modal {
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
         }
         .modal.active {
             opacity: 1;
             visibility: visible;
         }
         .modal-content {
-            transform: scale(0.95);
-            opacity: 0;
+            transform: scale(0.95) rotate(-1deg);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .modal.active .modal-content {
-            transform: scale(1);
-            opacity: 1;
+            transform: scale(1) rotate(0deg);
         }
-
-        /* Clean Scrollbar */
+        
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: transparent;
+            background: #FFFaf0;
+            border-left: 2px solid #27272a;
         }
         ::-webkit-scrollbar-thumb {
-            background: #262626;
+            background: #f97316;
+            border: 2px solid #27272a;
             border-radius: 10px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #404040;
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Text Stroke for Graffiti */
+        .text-stroke {
+            -webkit-text-stroke: 1px #27272a;
+            text-shadow: 3px 3px 0px #27272a;
+        }
     </style>
 </head>
-<body class="font-sans min-h-screen selection:bg-accent-indigo/30 selection:text-white pb-10 pt-24 relative z-0">
+<body class="font-sans min-h-screen selection:bg-gta-orange selection:text-white pb-10 pt-24 relative overflow-x-hidden">
 
-    <!-- Calm Ambient Aurora Background -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div class="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] bg-accent-indigo/10 rounded-full blur-[120px] animate-aurora-1 mix-blend-screen"></div>
-        <div class="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] bg-accent-cyan/5 rounded-full blur-[150px] animate-aurora-2 mix-blend-screen"></div>
-        <div class="absolute top-[30%] left-[30%] w-[50vw] h-[50vw] bg-accent-purple/10 rounded-full blur-[130px] animate-aurora-3 mix-blend-screen"></div>
+    <!-- Sunset Vibes Ambient Background -->
+    <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <!-- Sun -->
+        <div class="absolute top-[10%] right-[10%] w-[30vw] h-[30vw] bg-gta-sunset/40 rounded-full blur-[80px] animate-pulse"></div>
+        <!-- Sunset glow -->
+        <div class="absolute top-[30%] left-[-10%] w-[50vw] h-[50vw] bg-gta-pink/20 rounded-full blur-[100px] animate-float"></div>
+        <div class="absolute bottom-[-10%] left-[20%] w-[60vw] h-[60vw] bg-gta-purple/15 rounded-full blur-[120px] animate-float-delayed"></div>
+        
+        <!-- Floating Elements (Cartoon Vibes) -->
+        <div class="absolute top-[15%] left-[5%] text-6xl opacity-30 animate-wobble">🌴</div>
+        <div class="absolute top-[60%] right-[5%] text-5xl opacity-30 animate-float-delayed" style="animation-delay: 1s;">🚗</div>
+        <div class="absolute bottom-[20%] left-[10%] text-6xl opacity-20 animate-float">😎</div>
+        <div class="absolute top-[40%] right-[15%] text-4xl opacity-30 animate-wobble" style="animation-delay: 2s;">🍕</div>
     </div>
 
     <!-- Floating Navbar -->
-    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bento-card !rounded-full px-4 py-3 w-max max-w-[95vw] shadow-2xl">
-        <div class="flex items-center gap-4 sm:gap-8">
-            <button id="menu-btn" class="md:hidden text-zinc-400 hover:text-white transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-white border-3 border-gta-dark rounded-full shadow-[4px_4px_0px_#27272a] px-3 py-2 w-max max-w-[95vw]">
+        <div class="flex items-center gap-3 sm:gap-6">
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-gta-dark p-2 bg-gta-sunset border-2 border-gta-dark rounded-full shadow-[2px_2px_0px_#27272a] active:translate-y-1 active:shadow-none transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
             </button>
 
-            <nav class="hidden md:flex items-center space-x-6 font-display font-semibold text-xs tracking-widest uppercase text-zinc-400 pl-4">
-                <a href="#squad" class="hover:text-white transition-colors">Peserta</a>
-                <a href="#panitia" class="hover:text-white transition-colors">Panitia</a>
+            <!-- Menu Kiri (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-6 font-black text-sm text-gta-dark pl-4 uppercase tracking-wider">
+                <a href="#squad" class="hover:text-gta-orange hover:-translate-y-1 transition-all duration-300">Peserta</a>
+                <a href="#panitia" class="hover:text-gta-orange hover:-translate-y-1 transition-all duration-300">Panitia</a>
             </nav>
 
+            <!-- LOGO TENGAH -->
             <a href="#" class="flex-shrink-0 relative group">
-                <img src="logo.jpg" alt="Logo" class="relative h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border border-white/10 group-hover:scale-105 transition-transform duration-300" onerror="this.outerHTML='<div class=\'relative h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-dark-800 text-white flex items-center justify-center font-display font-bold text-xs border border-white/10\'>IF-8</div>'">
+                <img src="logo.jpg" alt="Logo" class="relative h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover border-2 border-gta-dark shadow-[2px_2px_0px_#27272a] group-hover:rotate-12 transition-transform duration-300" onerror="this.outerHTML='<div class=\'relative h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-gta-cyan text-gta-dark flex items-center justify-center font-black text-xs border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]\'>IF-8</div>'">
             </a>
 
-            <nav class="hidden md:flex items-center space-x-6 font-display font-semibold text-xs tracking-widest uppercase text-zinc-400 pr-4">
-                <a href="#villa" class="hover:text-white transition-colors">Spot Villa</a>
-                <a href="#audit" class="hover:text-white transition-colors">Budget</a>
-                <a href="#itinerary" class="hover:text-white transition-colors">Rundown</a>
+            <!-- Menu Kanan (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-6 font-black text-sm text-gta-dark pr-4 uppercase tracking-wider">
+                <a href="#villa" class="hover:text-gta-orange hover:-translate-y-1 transition-all duration-300">Spot Villa</a>
+                <a href="#audit" class="hover:text-gta-orange hover:-translate-y-1 transition-all duration-300">Budget</a>
+                <a href="#itinerary" class="hover:text-gta-orange hover:-translate-y-1 transition-all duration-300">Rundown</a>
             </nav>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full mt-4 left-0 w-full bento-card px-4 py-6 space-y-4 font-display font-semibold text-sm tracking-widest uppercase text-center">
-            <a href="#squad" class="block text-zinc-400 hover:text-white mobile-link">Peserta</a>
-            <a href="#panitia" class="block text-zinc-400 hover:text-white mobile-link">Panitia</a>
-            <a href="#villa" class="block text-zinc-400 hover:text-white mobile-link">Spot Villa</a>
-            <a href="#audit" class="block text-zinc-400 hover:text-white mobile-link">Budget</a>
-            <a href="#itinerary" class="block text-zinc-400 hover:text-white mobile-link">Rundown</a>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full mt-3 left-0 w-full bg-white border-3 border-gta-dark rounded-2xl p-4 space-y-3 font-black text-sm text-center shadow-[4px_4px_0px_#27272a] uppercase">
+            <a href="#squad" class="block text-gta-dark hover:bg-gta-sunset p-2 border-2 border-transparent hover:border-gta-dark rounded-xl transition-all mobile-link">Peserta</a>
+            <a href="#panitia" class="block text-gta-dark hover:bg-gta-sunset p-2 border-2 border-transparent hover:border-gta-dark rounded-xl transition-all mobile-link">Panitia</a>
+            <a href="#villa" class="block text-gta-dark hover:bg-gta-sunset p-2 border-2 border-transparent hover:border-gta-dark rounded-xl transition-all mobile-link">Spot Villa</a>
+            <a href="#audit" class="block text-gta-dark hover:bg-gta-sunset p-2 border-2 border-transparent hover:border-gta-dark rounded-xl transition-all mobile-link">Budget</a>
+            <a href="#itinerary" class="block text-gta-dark hover:bg-gta-sunset p-2 border-2 border-transparent hover:border-gta-dark rounded-xl transition-all mobile-link">Rundown</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative py-24 sm:py-32 px-4 z-10 flex flex-col items-center justify-center">
-        <div class="max-w-4xl mx-auto text-center space-y-6">
-            <h1 class="text-6xl sm:text-8xl md:text-9xl font-display font-black text-white tracking-tighter text-glow leading-none">
+    <section class="relative py-16 sm:py-24 px-4 overflow-hidden text-center z-10">
+        <div class="max-w-4xl mx-auto relative space-y-6">
+            
+            <div class="inline-block transform -rotate-3 hover:rotate-0 transition-transform mb-4">
+                <span class="bg-gta-yellow text-gta-dark font-black px-4 py-2 text-sm sm:text-base border-2 border-gta-dark shadow-[3px_3px_0px_#27272a] uppercase tracking-widest">Roadtrip Edition 🚙💨</span>
+            </div>
+
+            <h1 class="text-6xl sm:text-8xl md:text-9xl tracking-tight text-white font-graffiti text-stroke transform -rotate-2 animate-wobble">
                 The Last Dance
             </h1>
             
-            <p class="text-zinc-400 max-w-lg mx-auto text-sm sm:text-base font-medium pt-2">
-                Lighthearted banter before graduation. Momen ngobrol santai dan ketawa-tawi bareng sebelum sibuk nyari loker & kelarin urusan kampus!
+            <p class="text-gta-dark font-bold max-w-lg mx-auto text-sm sm:text-base pt-4 bg-white/50 backdrop-blur-sm p-4 rounded-xl border-2 border-gta-dark border-dashed">
+                "Lighthearted banter before graduation. Momen ngobrol santai dan ketawa-tawi bareng sebelum sibuk nyari loker & kelarin urusan kampus!"
             </p>
 
-            <div class="flex flex-wrap justify-center gap-3 pt-6">
-                <div class="flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 border border-white/10 text-zinc-300 text-sm font-medium backdrop-blur-md">
-                    📅 11-12 Agustus 2026
+            <!-- Address & Event Info -->
+            <div class="flex flex-col items-center gap-3 pt-6 text-sm font-black max-w-xl mx-auto">
+                <div class="flex flex-wrap justify-center gap-3">
+                    <div class="flex items-center gap-2 px-5 py-3 rounded-xl bg-white border-3 border-gta-dark shadow-[4px_4px_0px_#fcd34d] text-gta-dark transform rotate-1">
+                        📅 Selasa - Rabu, 11-12 Agustus 2026
+                    </div>
+                    <!-- Tautan Link Villa -->
+                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-xl comic-btn bg-gta-cyan hover:bg-gta-pink text-white transform -rotate-1 cursor-pointer">
+                        📍 Villa Kamela by ngevillayuk
+                    </a>
                 </div>
-                <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black hover:bg-zinc-200 transition-colors text-sm font-semibold cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                    📍 Villa Kamela by ngevillayuk
-                </a>
+                <div class="px-5 py-3 rounded-xl bg-white border-3 border-gta-dark shadow-[4px_4px_0px_#27272a] text-gta-dark text-xs text-center w-full">
+                    🗺️ Sukaresmi, Megamendung, Bogor Regency, West Java 16770
+                </div>
             </div>
 
-            <!-- Bento Countdown -->
-            <div class="mt-12 grid grid-cols-3 gap-4 max-w-sm mx-auto">
-                <div class="bento-card p-4 flex flex-col items-center justify-center">
-                    <span id="c-days" class="text-3xl sm:text-4xl font-display font-bold text-white">00</span>
-                    <span class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Hari</span>
+            <!-- Countdown Display -->
+            <div class="mt-10 flex justify-center gap-4 text-center">
+                <div class="comic-card p-3 w-20 sm:w-24 bg-gta-sunset transform -rotate-2">
+                    <span id="c-days" class="block text-3xl sm:text-4xl font-black text-gta-dark font-graffiti">00</span>
+                    <span class="text-[10px] font-black text-white bg-gta-dark px-2 py-0.5 mt-1 rounded uppercase tracking-widest">Hari</span>
                 </div>
-                <div class="bento-card p-4 flex flex-col items-center justify-center">
-                    <span id="c-hours" class="text-3xl sm:text-4xl font-display font-bold text-white">00</span>
-                    <span class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Jam</span>
+                <div class="comic-card p-3 w-20 sm:w-24 bg-gta-pink transform rotate-2">
+                    <span id="c-hours" class="block text-3xl sm:text-4xl font-black text-white font-graffiti text-stroke">00</span>
+                    <span class="text-[10px] font-black text-white bg-gta-dark px-2 py-0.5 mt-1 rounded uppercase tracking-widest">Jam</span>
                 </div>
-                <div class="bento-card p-4 flex flex-col items-center justify-center">
-                    <span id="c-mins" class="text-3xl sm:text-4xl font-display font-bold text-white">00</span>
-                    <span class="text-[10px] text-zinc-500 uppercase tracking-widest mt-1">Menit</span>
+                <div class="comic-card p-3 w-20 sm:w-24 bg-gta-cyan transform -rotate-1">
+                    <span id="c-mins" class="block text-3xl sm:text-4xl font-black text-gta-dark font-graffiti">00</span>
+                    <span class="text-[10px] font-black text-white bg-gta-dark px-2 py-0.5 mt-1 rounded uppercase tracking-widest">Menit</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- The Squad Section -->
-    <section id="squad" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto z-10 relative">
-        <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-                <h2 class="text-xs font-bold uppercase tracking-widest text-accent-cyan mb-2">Daftar Pasukan</h2>
-                <h3 class="text-4xl sm:text-5xl font-display font-black text-white tracking-tight">Siapa Aja Yang Berangkat?</h3>
-            </div>
-            <div class="h-px bg-white/10 flex-grow hidden md:block ml-8 mb-3"></div>
+    <!-- The Squad Section (Compact Roster Layout) -->
+    <section id="squad" class="py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10 relative">
+        <div class="text-center space-y-2 mb-10">
+            <h2 class="text-4xl sm:text-5xl font-graffiti text-white text-stroke transform -rotate-2 inline-block">Daftar Pasukan</h2>
+            <p class="font-black text-gta-dark text-sm bg-gta-sunset inline-block px-3 py-1 border-2 border-gta-dark shadow-[2px_2px_0px_#27272a] transform rotate-1 mt-2">Siapa Aja Yang Berangkat?</p>
         </div>
 
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6 sm:gap-8">
-            <!-- Avatars -->
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-accent-cyan/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Leo&backgroundColor=transparent" alt="Rofi" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+        <!-- Roster Bar (Compact Flex Wrap) -->
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-5 bg-white p-6 sm:p-8 rounded-3xl border-4 border-gta-dark shadow-[6px_6px_0px_#27272a]">
+            <!-- Using avataaars for GTA/Comic vibe -->
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-gta-sunset overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-cyan transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Leo&backgroundColor=transparent" alt="Rofi" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Rofi</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Rofi</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-accent-indigo/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" alt="Ammar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+            
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-gta-pink overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-orange transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Ryan&backgroundColor=transparent" alt="Ammar" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Ammar</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Ammar</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-accent-purple/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ethan&backgroundColor=transparent" alt="Akbar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-gta-cyan overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-purple transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Ethan&backgroundColor=transparent" alt="Akbar" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Akbar</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Akbar</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-emerald-500/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Noah&backgroundColor=transparent" alt="Sultan" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-gta-purple overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-sunset transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Noah&backgroundColor=transparent" alt="Sultan" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Sultan</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Sultan</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-orange-500/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Liam&backgroundColor=transparent" alt="Ayub" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-gta-orange overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-pink transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Liam&backgroundColor=transparent" alt="Ayub" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Ayub</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Ayub</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-accent-cyan/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" alt="Sina" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-[#a7f3d0] overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-cyan transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Mia&backgroundColor=transparent" alt="Sina" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Sina</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Sina</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-yellow-500/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" alt="Roza" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-[#fef08a] overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-orange transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Mason&backgroundColor=transparent" alt="Roza" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Roza</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Roza</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-rose-500/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" alt="Reva" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-[#fecdd3] overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-purple transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Lily&backgroundColor=transparent" alt="Reva" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Reva</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Reva</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-emerald-500/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" alt="Sintia" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-[#ddd6fe] overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-[#a7f3d0] transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Sophia&backgroundColor=transparent" alt="Sintia" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Sintia</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Sintia</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-blue-500/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" alt="Uci" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-[#bae6fd] overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-[#fef08a] transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Lucas&backgroundColor=transparent" alt="Uci" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Uci</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Uci</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-accent-indigo/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-[#ffedd5] overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-sunset transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Felix&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Zidan</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Zidan</span>
             </div>
-            <div class="group flex flex-col items-center gap-3 cursor-pointer">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-dark-800 border border-white/5 overflow-hidden group-hover:border-accent-purple/50 group-hover:-translate-y-2 transition-all duration-300">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" alt="Rika" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+
+            <div class="flex flex-col items-center group w-[70px] sm:w-[85px] hover:-translate-y-2 transition-transform cursor-pointer">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-gta-dark bg-[#d9f99d] overflow-hidden shadow-[3px_3px_0px_#27272a] group-hover:bg-gta-pink transition-colors">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Chloe&backgroundColor=transparent" alt="Rika" class="w-full h-full object-cover mt-1">
                 </div>
-                <h4 class="font-display font-semibold text-sm text-zinc-400 group-hover:text-white transition-colors">Rika</h4>
+                <span class="text-[10px] sm:text-xs font-black mt-2 text-gta-dark bg-white px-2 py-0.5 rounded border-2 border-gta-dark shadow-[2px_2px_0px_#27272a]">Rika</span>
             </div>
         </div>
     </section>
 
-    <!-- Panitia Acara Dadakan Section (Bento Grid) -->
-    <section id="panitia" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto z-10 relative">
-        <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-                <h3 class="text-4xl sm:text-5xl font-display font-black text-white tracking-tight">Panitia Dadakan</h3>
-            </div>
+    <!-- Panitia Acara Dadakan Section (Sliding Trading Cards) -->
+    <section id="panitia" class="py-12 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 relative">
+        <div class="text-center space-y-2 mb-10 px-4 sm:px-0">
+            <h3 class="text-4xl sm:text-5xl font-graffiti text-white text-stroke transform rotate-1">Panitia Dadakan</h3>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Slider Wrapper -->
+        <div class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 px-6 sm:px-8 hide-scrollbar">
             
-            <div class="bento-card p-6 flex flex-col lg:col-span-2">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-dark-800 overflow-hidden shrink-0">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
-                    </div>
-                    <div>
-                        <h4 class="font-display font-bold text-lg text-white">Zidan</h4>
-                        <span class="text-[10px] font-bold text-accent-cyan uppercase tracking-widest">🎯 PJ & Acara</span>
-                    </div>
+            <!-- Zidan -->
+            <div class="snap-center shrink-0 w-[240px] comic-card p-5 flex flex-col items-center bg-gta-cyan hover:-rotate-2">
+                <div class="w-20 h-20 mx-auto rounded-full bg-white border-3 border-gta-dark overflow-hidden mb-4 shadow-[3px_3px_0px_#27272a]">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Felix&backgroundColor=transparent" class="w-full h-full object-cover mt-1">
                 </div>
-                <p class="text-sm text-zinc-400 font-light mt-auto">Nge-carry konsep acara dari A-Z biar sesuai rencana dan ga wacana doang.</p>
+                <h4 class="font-black text-xl text-gta-dark mb-1 font-graffiti">Zidan</h4>
+                <span class="text-[10px] font-black text-white bg-gta-dark px-3 py-1 rounded border-2 border-gta-dark uppercase tracking-widest mb-4 transform -rotate-2">🎯 PJ & Acara</span>
+                <div class="bg-white p-3 rounded-lg border-2 border-gta-dark w-full h-full">
+                    <p class="text-xs text-gta-dark font-bold leading-relaxed">Nge-carry konsep acara dari A-Z biar sesuai rencana.</p>
+                </div>
             </div>
 
-            <div class="bento-card p-6 flex flex-col">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-dark-800 overflow-hidden shrink-0">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
-                    </div>
-                    <div>
-                        <h4 class="font-display font-bold text-lg text-white">Sintia</h4>
-                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">💰 Bundahara</span>
-                    </div>
+            <!-- Sintia -->
+            <div class="snap-center shrink-0 w-[240px] comic-card p-5 flex flex-col items-center bg-gta-pink hover:rotate-2">
+                <div class="w-20 h-20 mx-auto rounded-full bg-white border-3 border-gta-dark overflow-hidden mb-4 shadow-[3px_3px_0px_#27272a]">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Sophia&backgroundColor=transparent" class="w-full h-full object-cover mt-1">
                 </div>
-                <p class="text-sm text-zinc-400 font-light mt-auto">Penagih kas & nyatet tiap rupiah.</p>
+                <h4 class="font-black text-xl text-gta-dark mb-1 font-graffiti">Sintia</h4>
+                <span class="text-[10px] font-black text-white bg-gta-dark px-3 py-1 rounded border-2 border-gta-dark uppercase tracking-widest mb-4 transform rotate-1">💰 Bundahara</span>
+                <div class="bg-white p-3 rounded-lg border-2 border-gta-dark w-full h-full">
+                    <p class="text-xs text-gta-dark font-bold leading-relaxed">Menteri keuangan penagih kas & nyatet tiap rupiah.</p>
+                </div>
             </div>
 
-            <div class="bento-card p-6 flex flex-col">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-dark-800 overflow-hidden shrink-0">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
-                    </div>
-                    <div>
-                        <h4 class="font-display font-bold text-lg text-white">Rika</h4>
-                        <span class="text-[10px] font-bold text-accent-purple uppercase tracking-widest">🏡 Akomodasi</span>
-                    </div>
+            <!-- Rika -->
+            <div class="snap-center shrink-0 w-[240px] comic-card p-5 flex flex-col items-center bg-gta-sunset hover:-rotate-2">
+                <div class="w-20 h-20 mx-auto rounded-full bg-white border-3 border-gta-dark overflow-hidden mb-4 shadow-[3px_3px_0px_#27272a]">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Chloe&backgroundColor=transparent" class="w-full h-full object-cover mt-1">
                 </div>
-                <p class="text-sm text-zinc-400 font-light mt-auto">Ngerusuhin booking villa terbaik.</p>
+                <h4 class="font-black text-xl text-gta-dark mb-1 font-graffiti">Rika</h4>
+                <span class="text-[10px] font-black text-white bg-gta-dark px-3 py-1 rounded border-2 border-gta-dark uppercase tracking-widest mb-4 transform -rotate-1">🏡 Akomodasi</span>
+                <div class="bg-white p-3 rounded-lg border-2 border-gta-dark w-full h-full">
+                    <p class="text-xs text-gta-dark font-bold leading-relaxed">Ngerusuhin booking villa sampe dapet tempat terbaik.</p>
+                </div>
             </div>
 
-            <div class="bento-card p-6 flex flex-col">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-dark-800 overflow-hidden shrink-0">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
-                    </div>
-                    <div>
-                        <h4 class="font-display font-bold text-lg text-white">Ammar</h4>
-                        <span class="text-[10px] font-bold text-orange-400 uppercase tracking-widest">📢 Humas</span>
-                    </div>
+            <!-- Ammar -->
+            <div class="snap-center shrink-0 w-[240px] comic-card p-5 flex flex-col items-center bg-gta-purple hover:rotate-1">
+                <div class="w-20 h-20 mx-auto rounded-full bg-white border-3 border-gta-dark overflow-hidden mb-4 shadow-[3px_3px_0px_#27272a]">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Ryan&backgroundColor=transparent" class="w-full h-full object-cover mt-1">
                 </div>
-                <p class="text-sm text-zinc-400 font-light mt-auto">Tukang nge-ping di grup.</p>
+                <h4 class="font-black text-xl text-white mb-1 font-graffiti">Ammar</h4>
+                <span class="text-[10px] font-black text-white bg-gta-dark px-3 py-1 rounded border-2 border-gta-dark uppercase tracking-widest mb-4 transform rotate-2">📢 Humas / PR</span>
+                <div class="bg-white p-3 rounded-lg border-2 border-gta-dark w-full h-full">
+                    <p class="text-xs text-gta-dark font-bold leading-relaxed">Tukang nge-ping di grup biar pada berangkat tepat waktu.</p>
+                </div>
             </div>
 
-            <div class="bento-card p-6 flex flex-col lg:col-span-2">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-dark-800 overflow-hidden shrink-0">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
-                    </div>
-                    <div>
-                        <h4 class="font-display font-bold text-lg text-white">Reva</h4>
-                        <span class="text-[10px] font-bold text-pink-400 uppercase tracking-widest">👩‍🍳 Si Paling Chef</span>
-                    </div>
+            <!-- Roza -->
+            <div class="snap-center shrink-0 w-[240px] comic-card p-5 flex flex-col items-center bg-emerald-400 hover:-rotate-1">
+                <div class="w-20 h-20 mx-auto rounded-full bg-white border-3 border-gta-dark overflow-hidden mb-4 shadow-[3px_3px_0px_#27272a]">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Mason&backgroundColor=transparent" class="w-full h-full object-cover mt-1">
                 </div>
-                <p class="text-sm text-zinc-400 font-light mt-auto">Ahli racik bumbu dapur dan per-BBQ-an duniawi buat amunisi malam.</p>
+                <h4 class="font-black text-xl text-gta-dark mb-1 font-graffiti">Roza</h4>
+                <span class="text-[10px] font-black text-white bg-gta-dark px-3 py-1 rounded border-2 border-gta-dark uppercase tracking-widest mb-4 transform -rotate-2">🗺️ Tour Guide</span>
+                <div class="bg-white p-3 rounded-lg border-2 border-gta-dark w-full h-full">
+                    <p class="text-xs text-gta-dark font-bold leading-relaxed">Penunjuk rute jalan Puncak biar kawan-kawan ga nyasar.</p>
+                </div>
             </div>
 
-            <div class="bento-card p-6 flex flex-col">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-dark-800 overflow-hidden shrink-0">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
-                    </div>
-                    <div>
-                        <h4 class="font-display font-bold text-lg text-white">Sina & Uci</h4>
-                        <span class="text-[10px] font-bold text-accent-indigo uppercase tracking-widest">🔥 Acara</span>
-                    </div>
+            <!-- Reva -->
+            <div class="snap-center shrink-0 w-[240px] comic-card p-5 flex flex-col items-center bg-gta-orange hover:rotate-2">
+                <div class="w-20 h-20 mx-auto rounded-full bg-white border-3 border-gta-dark overflow-hidden mb-4 shadow-[3px_3px_0px_#27272a]">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Lily&backgroundColor=transparent" class="w-full h-full object-cover mt-1">
                 </div>
-                <p class="text-sm text-zinc-400 font-light mt-auto">Pemandu game & penyedia topik deep talk.</p>
+                <h4 class="font-black text-xl text-white mb-1 font-graffiti">Reva</h4>
+                <span class="text-[10px] font-black text-white bg-gta-dark px-3 py-1 rounded border-2 border-gta-dark uppercase tracking-widest mb-4 transform rotate-1">👩‍🍳 Si Paling Chef</span>
+                <div class="bg-white p-3 rounded-lg border-2 border-gta-dark w-full h-full">
+                    <p class="text-xs text-gta-dark font-bold leading-relaxed">Ahli racik bumbu dapur dan per-BBQ-an duniawi.</p>
+                </div>
             </div>
-            
-            <div class="bento-card p-6 flex flex-col justify-center items-center text-center bg-white/5 border-dashed">
-                 <p class="text-xs font-medium text-zinc-400">
-                    <span class="text-white block mb-1">💡 Info:</span> Panitia tetep ikutan nge-games ya, jaganya gilir santuy aja! 
+
+            <!-- Sina -->
+            <div class="snap-center shrink-0 w-[240px] comic-card p-5 flex flex-col items-center bg-rose-400 hover:-rotate-1">
+                <div class="w-20 h-20 mx-auto rounded-full bg-white border-3 border-gta-dark overflow-hidden mb-4 shadow-[3px_3px_0px_#27272a]">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Mia&backgroundColor=transparent" class="w-full h-full object-cover mt-1">
+                </div>
+                <h4 class="font-black text-xl text-gta-dark mb-1 font-graffiti">Sina</h4>
+                <span class="text-[10px] font-black text-white bg-gta-dark px-3 py-1 rounded border-2 border-gta-dark uppercase tracking-widest mb-4 transform -rotate-1">🔥 Si Paling Acara</span>
+                <div class="bg-white p-3 rounded-lg border-2 border-gta-dark w-full h-full">
+                    <p class="text-xs text-gta-dark font-bold leading-relaxed">Pemandu game bareng Zidan biar acaranya idup.</p>
+                </div>
+            </div>
+
+            <!-- Uci -->
+            <div class="snap-center shrink-0 w-[240px] comic-card p-5 flex flex-col items-center bg-blue-400 hover:rotate-1">
+                <div class="w-20 h-20 mx-auto rounded-full bg-white border-3 border-gta-dark overflow-hidden mb-4 shadow-[3px_3px_0px_#27272a]">
+                    <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Lucas&backgroundColor=transparent" class="w-full h-full object-cover mt-1">
+                </div>
+                <h4 class="font-black text-xl text-gta-dark mb-1 font-graffiti">Uci</h4>
+                <span class="text-[10px] font-black text-white bg-gta-dark px-3 py-1 rounded border-2 border-gta-dark uppercase tracking-widest mb-4 transform rotate-2">🎭 Si Paling Acara</span>
+                <div class="bg-white p-3 rounded-lg border-2 border-gta-dark w-full h-full">
+                    <p class="text-xs text-gta-dark font-bold leading-relaxed">Partner Sina buat nyediain topik deep talk & games malam.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4 px-4 mx-auto max-w-3xl">
+            <div class="bg-white border-3 border-gta-dark p-4 rounded-xl shadow-[4px_4px_0px_#27272a] text-center transform -rotate-1">
+                <p class="text-sm font-bold text-gta-dark">
+                    <span class="text-xl">💡</span> Info Penting: Panitia di atas tetep ikutan nge-games & seru-seruan bareng ya, jaganya kita gilir santuy aja wkwk! 
                 </p>
             </div>
-
         </div>
     </section>
 
-    <!-- Galeri Spot Villa Section -->
-    <section id="villa" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto z-10 relative">
-        <div class="bento-card overflow-hidden flex flex-col md:flex-row items-center border-0 p-2">
-            
-            <div class="w-full md:w-1/2 h-64 md:h-[400px] relative rounded-2xl overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out hover:scale-105" style="background-image: url('villa-1.webp'); filter: brightness(0.8);"></div>
-            </div>
-
-            <div class="w-full md:w-1/2 p-8 sm:p-12 relative z-10 text-left">
-                <h2 class="text-[10px] font-bold uppercase tracking-widest text-accent-cyan mb-4">Sneak Peek Akomodasi</h2>
+    <!-- Galeri Spot Villa Section (Postcard Style) -->
+    <section id="villa" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10 relative">
+        <div class="comic-card p-4 sm:p-6 bg-white overflow-hidden relative group transform rotate-1">
+            <div class="border-4 border-gta-dark rounded-xl overflow-hidden relative">
+                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out" style="background-image: url('villa-1.webp');"></div>
+                <div class="absolute inset-0 bg-gta-dark/30 group-hover:bg-transparent transition-colors duration-500"></div>
                 
-                <h3 class="text-3xl sm:text-4xl font-display font-black text-white mb-4 leading-tight">
-                    Spot Villa Kamela
-                </h3>
-                
-                <p class="text-zinc-400 text-sm mb-8 leading-relaxed font-light">Fasilitas dan penampakan villa yang bakal kita acak-acak. Ada private pool, ruang karaoke, sampe meja billiard!</p>
-                
-                <button onclick="openGallery()" class="inline-flex items-center gap-3 px-6 py-3 rounded-xl font-semibold text-dark-900 bg-white hover:bg-zinc-200 transition-colors text-sm">
-                    📸 Buka Galeri Foto
-                </button>
+                <div class="relative z-10 p-8 sm:p-12 text-center sm:text-left flex flex-col justify-end min-h-[400px]">
+                    <div class="bg-gta-yellow border-3 border-gta-dark shadow-[4px_4px_0px_#27272a] p-6 max-w-xl inline-block transform -rotate-2">
+                        <h2 class="text-[10px] font-black uppercase tracking-widest text-white bg-gta-dark px-2 py-1 inline-block mb-3 border-2 border-gta-dark">Sneak Peek Akomodasi</h2>
+                        
+                        <h3 class="text-3xl sm:text-4xl font-black text-gta-dark mb-3 font-graffiti leading-tight">
+                            Spot Villa Kamela
+                        </h3>
+                        
+                        <p class="text-gta-dark text-xs sm:text-sm mb-6 font-bold">Fasilitas dan penampakan villa yang bakal kita acak-acak. Ada private pool, ruang karaoke, sampe meja billiard!</p>
+                        
+                        <button onclick="openGallery()" class="comic-btn inline-flex items-center gap-3 px-6 py-3 rounded-lg text-sm bg-gta-cyan hover:bg-gta-pink">
+                            📸 Buka Galeri Foto Villa
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Galeri Modal (Pop-Up Slider) -->
-    <div id="galleryModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 sm:p-8">
-        <div class="modal-content relative w-full max-w-5xl bento-card overflow-hidden flex flex-col p-2">
+    <div id="galleryModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-gta-dark/90 backdrop-blur-sm p-4 sm:p-8">
+        <div class="modal-content relative w-full max-w-4xl bg-white border-4 border-gta-dark rounded-2xl overflow-hidden shadow-[8px_8px_0px_#f97316] flex flex-col">
             <!-- Header Modal -->
             <div class="absolute top-4 left-4 right-4 flex justify-between items-center z-20">
-                <span class="text-white font-medium text-xs tracking-widest bg-dark-900/80 px-4 py-2 rounded-full border border-white/10">
+                <span class="text-gta-dark font-black text-xs tracking-widest bg-gta-sunset border-2 border-gta-dark shadow-[2px_2px_0px_#27272a] px-4 py-2 rounded-lg">
                     <span id="slideCounter">1</span> / 7
                 </span>
-                <button onclick="closeGallery()" class="text-zinc-400 hover:text-white bg-dark-900/80 rounded-full p-2.5 transition-colors border border-white/10">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button onclick="closeGallery()" class="text-white bg-gta-pink border-2 border-gta-dark shadow-[2px_2px_0px_#27272a] hover:bg-gta-sunset hover:text-gta-dark rounded-lg p-2 transition-colors active:translate-y-1 active:shadow-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
             <!-- Image Area -->
-            <div class="relative h-[55vh] sm:h-[65vh] w-full flex items-center justify-center bg-dark-900 rounded-xl overflow-hidden">
-                <img id="sliderImage" src="" alt="Villa Image" class="max-h-full max-w-full object-contain" loading="lazy">
+            <div class="relative h-[55vh] sm:h-[65vh] w-full flex items-center justify-center bg-[#f4f4f5] border-b-4 border-gta-dark p-2">
+                <img id="sliderImage" src="" alt="Villa Image" class="max-h-full max-w-full object-contain rounded border-2 border-gta-dark shadow-sm" loading="lazy">
                 
                 <!-- Nav Arrows -->
-                <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-dark-900/80 hover:bg-white text-white hover:text-black rounded-full transition-all border border-white/10">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                <button onclick="prevSlide()" class="comic-btn absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-gta-cyan hover:bg-gta-pink rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
-                <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-dark-900/80 hover:bg-white text-white hover:text-black rounded-full transition-all border border-white/10">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <button onclick="nextSlide()" class="comic-btn absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-gta-cyan hover:bg-gta-pink rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
                 </button>
             </div>
             
             <!-- Caption Area -->
-            <div class="p-6 text-center sm:text-left">
-                <h4 id="sliderTitle" class="text-xl font-display font-bold text-white mb-2"></h4>
-                <p id="sliderDesc" class="text-sm font-light text-zinc-400"></p>
+            <div class="p-6 bg-white text-center sm:text-left">
+                <h4 id="sliderTitle" class="text-2xl font-black text-gta-dark mb-2 font-graffiti"></h4>
+                <p id="sliderDesc" class="text-sm font-bold text-zinc-500"></p>
             </div>
         </div>
     </div>
 
     <!-- Financial Audit Section -->
-    <section id="audit" class="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto z-10 relative">
-        <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-                <h2 class="text-xs font-bold uppercase tracking-widest text-accent-indigo mb-2">Transparansi Kas</h2>
-                <h3 class="text-3xl sm:text-4xl font-display font-black text-white tracking-tight">Status Budget Acara</h3>
-            </div>
+    <section id="audit" class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto z-10 relative">
+        <div class="text-center space-y-2 mb-10">
+            <h2 class="text-4xl sm:text-5xl font-graffiti text-white text-stroke transform rotate-1 inline-block">Status Budget</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <div class="comic-card p-6 sm:p-8 bg-white">
             
-            <!-- Alert DP Box (Spans 8 cols) -->
-            <div class="bento-card p-6 sm:p-8 md:col-span-8 flex flex-col justify-center">
-                <div class="flex items-start gap-4">
-                    <div class="w-10 h-10 shrink-0 rounded-xl bg-rose-500/20 flex items-center justify-center border border-rose-500/30 text-rose-400 text-lg">⚠️</div>
+            <!-- Alert DP Box -->
+            <div class="mb-10 p-5 bg-gta-sunset border-3 border-gta-dark rounded-xl relative overflow-hidden shadow-[4px_4px_0px_#27272a] transform -rotate-1">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 relative z-10">
+                    <div class="w-12 h-12 shrink-0 rounded-full bg-white flex items-center justify-center border-2 border-gta-dark shadow-[2px_2px_0px_#27272a] text-xl animate-wobble">💸</div>
                     <div class="w-full">
-                        <h4 class="font-display font-bold text-white text-lg mb-2">Penting: Pelunasan DP</h4>
-                        <p class="text-sm text-zinc-400 font-light leading-relaxed mb-5">
-                            DP Villa 50% harus <strong class="text-white font-medium">segera dilunasi</strong> agar tanggal kita aman. 
-                            Iuran per orang (Rp 120.000) ditunggu paling lambat <strong class="text-white font-medium">1 Agustus</strong>.
+                        <h4 class="font-black text-gta-dark text-lg mb-1 uppercase tracking-wide">Penting: Pelunasan DP</h4>
+                        <p class="text-xs text-gta-dark font-bold leading-relaxed mb-4">
+                            DP Villa 50% harus <span class="bg-white px-1 border border-gta-dark">segera dilunasi</span> agar tanggal kita aman. 
+                            Iuran per orang (Rp 120.000) ditunggu paling lambat <span class="bg-gta-pink text-white px-1 border border-gta-dark">1 Agustus</span>.
                         </p>
                         
                         <!-- Box Salin DANA -->
-                        <div class="flex items-center bg-dark-900 border border-white/10 rounded-xl overflow-hidden w-max max-w-full">
-                            <div class="px-4 py-3 bg-white/5 text-zinc-400 font-semibold tracking-widest text-[10px] uppercase">DANA</div>
-                            <input type="text" id="danaNumber" value="088290073130" readonly class="w-32 sm:w-40 px-3 text-sm font-semibold text-white outline-none bg-transparent text-center">
-                            <button onclick="copyDana()" id="copyBtn" class="px-4 py-3 bg-white text-black font-semibold text-xs hover:bg-zinc-200 transition-colors">Salin</button>
+                        <div class="flex items-center bg-white border-2 border-gta-dark rounded-lg overflow-hidden w-max max-w-full shadow-[2px_2px_0px_#27272a]">
+                            <div class="px-3 py-2 bg-gta-dark text-white font-black tracking-widest text-[10px] uppercase">DANA</div>
+                            <input type="text" id="danaNumber" value="088290073130" readonly class="w-32 sm:w-40 px-3 text-sm font-black text-gta-dark outline-none bg-transparent text-center">
+                            <button onclick="copyDana()" id="copyBtn" class="px-4 py-2 bg-gta-cyan border-l-2 border-gta-dark text-gta-dark font-black text-xs hover:bg-gta-pink hover:text-white transition-colors">Salin</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Target Budget (Spans 4 cols) -->
-            <div class="bento-card p-6 md:col-span-4 flex flex-col justify-center bg-gradient-to-br from-white/5 to-transparent">
-                <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Target Budget</p>
-                <p class="text-3xl font-display font-black text-white mt-2">Rp 1.440k</p>
-                <p class="text-xs text-zinc-500 mt-2 font-light">12 Orang × Rp 120.000</p>
+            <!-- Cards Summary -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+                <div class="p-4 rounded-xl bg-white border-3 border-gta-dark shadow-[4px_4px_0px_#8b5cf6] text-center transform hover:-translate-y-1 transition-transform">
+                    <p class="text-[10px] font-black text-white bg-gta-dark px-2 py-1 rounded inline-block uppercase tracking-widest">Target Budget</p>
+                    <p class="text-2xl font-black text-gta-dark mt-3 font-graffiti">Rp 1.440k</p>
+                    <p class="text-[10px] text-zinc-500 mt-1 font-bold">12 Orang × Rp 120.000</p>
+                </div>
+                <div class="p-4 rounded-xl bg-white border-3 border-gta-dark shadow-[4px_4px_0px_#ec4899] text-center transform hover:-translate-y-1 transition-transform">
+                    <p class="text-[10px] font-black text-white bg-gta-dark px-2 py-1 rounded inline-block uppercase tracking-widest">Estimasi Keluar</p>
+                    <p class="text-2xl font-black text-gta-dark mt-3 font-graffiti">Rp 1.289k</p>
+                    <p class="text-[10px] text-zinc-500 mt-1 font-bold">Villa + Logistik</p>
+                </div>
+                <div class="p-4 rounded-xl bg-white border-3 border-gta-dark shadow-[4px_4px_0px_#22d3ee] text-center transform hover:-translate-y-1 transition-transform">
+                    <p class="text-[10px] font-black text-white bg-gta-dark px-2 py-1 rounded inline-block uppercase tracking-widest">Dana Darurat</p>
+                    <p class="text-2xl font-black text-gta-dark mt-3 font-graffiti">Rp 151k</p>
+                    <p class="text-[10px] text-zinc-500 mt-1 font-bold">Sisa saldo diamankan</p>
+                </div>
             </div>
 
-            <!-- Estimasi Keluar -->
-            <div class="bento-card p-6 md:col-span-4 flex flex-col justify-center">
-                <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Estimasi Keluar</p>
-                <p class="text-3xl font-display font-black text-rose-400 mt-2">Rp 1.289k</p>
-                <p class="text-xs text-zinc-500 mt-2 font-light">Villa + Logistik</p>
-            </div>
-
-            <!-- Dana Darurat -->
-            <div class="bento-card p-6 md:col-span-4 flex flex-col justify-center">
-                <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Dana Darurat</p>
-                <p class="text-3xl font-display font-black text-emerald-400 mt-2">Rp 151k</p>
-                <p class="text-xs text-zinc-500 mt-2 font-light">Sisa saldo diamankan</p>
-            </div>
-
-            <!-- Rincian Btn -->
-            <div class="bento-card p-4 md:col-span-4 flex items-center justify-center cursor-pointer hover:bg-white/10" onclick="openBudget()">
-                <span class="font-semibold text-sm text-white">📄 Buka Rincian Belanja &rarr;</span>
+            <div class="text-center">
+                <button onclick="openBudget()" class="comic-btn inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm bg-gta-purple hover:bg-gta-pink">
+                    📄 Buka Rincian Belanja
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Checklist Pelunasan -->
-    <section id="pelunasan" class="py-10 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto z-10 relative">
-        <div class="bento-card p-6 sm:p-8">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 pb-6 border-b border-white/10">
-                <div>
-                    <h3 class="text-2xl font-display font-bold text-white mb-1">Live Checklist Pelunasan</h3>
-                    <p class="text-zinc-500 text-xs font-light">Data sinkron otomatis dari Sheets Bundahara.</p>
-                </div>
-                <div class="flex gap-6 text-right">
+    <section id="pelunasan" class="py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10 relative">
+        <div class="comic-card p-6 sm:p-8 bg-gta-cyan transform rotate-1">
+            <div class="bg-white p-5 rounded-xl border-3 border-gta-dark shadow-[4px_4px_0px_#27272a] mb-6">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
                     <div>
-                        <p class="text-[10px] tracking-widest text-zinc-500 font-bold uppercase mb-1">Kas Masuk</p>
-                        <p id="totalTerkumpul" class="text-xl font-display font-bold text-emerald-400">Rp 0</p>
+                        <h3 class="text-2xl font-black text-gta-dark mb-1 font-graffiti">Live Checklist Pelunasan</h3>
+                        <p class="text-zinc-500 text-xs font-bold">Data otomatis sinkron real-time dari Google Sheets Bundahara Sintia.</p>
                     </div>
-                    <div>
-                        <p class="text-[10px] tracking-widest text-zinc-500 font-bold uppercase mb-1">Status</p>
-                        <p class="text-xl font-display font-bold text-white"><span id="countLunas" class="text-emerald-400">0</span><span class="text-zinc-600 text-sm">/12</span></p>
+                    <div class="flex gap-4 sm:gap-6 text-center sm:text-right bg-gta-sunset p-3 rounded-lg border-2 border-gta-dark">
+                        <div>
+                            <p class="text-[10px] tracking-widest text-gta-dark font-black uppercase mb-1">Kas Masuk</p>
+                            <p id="totalTerkumpul" class="text-lg font-black text-gta-dark">Rp 0</p>
+                        </div>
+                        <div class="w-px bg-gta-dark"></div>
+                        <div>
+                            <p class="text-[10px] tracking-widest text-gta-dark font-black uppercase mb-1">Status</p>
+                            <p class="text-lg font-black text-gta-dark"><span id="countLunas" class="text-white text-stroke">0</span><span class="text-sm">/12</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div id="checklistContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                <p class="text-sm font-light text-zinc-500 col-span-full text-center py-6 animate-pulse">⏳ Syncing data...</p>
+                <p class="text-sm font-bold text-gta-dark col-span-full text-center py-6 animate-pulse bg-white border-2 border-gta-dark rounded-xl">⏳ Sedang nge-sync data dari Excel Bundahara...</p>
             </div>
         </div>
     </section>
 
     <!-- Budget Detail Modal -->
-    <div id="budgetModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="modal-content relative w-full max-w-2xl bento-card p-2 flex flex-col max-h-[85vh]">
-            <div class="p-4 border-b border-white/5 flex justify-between items-center">
-                <h3 class="font-display font-bold text-lg text-white px-2">Rincian Belanja</h3>
-                <button onclick="closeBudget()" class="text-zinc-400 hover:text-white transition-colors p-2 bg-white/5 rounded-lg">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <div id="budgetModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-gta-dark/90 backdrop-blur-sm p-4">
+        <div class="modal-content relative w-full max-w-2xl bg-white border-4 border-gta-dark rounded-2xl overflow-hidden shadow-[8px_8px_0px_#8b5cf6] flex flex-col max-h-[85vh]">
+            <div class="p-5 border-b-4 border-gta-dark flex justify-between items-center bg-gta-purple">
+                <h3 class="font-black text-xl text-white font-graffiti tracking-wide">Rincian Belanja</h3>
+                <button onclick="closeBudget()" class="text-gta-dark bg-white border-2 border-gta-dark hover:bg-gta-sunset shadow-[2px_2px_0px_#27272a] transition-all p-2 rounded-lg active:translate-y-1 active:shadow-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
-            <div class="p-4 overflow-y-auto custom-scrollbar">
-                <table class="w-full text-left text-sm">
-                    <tbody class="divide-y divide-white/5 text-zinc-400 font-light">
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Sewa Villa Kamela</p><p class="text-[11px] mt-1">1 Malam (Inc. DP & Pelunasan)</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 900.000</td>
+            <div class="p-4 sm:p-6 overflow-y-auto custom-scrollbar bg-[#f4f4f5]">
+                <table class="w-full text-left text-sm bg-white border-2 border-gta-dark rounded-lg overflow-hidden">
+                    <thead>
+                        <tr class="border-b-2 border-gta-dark text-gta-dark text-xs uppercase font-black bg-gta-sunset">
+                            <th class="p-3 border-r-2 border-gta-dark">Item Belanja</th>
+                            <th class="p-3 text-right">Harga</th>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Daging Ayam Segar</p><p class="text-[11px] mt-1">1 Ekor (@ Rp 55.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 55.000</td>
+                    </thead>
+                    <tbody class="divide-y-2 divide-gta-dark text-gta-dark font-bold">
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Sewa Villa Kamela</p><p class="text-[10px] mt-1 text-zinc-500">1 Malam (Inc. DP & Pelunasan)</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 900.000</td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Sosis Bakar</p><p class="text-[11px] mt-1">2 Pack (@ Rp 18.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 36.000</td>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Daging Ayam Segar</p><p class="text-[10px] mt-1 text-zinc-500">1 Ekor (@ Rp 55.000)</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 55.000</td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Beras</p><p class="text-[11px] mt-1">5 Liter (@ Rp 11.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 55.000</td>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Sosis Bakar</p><p class="text-[10px] mt-1 text-zinc-500">2 Pack (@ Rp 18.000)</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 36.000</td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Telur Ayam</p><p class="text-[11px] mt-1">1,5 Kg (@ Rp 28.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 42.000</td>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Beras</p><p class="text-[10px] mt-1 text-zinc-500">5 Liter (@ Rp 11.000)</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 55.000</td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Bumbu Dapur, Minyak</p><p class="text-[11px] mt-1">Penyedap rasa, saos BBQ, dsb</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 40.000</td>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Telur Ayam</p><p class="text-[10px] mt-1 text-zinc-500">1,5 Kg (@ Rp 28.000)</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 42.000</td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Snack Bal-an</p><p class="text-[11px] mt-1">2 Bungkus Besar (@ Rp 40.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 80.000</td>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Bumbu Dapur, Minyak</p><p class="text-[10px] mt-1 text-zinc-500">Penyedap rasa, saos BBQ, dsb</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 40.000</td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Kopi, Teh, Gula</p><p class="text-[11px] mt-1">Amunisi begadang</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 42.000</td>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Snack Bal-an</p><p class="text-[10px] mt-1 text-zinc-500">2 Bungkus Besar (@ Rp 40.000)</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 80.000</td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Arang BBQ</p><p class="text-[11px] mt-1">2 Bungkus (@ Rp 7.000)</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 14.000</td>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Kopi, Teh, Gula</p><p class="text-[10px] mt-1 text-zinc-500">Amunisi begadang</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 42.000</td>
                         </tr>
-                        <tr class="hover:bg-white/5 transition-colors">
-                            <td class="py-4 pr-2"><p class="font-medium text-white">Es Batu & Galon Air</p><p class="text-[11px] mt-1">Isi ulang galon + es batu balok</p></td>
-                            <td class="py-4 px-2 text-right font-medium text-white">Rp 25.000</td>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Arang BBQ</p><p class="text-[10px] mt-1 text-zinc-500">2 Bungkus (@ Rp 7.000)</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 14.000</td>
+                        </tr>
+                        <tr class="hover:bg-gta-cyan/20 transition-colors">
+                            <td class="p-3 border-r-2 border-gta-dark"><p class="font-black text-sm">Es Batu & Galon Air</p><p class="text-[10px] mt-1 text-zinc-500">Isi ulang galon + es batu balok</p></td>
+                            <td class="p-3 text-right font-black text-sm">Rp 25.000</td>
                         </tr>
                     </tbody>
                     <tfoot>
-                        <tr class="bg-white/5 border-t border-white/10 rounded-xl">
-                            <td class="py-4 px-4 font-bold text-xs tracking-widest text-zinc-400 uppercase rounded-bl-xl">TOTAL ESTIMASI</td>
-                            <td class="py-4 px-4 text-right font-display font-bold text-lg text-white rounded-br-xl">Rp 1.289.000</td>
+                        <tr class="bg-gta-dark text-gta-sunset border-t-2 border-gta-dark">
+                            <td class="p-4 font-black text-xs uppercase tracking-widest border-r-2 border-white/20">TOTAL ESTIMASI</td>
+                            <td class="p-4 text-right font-black text-lg">Rp 1.289.000</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -582,150 +666,228 @@
         </div>
     </div>
 
-    <!-- Timeline / Itinerary Section (App-like Timeline) -->
-    <section id="itinerary" class="py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto overflow-hidden z-10 relative">
-        <div class="mb-12">
-            <h2 class="text-xs font-bold uppercase tracking-widest text-accent-purple mb-2">Susunan Agenda</h2>
-            <h3 class="text-3xl sm:text-4xl font-display font-black text-white tracking-tight">Rundown Acara</h3>
+    <!-- Timeline / Itinerary Section -->
+    <section id="itinerary" class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto overflow-hidden z-10 relative">
+        <div class="text-center space-y-4 mb-16">
+            <h2 class="text-4xl sm:text-5xl font-graffiti text-white text-stroke transform -rotate-1 inline-block">Rundown Acara</h2>
         </div>
 
-        <div class="relative border-l border-white/10 ml-4 md:ml-6 space-y-10 pb-8">
+        <div class="relative w-full mx-auto">
             
+            <!-- Road Line -->
+            <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-2 bg-gta-dark md:-translate-x-1/2 rounded-full border border-white"></div>
+            
+            <!-- Flag -->
+            <div class="absolute left-8 md:left-1/2 top-0 -translate-x-1/2 -mt-4 z-20 text-3xl">🏁</div>
+
             <!-- Day 1 Label -->
-            <div class="relative pl-8">
-                <div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-accent-indigo shadow-[0_0_10px_#818cf8]"></div>
-                <h4 class="font-display font-bold text-white text-lg">DAY 1 — 11 Agustus</h4>
-            </div>
-
-            <!-- Item 1 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">13:00 - 14:30</span>
-                    <h5 class="font-bold text-white text-base mb-1">Tikum & Otw Puncak 🛵</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+            <div class="relative flex justify-start md:justify-center mb-12 pl-20 md:pl-0 z-20">
+                <div class="px-4 py-2 bg-white border-3 border-gta-dark text-gta-dark font-black text-xs uppercase tracking-widest shadow-[4px_4px_0px_#ec4899] transform rotate-1">
+                    DAY 1 — 11 Agustus
                 </div>
             </div>
 
-            <!-- Item 2 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">14:30 - 15:30</span>
-                    <h5 class="font-bold text-white text-base mb-1">Check-in & Unboxing 🏡</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Nyampe villa, milih kamar rebutan kasur, naruh tas, dan rapihin bahan makanan di dapur.</p>
+            <div class="space-y-10">
+                <!-- Item 1 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:-rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-gta-cyan px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">13:00 - 14:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Tikum & Otw Puncak</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-gta-cyan border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 text-left">
+                            <span class="text-[10px] font-black bg-gta-cyan px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">13:00 - 14:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Tikum & Otw Puncak</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Item 3 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">15:30 - 16:30</span>
-                    <h5 class="font-bold text-white text-base mb-1">Ganjal Perut & Ashar 🍜</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                <!-- Item 2 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-gta-purple border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-gta-purple text-white px-2 py-1 rounded uppercase border border-gta-dark mb-2 inline-block">14:30 - 15:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Check-in & Unboxing</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Nyampe villa, milih kamar rebutan kasur, naruh tas, dan rapihin bahan makanan di dapur.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Item 4 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">16:30 - 18:00</span>
-                    <h5 class="font-bold text-white text-base mb-1">Game Santai & Ngopi ☕</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Buka snack bal-an, bikin kopi hangat, main game ringan sambil menikmati sore.</p>
+                <!-- Item 3 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:-rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-emerald-400 px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">15:30 - 16:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Ganjal Perut & Ashar</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-emerald-400 border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 text-left">
+                            <span class="text-[10px] font-black bg-emerald-400 px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">15:30 - 16:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Ganjal Perut & Ashar</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Item 5 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">18:00 - 19:30</span>
-                    <h5 class="font-bold text-white text-base mb-1">ISHOMA & Prep Nasi Liwet 🕌</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur ngolah beras liwet dan nyiapin panggangan.</p>
+                <!-- Item 4 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-gta-sunset border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-gta-sunset px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">16:30 - 18:00</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Game Santai & Ngopi</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Buka snack bal-an, bikin kopi hangat, main game ringan sambil menikmati sore.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Item 6 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">19:30 - 21:00</span>
-                    <h5 class="font-bold text-white text-base mb-1">The Last Dance Dinner 🍖</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Puncak acara! Sikat habis panggangan ayam, sosis, dan santap nasi liwet di daun pisang.</p>
+                <!-- Item 5 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:-rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-gta-orange text-white px-2 py-1 rounded uppercase border border-gta-dark mb-2 inline-block">18:00 - 19:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">ISHOMA & Prep Nasi Liwet</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-gta-orange border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 text-left">
+                            <span class="text-[10px] font-black bg-gta-orange text-white px-2 py-1 rounded uppercase border border-gta-dark mb-2 inline-block">18:00 - 19:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">ISHOMA & Prep Nasi Liwet</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Item 7 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5 border-accent-purple/30">
-                    <span class="text-[10px] font-bold tracking-widest text-accent-purple uppercase mb-2 block">21:00 - 23:00</span>
-                    <h5 class="font-bold text-white text-base mb-1">Deep Talk & Curhat Malam ⛺</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                <!-- Item 6 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-gta-pink border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-gta-pink text-white px-2 py-1 rounded uppercase border border-gta-dark mb-2 inline-block">19:30 - 21:00</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">The Last Dance Dinner</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Puncak acara! Sikat habis panggangan ayam, sosis, dan santap nasi liwet di daun pisang.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 7 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="bg-gta-dark border-3 border-gta-cyan p-5 rounded-xl shadow-[4px_4px_0px_#22d3ee] transform transition-transform hover:-translate-y-1 hover:-rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-gta-cyan px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">21:00 - 23:00</span>
+                            <h4 class="font-black text-white text-lg mb-1">Deep Talk & Curhat Malam</h4>
+                            <p class="text-zinc-300 text-xs font-bold leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-gta-dark border-3 border-gta-cyan -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="bg-gta-dark border-3 border-gta-cyan p-5 rounded-xl shadow-[4px_4px_0px_#22d3ee] transform transition-transform hover:-translate-y-1 text-left">
+                            <span class="text-[10px] font-black bg-gta-cyan px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">21:00 - 23:00</span>
+                            <h4 class="font-black text-white text-lg mb-1">Deep Talk & Curhat Malam</h4>
+                            <p class="text-zinc-300 text-xs font-bold leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Day 2 Label -->
-            <div class="relative pl-8 pt-6">
-                <div class="absolute -left-1.5 top-7 w-3 h-3 rounded-full bg-accent-cyan shadow-[0_0_10px_#22d3ee]"></div>
-                <h4 class="font-display font-bold text-white text-lg">DAY 2 — 12 Agustus</h4>
-            </div>
-
-            <!-- Item 8 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">07:00 - 08:30</span>
-                    <h5 class="font-bold text-white text-base mb-1">Bangun Pagi & Nasi Goreng 🍳</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Hirup udara dingin Puncak, lanjut olah sisa liwetan semalam jadi nasi goreng.</p>
+            <div class="relative flex justify-start md:justify-center mt-12 mb-12 pl-20 md:pl-0 z-20">
+                <div class="px-4 py-2 bg-white border-3 border-gta-dark text-gta-dark font-black text-xs uppercase tracking-widest shadow-[4px_4px_0px_#22d3ee] transform -rotate-1">
+                    DAY 2 — 12 Agustus
                 </div>
             </div>
 
-            <!-- Item 9 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">08:30 - 10:30</span>
-                    <h5 class="font-bold text-white text-base mb-1">Capturing Memories 📸</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+            <div class="space-y-10">
+                <!-- Item 8 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-gta-yellow border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-gta-yellow px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">07:00 - 08:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Bangun Pagi & Nasi Goreng</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Hirup udara dingin Puncak, lanjut olah sisa liwetan semalam jadi nasi goreng.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 9 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:-rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-gta-cyan px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">08:30 - 10:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Capturing Memories</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-gta-cyan border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 text-left">
+                            <span class="text-[10px] font-black bg-gta-cyan px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">08:30 - 10:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Capturing Memories</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 10 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group">
+                    <div class="hidden md:block md:w-1/2"></div>
+                    <div class="absolute left-8 md:left-1/2 w-8 h-8 rounded-full bg-white border-3 border-gta-dark -translate-x-1/2 z-10 flex items-center justify-center group-hover:scale-125 transition-transform"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="bg-white border-3 border-gta-dark p-5 rounded-xl shadow-[4px_4px_0px_#27272a] transform transition-transform hover:-translate-y-1 hover:rotate-1 inline-block w-full text-left">
+                            <span class="text-[10px] font-black bg-white px-2 py-1 rounded text-gta-dark uppercase border border-gta-dark mb-2 inline-block">10:30 - 11:30</span>
+                            <h4 class="font-black text-gta-dark text-lg mb-1">Check-out & Pulang</h4>
+                            <p class="text-zinc-600 text-xs font-bold leading-relaxed">Beres-beres kamar, pastikan ga ada barang yang ketinggalan, lalu konvoi pulang!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Item 10 -->
-            <div class="relative pl-8 group">
-                <div class="absolute -left-1 top-2 w-2 h-2 rounded-full bg-white/20 group-hover:bg-white transition-colors"></div>
-                <div class="bento-card p-5">
-                    <span class="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-2 block">10:30 - 11:30</span>
-                    <h5 class="font-bold text-white text-base mb-1">Check-out & Pulang 🚗</h5>
-                    <p class="text-zinc-400 text-xs font-light leading-relaxed">Beres-beres kamar, pastikan ga ada barang yang ketinggalan, lalu konvoi pulang!</p>
-                </div>
-            </div>
-
+            <!-- Finish Flag -->
+            <div class="absolute left-8 md:left-1/2 bottom-0 -translate-x-1/2 translate-y-6 z-20 text-3xl">🏠</div>
         </div>
     </section>
 
-    <!-- Pleading Notes (Bento Style & Youth Vibe) -->
-    <div class="max-w-xl mx-auto px-4 mt-8 mb-16 z-10 relative">
-        <div class="bento-card p-6 sm:p-8 bg-gradient-to-r from-accent-indigo/10 to-transparent border-accent-indigo/20">
-            <h4 class="font-display font-bold text-xl text-white mb-2">Woy, Gas lah! 🚀</h4>
-            <p class="text-zinc-400 font-light text-sm leading-relaxed">
-                Wacana mulu dari maba! 😂 Tolong banget kali ini beneran gas, masa The Last Dance kita cuma sebatas di grup WA doang? Momen terakhir nih buat ngabrut bareng sebelum pada mumet skripsian & ilang ditelan dunia kerja. Jangan wacana pls, ayo berangkattt! 🔥
+    <!-- Pleading Bubble (Comic Style) -->
+    <div class="max-w-xl mx-auto px-4 mt-8 mb-20 z-10 relative">
+        <div class="relative bg-white p-6 sm:p-8 rounded-3xl border-4 border-gta-dark shadow-[8px_8px_0px_#22d3ee] transform -rotate-1">
+            <!-- Speech Bubble Tail -->
+            <div class="absolute -bottom-4 right-10 w-8 h-8 bg-white border-r-4 border-b-4 border-gta-dark transform rotate-45"></div>
+            
+            <h4 class="font-graffiti text-2xl text-gta-dark mb-2">Woy, Gas lah! 🚀</h4>
+            <p class="text-gta-dark font-bold text-sm leading-relaxed">
+                Wacana mulu dari maba! 😂 Tolong banget kali ini beneran gas, masa *The Last Dance* kita cuma sebatas di grup WA doang? Momen terakhir nih buat ngabrut bareng sebelum pada mumet skripsian & ilang ditelan dunia kerja. Jangan wacana pls, ayo berangkattt! 🔥
             </p>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="pt-8 pb-12 text-center relative overflow-hidden z-10 border-t border-white/5">
+    <footer class="pt-8 pb-12 text-center relative z-10">
         <div class="max-w-2xl mx-auto px-4">
-            <p class="font-bold tracking-widest uppercase text-zinc-600 text-[10px]">
+            <p class="font-black tracking-widest uppercase text-gta-dark text-[10px] bg-white border-2 border-gta-dark inline-block px-3 py-1 shadow-[2px_2px_0px_#27272a] transform rotate-1">
                 The Last Dance • IF-8 • 2026
             </p>
         </div>
     </footer>
 
-    <!-- JS Logic -->
+    <!-- JS Logic (Untouched logic) -->
     <script>
         // --- FETCH DARI GOOGLE SHEETS BUNDAHARA SINTIA ---
         const checklistContainer = document.getElementById('checklistContainer');
@@ -742,12 +904,12 @@
                 if(isLunas) lunasCount++;
                 
                 let card = document.createElement('div');
-                card.className = `flex justify-between items-center px-4 py-3 rounded-xl border transition-all duration-300 ${isLunas ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-white/5 border-white/10 hover:bg-white/10 text-zinc-300'}`;
+                card.className = `flex justify-between items-center px-3 py-2 rounded border-2 transition-all duration-300 ${isLunas ? 'bg-emerald-300 border-gta-dark shadow-[2px_2px_0px_#27272a]' : 'bg-white border-zinc-300'}`;
                 card.innerHTML = `
-                    <span class="font-medium text-sm tracking-wide">${name}</span>
+                    <span class="font-black text-xs ${isLunas ? 'text-gta-dark' : 'text-zinc-500'}">${name}</span>
                     <label class="relative inline-flex items-center cursor-not-allowed">
                       <input type="checkbox" class="sr-only peer" ${isLunas ? 'checked' : ''} disabled>
-                      <div class="w-8 h-4 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-emerald-500"></div>
+                      <div class="w-8 h-4 bg-zinc-300 peer-focus:outline-none rounded-sm peer peer-checked:after:translate-x-full peer-checked:after:border-gta-dark after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gta-dark after:border-2 after:rounded-sm after:h-3 after:w-3 after:transition-all peer-checked:bg-white"></div>
                     </label>
                 `;
                 checklistContainer.appendChild(card);
@@ -796,7 +958,7 @@
                 renderChecklist(statusPelunasan);
             } catch (error) {
                 renderChecklist(statusPelunasan);
-                checklistContainer.insertAdjacentHTML('afterbegin', '<p class="text-xs text-rose-400 col-span-full text-center mb-2 font-light">Gagal narik data. Pastiin link Excel public!</p>');
+                checklistContainer.insertAdjacentHTML('afterbegin', '<p class="text-xs text-rose-500 font-bold col-span-full text-center mb-2">Gagal narik data. Pastiin link Excel public!</p>');
             }
         }
 
@@ -812,9 +974,11 @@
             var copyBtn = document.getElementById("copyBtn");
             var originalText = copyBtn.innerText;
             copyBtn.innerText = "Tersalin! ✓";
+            copyBtn.classList.replace("bg-gta-cyan", "bg-emerald-400");
             
             setTimeout(function() {
                 copyBtn.innerText = originalText;
+                copyBtn.classList.replace("bg-emerald-400", "bg-gta-cyan");
             }, 2000);
         }
 
