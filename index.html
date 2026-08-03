@@ -12,8 +12,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        doodle: ['Rock Salt', 'cursive'],
-                        graffiti: ['Permanent Marker', 'cursive'],
+                        serif: ['Playfair Display', 'serif'],
                     },
                     colors: {
                         brand: {
@@ -21,35 +20,19 @@
                             cyan: '#06b6d4',
                             purple: '#8b5cf6',
                             pink: '#ec4899',
-                            dark: '#0f172a'
-                        },
-                        neo: {
-                            cyan: '#00e5ff',
-                            pink: '#ff00ff',
-                            yellow: '#ccff00',
-                            green: '#00ff00',
-                            orange: '#ff5500',
+                            dark: '#09090b',
+                            surface: '#18181b',
                         }
                     },
-                    boxShadow: {
-                        'neo': '6px 6px 0px #000000',
-                        'neo-sm': '3px 3px 0px #000000',
-                        'neo-hover': '2px 2px 0px #000000',
-                    },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-delayed': 'float 6s ease-in-out 3s infinite',
-                        'tilt': 'tilt 4s ease-in-out infinite',
-                        'tilt-reverse': 'tilt 5s ease-in-out infinite reverse',
+                        'float': 'float 10s ease-in-out infinite',
+                        'float-delayed': 'float 10s ease-in-out 5s infinite',
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        tilt: {
-                            '0%, 100%': { transform: 'rotate(-5deg)' },
-                            '50%': { transform: 'rotate(5deg)' },
+                            '0%, 100%': { transform: 'translateY(0) scale(1)' },
+                            '50%': { transform: 'translateY(-20px) scale(1.05)' },
                         }
                     }
                 }
@@ -57,55 +40,67 @@
         }
     </script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Rock+Salt&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Neo Brutalism Pop-Art Halftone Pattern */
-        .bg-dots {
-            background-color: #00c3ff;
-            background-image: radial-gradient(#000000 12%, transparent 12%);
-            background-size: 20px 20px;
+        /* Ambient Aurora Backgrounds */
+        body {
+            background-color: #09090b; /* Zinc 950 */
+            color: #e4e4e7; /* Zinc 200 */
         }
         
-        /* Neo Brutalism Core Styles */
-        .neo-border {
-            border: 4px solid #000000;
+        /* Premium Glassmorphism */
+        .glass-panel {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
-        .neo-card {
-            background-color: #ffffff;
-            border: 4px solid #000000;
-            box-shadow: 6px 6px 0px #000000;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        
+        .glass-panel:hover {
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
-        .neo-card:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 4px 4px 0px #000000;
-        }
-        .neo-btn {
-            border: 4px solid #000000;
-            box-shadow: 4px 4px 0px #000000;
-            transition: all 0.15s ease-out;
-        }
-        .neo-btn:active {
-            transform: translate(4px, 4px) !important;
-            box-shadow: 0px 0px 0px #000000 !important;
+
+        .text-gradient {
+            background: linear-gradient(to right, #e4e4e7, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Modal & Slider Animation */
         .modal {
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .modal.active {
             opacity: 1;
             visibility: visible;
         }
         .modal-content {
-            transform: scale(0.95);
-            transition: all 0.3s ease-in-out;
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .modal.active .modal-content {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        
+        /* Custom Elegant Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b;
         }
         
         /* Hide scrollbar for horizontal slider */
@@ -118,323 +113,333 @@
         }
     </style>
 </head>
-<body class="bg-dots text-slate-900 font-sans min-h-screen selection:bg-neo-pink selection:text-white pb-10 pt-24">
+<body class="font-sans min-h-screen selection:bg-brand-purple/40 selection:text-white pb-10 pt-24 relative z-0">
+
+    <!-- Ambient Mesh Gradient Backgrounds -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-purple-600/20 rounded-full blur-[100px] animate-float mix-blend-screen"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-orange-500/10 rounded-full blur-[120px] animate-float-delayed mix-blend-screen"></div>
+        <div class="absolute top-[40%] left-[20%] w-[30vw] h-[30vw] bg-cyan-500/10 rounded-full blur-[90px] animate-pulse-slow mix-blend-screen"></div>
+    </div>
 
     <!-- Floating Navbar Kapsul -->
-    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 neo-card rounded-xl px-3 py-2 w-max max-w-[95vw] bg-neo-yellow">
-        <div class="flex items-center gap-3 sm:gap-6">
+    <header class="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass-panel rounded-full transition-all duration-500 px-3 py-2 w-max max-w-[95vw]">
+        <div class="flex items-center gap-3 sm:gap-8">
             
-            <!-- Mobile Menu Button (Muncul di layar kecil) -->
-            <button id="menu-btn" class="md:hidden text-black font-bold p-2 neo-border bg-white rounded-lg hover:bg-neo-pink transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 6h16M4 12h16M4 18h16"></path>
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-zinc-300 p-2 rounded-full hover:bg-white/10 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
 
             <!-- Menu Kiri (Desktop) -->
-            <nav class="hidden md:flex items-center space-x-6 font-black text-sm text-black pl-4">
-                <a href="#squad" class="hover:-translate-y-1 hover:text-neo-pink transition-all duration-300 block">Peserta</a>
-                <a href="#panitia" class="hover:-translate-y-1 hover:text-neo-pink transition-all duration-300 block">Panitia</a>
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-xs tracking-wider uppercase text-zinc-400 pl-6">
+                <a href="#squad" class="hover:text-white transition-colors duration-300">Peserta</a>
+                <a href="#panitia" class="hover:text-white transition-colors duration-300">Panitia</a>
             </nav>
 
             <!-- LOGO TENGAH (Bulat) -->
             <a href="#" class="flex-shrink-0 relative group">
-                <img src="logo.jpg" alt="Logo" class="relative h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover neo-border shadow-neo-sm group-hover:rotate-12 transition-all duration-300" onerror="this.outerHTML='<div class=\'relative h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-neo-pink text-white flex items-center justify-center font-black text-xs neo-border shadow-neo-sm\'>IF-8</div>'">
+                <div class="absolute inset-0 bg-white/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <img src="logo.jpg" alt="Logo" class="relative h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border border-white/20 shadow-lg group-hover:scale-105 transition-transform duration-500" onerror="this.outerHTML='<div class=\'relative h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-brand-surface text-white flex items-center justify-center font-serif italic text-xs shadow-lg border border-white/20\'>IF-8</div>'">
             </a>
 
             <!-- Menu Kanan (Desktop) -->
-            <nav class="hidden md:flex items-center space-x-6 font-black text-sm text-black pr-4">
-                <a href="#villa" class="hover:-translate-y-1 hover:text-neo-pink transition-all duration-300 block">Spot Villa</a>
-                <a href="#audit" class="hover:-translate-y-1 hover:text-neo-pink transition-all duration-300 block">Budget</a>
-                <a href="#itinerary" class="hover:-translate-y-1 hover:text-neo-pink transition-all duration-300 block">Rundown</a>
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-xs tracking-wider uppercase text-zinc-400 pr-6">
+                <a href="#villa" class="hover:text-white transition-colors duration-300">Spot Villa</a>
+                <a href="#audit" class="hover:text-white transition-colors duration-300">Budget</a>
+                <a href="#itinerary" class="hover:text-white transition-colors duration-300">Rundown</a>
             </nav>
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full mt-3 left-0 w-full neo-card rounded-xl bg-white px-4 py-4 space-y-3 font-black text-sm text-center">
-            <a href="#squad" class="block text-black hover:bg-neo-yellow p-2 neo-border mobile-link">Peserta</a>
-            <a href="#panitia" class="block text-black hover:bg-neo-yellow p-2 neo-border mobile-link">Panitia</a>
-            <a href="#villa" class="block text-black hover:bg-neo-yellow p-2 neo-border mobile-link">Spot Villa</a>
-            <a href="#audit" class="block text-black hover:bg-neo-yellow p-2 neo-border mobile-link">Budget</a>
-            <a href="#itinerary" class="block text-black hover:bg-neo-yellow p-2 neo-border mobile-link">Rundown</a>
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full mt-4 left-0 w-full glass-panel rounded-2xl px-4 py-6 space-y-4 font-medium text-sm tracking-wide text-center">
+            <a href="#squad" class="block text-zinc-300 hover:text-white mobile-link">Peserta</a>
+            <a href="#panitia" class="block text-zinc-300 hover:text-white mobile-link">Panitia</a>
+            <a href="#villa" class="block text-zinc-300 hover:text-white mobile-link">Spot Villa</a>
+            <a href="#audit" class="block text-zinc-300 hover:text-white mobile-link">Budget</a>
+            <a href="#itinerary" class="block text-zinc-300 hover:text-white mobile-link">Rundown</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative py-16 sm:py-20 px-4 overflow-hidden text-center">
-        <div class="max-w-3xl mx-auto relative z-10 space-y-6 mt-8">
-            <h1 class="text-5xl sm:text-7xl tracking-wide text-black font-graffiti transform -rotate-2">
-                <span class="bg-neo-pink text-white px-4 py-2 neo-border shadow-neo inline-block">The Last Dance</span>
+    <section class="relative py-20 sm:py-28 px-4 overflow-hidden text-center z-10">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <h1 class="text-5xl sm:text-7xl md:text-8xl tracking-tight text-white font-serif italic font-medium leading-tight">
+                The Last Dance
             </h1>
             
             <!-- Address & Event Info -->
-            <div class="flex flex-col items-center gap-3 pt-6 text-sm font-black max-w-xl mx-auto">
-                <div class="flex flex-wrap justify-center gap-3">
-                    <div class="flex items-center gap-2 px-4 py-2.5 bg-neo-yellow neo-border shadow-neo-sm text-black transform -rotate-1 hover:rotate-1 transition-transform">
-                        📅 Selasa - Rabu, 11-12 Agustus 2026
+            <div class="flex flex-col items-center gap-4 pt-6 text-sm max-w-xl mx-auto">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div class="flex items-center gap-2 px-5 py-3 rounded-2xl glass-panel text-zinc-200 shadow-xl">
+                        <span class="text-orange-300/80">📅</span> Selasa - Rabu, 11-12 Agustus 2026
                     </div>
-                    <!-- Tautan Link Villa Kamela Baru -->
-                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="flex items-center gap-2 px-4 py-2.5 bg-neo-cyan neo-border shadow-neo-sm text-black hover:bg-neo-pink hover:text-white transition-colors cursor-pointer transform rotate-1 hover:-rotate-1 neo-btn">
-                        📍 Villa Kamela by ngevillayuk
+                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="flex items-center gap-2 px-5 py-3 rounded-2xl glass-panel text-zinc-200 hover:bg-white/10 hover:text-white transition-all duration-300 cursor-pointer shadow-xl border-purple-500/30">
+                        <span class="text-cyan-300/80">📍</span> Villa Kamela by ngevillayuk
                     </a>
                 </div>
-                <div class="px-4 py-2.5 bg-white neo-border shadow-neo-sm text-black text-xs text-center w-full transform -rotate-1">
+                <div class="px-5 py-3 rounded-2xl glass-panel text-zinc-400 text-xs text-center w-full shadow-lg font-light tracking-wide">
                     🗺️ Sukaresmi, Megamendung, Bogor Regency, West Java 16770
                 </div>
             </div>
 
             <!-- Countdown Display -->
-            <div class="mt-8 flex justify-center gap-4 text-center">
-                <div class="neo-card p-3 w-20 bg-white">
-                    <span id="c-days" class="block text-3xl font-black text-black font-graffiti">00</span>
-                    <span class="text-[10px] font-black text-black uppercase bg-neo-yellow px-1 mt-1 neo-border inline-block">Hari</span>
+            <div class="mt-10 flex justify-center gap-6 text-center">
+                <div class="glass-panel p-4 rounded-3xl w-24 flex flex-col items-center justify-center">
+                    <span id="c-days" class="block text-3xl font-serif text-white">00</span>
+                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-2">Hari</span>
                 </div>
-                <div class="neo-card p-3 w-20 bg-white">
-                    <span id="c-hours" class="block text-3xl font-black text-black font-graffiti">00</span>
-                    <span class="text-[10px] font-black text-black uppercase bg-neo-cyan px-1 mt-1 neo-border inline-block">Jam</span>
+                <div class="glass-panel p-4 rounded-3xl w-24 flex flex-col items-center justify-center">
+                    <span id="c-hours" class="block text-3xl font-serif text-white">00</span>
+                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-2">Jam</span>
                 </div>
-                <div class="neo-card p-3 w-20 bg-white">
-                    <span id="c-mins" class="block text-3xl font-black text-black font-graffiti">00</span>
-                    <span class="text-[10px] font-black text-black uppercase bg-neo-pink text-white px-1 mt-1 neo-border inline-block">Menit</span>
+                <div class="glass-panel p-4 rounded-3xl w-24 flex flex-col items-center justify-center">
+                    <span id="c-mins" class="block text-3xl font-serif text-white">00</span>
+                    <span class="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-2">Menit</span>
                 </div>
             </div>
 
-            <p class="text-black font-bold bg-white neo-border shadow-neo p-4 max-w-lg mx-auto text-sm sm:text-base mt-8 transform rotate-1">
+            <p class="text-zinc-400 italic max-w-lg mx-auto text-sm sm:text-base pt-6 font-serif">
                 "Lighthearted banter before graduation. Momen ngobrol santai dan ketawa-tawi bareng sebelum sibuk nyari loker & kelarin urusan kampus!"
             </p>
         </div>
     </section>
 
     <!-- The Squad Section -->
-    <section id="squad" class="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden">
-        <div class="text-center space-y-2 mb-14">
-            <h2 class="text-sm font-black uppercase tracking-wider text-black bg-neo-yellow inline-block px-3 py-1 neo-border shadow-neo-sm transform -rotate-2">Daftar Pasukan</h2>
-            <h3 class="text-3xl sm:text-5xl font-black text-white" style="text-shadow: 4px 4px 0px #000;">Siapa Aja Yang Berangkat?</h3>
+    <section id="squad" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto overflow-hidden z-10 relative">
+        <div class="text-center space-y-4 mb-20">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-purple-400/80">Daftar Pasukan</h2>
+            <h3 class="text-3xl sm:text-4xl font-serif italic text-white">Siapa Aja Yang Berangkat?</h3>
         </div>
 
-        <div class="flex flex-wrap justify-center gap-x-8 gap-y-12 sm:gap-x-12 sm:gap-y-16">
+        <div class="flex flex-wrap justify-center gap-10 sm:gap-14">
             <!-- Rofi -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-3 mt-4 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-cyan neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Leo&backgroundColor=transparent" alt="Rofi" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Leo&backgroundColor=transparent" alt="Rofi" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Rofi</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Rofi</h4>
             </div>
             <!-- Ammar -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-6 -mt-2 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-yellow neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" alt="Ammar" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-4">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(167,139,250,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" alt="Ammar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Ammar</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Ammar</h4>
             </div>
             <!-- Akbar -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-12 mt-6 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-pink neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ethan&backgroundColor=transparent" alt="Akbar" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 -mt-2">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(244,114,182,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ethan&backgroundColor=transparent" alt="Akbar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Akbar</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Akbar</h4>
             </div>
             <!-- Sultan -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-2 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-green neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Noah&backgroundColor=transparent" alt="Sultan" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-2">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(52,211,153,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Noah&backgroundColor=transparent" alt="Sultan" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Sultan</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Sultan</h4>
             </div>
             <!-- Ayub -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-6 -mt-4 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-orange neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Liam&backgroundColor=transparent" alt="Ayub" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 -mt-4">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(251,146,60,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Liam&backgroundColor=transparent" alt="Ayub" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Ayub</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Ayub</h4>
             </div>
             <!-- Sina -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-8 mt-3 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-cyan neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" alt="Sina" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-4">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" alt="Sina" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Sina</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Sina</h4>
             </div>
             <!-- Roza -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-2 -mt-2 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-yellow neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" alt="Roza" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(250,204,21,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" alt="Roza" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Roza</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Roza</h4>
             </div>
             <!-- Reva -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-12 mt-5 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-pink neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" alt="Reva" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-3">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(244,114,182,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" alt="Reva" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Reva</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Reva</h4>
             </div>
             <!-- Sintia -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-8 -mt-5 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-green neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" alt="Sintia" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 -mt-3">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(52,211,153,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" alt="Sintia" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Sintia</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Sintia</h4>
             </div>
             <!-- Uci -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-4 mt-2 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-orange neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" alt="Uci" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 mt-5">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(251,146,60,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" alt="Uci" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Uci</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Uci</h4>
             </div>
             <!-- Zidan -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform -rotate-5 mt-6 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-cyan neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(56,189,248,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" alt="Zidan" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Zidan</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Zidan</h4>
             </div>
             <!-- Rika -->
-            <div class="group relative hover:-translate-y-4 transition-transform duration-300 transform rotate-10 -mt-2 w-20 sm:w-24">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-neo-yellow neo-border shadow-neo overflow-hidden">
-                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" alt="Rika" class="w-full h-full object-cover">
+            <div class="group relative hover:-translate-y-2 transition-all duration-500 w-20 sm:w-24 -mt-4">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-slate-800/50 border border-white/10 shadow-lg overflow-hidden group-hover:shadow-[0_0_30px_rgba(250,204,21,0.3)] group-hover:border-white/30 transition-all duration-500">
+                    <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" alt="Rika" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
                 </div>
-                <h4 class="font-doodle text-sm sm:text-base font-black text-black text-center mt-4 bg-white neo-border shadow-neo-sm py-1">Rika</h4>
+                <h4 class="font-serif italic text-sm sm:text-base text-zinc-300 text-center mt-5 group-hover:text-white transition-colors">Rika</h4>
             </div>
         </div>
     </section>
 
     <!-- Panitia Acara Dadakan Section -->
-    <section id="panitia" class="py-12 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="text-center space-y-2 mb-10 sm:mb-14 px-4 sm:px-0">
-            <h3 class="text-3xl sm:text-5xl font-black text-white" style="text-shadow: 4px 4px 0px #000;">Panitia Dadakan</h3>
+    <section id="panitia" class="py-20 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10 relative">
+        <div class="text-center space-y-4 mb-16 px-4 sm:px-0">
+            <h3 class="text-3xl sm:text-4xl font-serif italic text-white">Panitia Dadakan</h3>
         </div>
 
-        <div class="flex overflow-x-auto sm:flex-wrap sm:justify-center snap-x snap-mandatory gap-x-6 gap-y-10 pb-8 px-6 sm:px-0 hide-scrollbar">
+        <div class="flex overflow-x-auto sm:flex-wrap sm:justify-center snap-x snap-mandatory gap-6 pb-8 px-6 sm:px-0 hide-scrollbar">
+            
             <!-- Zidan -->
-            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group h-full">
-                <div class="neo-card p-5 bg-white text-center h-full flex flex-col items-center">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-neo-cyan neo-border shadow-neo-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" class="w-full h-full object-cover">
+            <div class="snap-center shrink-0 w-[260px] group h-full">
+                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Felix&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
                     </div>
-                    <h4 class="font-doodle text-sm font-black text-black">Zidan</h4>
-                    <p class="text-[10px] font-black text-black bg-neo-yellow neo-border px-2 py-1 uppercase tracking-wider mt-2 transform -rotate-2">🎯 PJ & Acara</p>
-                    <p class="text-xs text-black font-bold mt-3 leading-relaxed font-sans border-t-2 border-black pt-2">Nge-carry konsep acara dari A-Z biar sesuai rencana.</p>
+                    <h4 class="font-serif italic text-lg text-white mb-3">Zidan</h4>
+                    <span class="text-[10px] font-bold text-cyan-300 bg-cyan-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🎯 PJ & Acara</span>
+                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Nge-carry konsep acara dari A-Z biar sesuai rencana.</p>
                 </div>
             </div>
 
             <!-- Sintia -->
-            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group h-full">
-                <div class="neo-card p-5 bg-white text-center h-full flex flex-col items-center">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-neo-green neo-border shadow-neo-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" class="w-full h-full object-cover">
+            <div class="snap-center shrink-0 w-[260px] group h-full">
+                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Sophia&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
                     </div>
-                    <h4 class="font-doodle text-sm font-black text-black">Sintia</h4>
-                    <p class="text-[10px] font-black text-white bg-black neo-border px-2 py-1 uppercase tracking-wider mt-2 transform rotate-2">💰 Bundahara</p>
-                    <p class="text-xs text-black font-bold mt-3 leading-relaxed font-sans border-t-2 border-black pt-2">Menteri keuangan penagih kas & nyatet tiap rupiah.</p>
+                    <h4 class="font-serif italic text-lg text-white mb-3">Sintia</h4>
+                    <span class="text-[10px] font-bold text-emerald-300 bg-emerald-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">💰 Bundahara</span>
+                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Menteri keuangan penagih kas & nyatet tiap rupiah.</p>
                 </div>
             </div>
 
             <!-- Rika -->
-            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group h-full">
-                <div class="neo-card p-5 bg-white text-center h-full flex flex-col items-center">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-neo-pink neo-border shadow-neo-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" class="w-full h-full object-cover">
+            <div class="snap-center shrink-0 w-[260px] group h-full">
+                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Chloe&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
                     </div>
-                    <h4 class="font-doodle text-sm font-black text-black">Rika</h4>
-                    <p class="text-[10px] font-black text-black bg-neo-cyan neo-border px-2 py-1 uppercase tracking-wider mt-2 transform -rotate-1">🏡 Akomodasi</p>
-                    <p class="text-xs text-black font-bold mt-3 leading-relaxed font-sans border-t-2 border-black pt-2">Ngerusuhin booking villa sampe dapet tempat terbaik.</p>
+                    <h4 class="font-serif italic text-lg text-white mb-3">Rika</h4>
+                    <span class="text-[10px] font-bold text-purple-300 bg-purple-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🏡 Akomodasi</span>
+                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Ngerusuhin booking villa sampe dapet tempat terbaik.</p>
                 </div>
             </div>
 
             <!-- Ammar -->
-            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group h-full">
-                <div class="neo-card p-5 bg-white text-center h-full flex flex-col items-center">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-neo-orange neo-border shadow-neo-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" class="w-full h-full object-cover">
+            <div class="snap-center shrink-0 w-[260px] group h-full">
+                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Ryan&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
                     </div>
-                    <h4 class="font-doodle text-sm font-black text-black">Ammar</h4>
-                    <p class="text-[10px] font-black text-black bg-neo-yellow neo-border px-2 py-1 uppercase tracking-wider mt-2 transform rotate-2">📢 Humas / PR</p>
-                    <p class="text-xs text-black font-bold mt-3 leading-relaxed font-sans border-t-2 border-black pt-2">Tukang nge-ping di grup biar pada berangkat tepat waktu.</p>
+                    <h4 class="font-serif italic text-lg text-white mb-3">Ammar</h4>
+                    <span class="text-[10px] font-bold text-orange-300 bg-orange-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">📢 Humas / PR</span>
+                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Tukang nge-ping di grup biar pada berangkat tepat waktu.</p>
                 </div>
             </div>
 
             <!-- Roza -->
-            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group h-full">
-                <div class="neo-card p-5 bg-white text-center h-full flex flex-col items-center">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-neo-cyan neo-border shadow-neo-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" class="w-full h-full object-cover">
+            <div class="snap-center shrink-0 w-[260px] group h-full">
+                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mason&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
                     </div>
-                    <h4 class="font-doodle text-sm font-black text-black">Roza</h4>
-                    <p class="text-[10px] font-black text-white bg-neo-pink neo-border px-2 py-1 uppercase tracking-wider mt-2 transform -rotate-2">🗺️ Tour Guide</p>
-                    <p class="text-xs text-black font-bold mt-3 leading-relaxed font-sans border-t-2 border-black pt-2">Penunjuk rute jalan Puncak biar kawan-kawan ga nyasar.</p>
+                    <h4 class="font-serif italic text-lg text-white mb-3">Roza</h4>
+                    <span class="text-[10px] font-bold text-yellow-300 bg-yellow-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🗺️ Tour Guide</span>
+                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Penunjuk rute jalan Puncak biar kawan-kawan ga nyasar.</p>
                 </div>
             </div>
 
             <!-- Reva -->
-            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group h-full">
-                <div class="neo-card p-5 bg-white text-center h-full flex flex-col items-center">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-neo-green neo-border shadow-neo-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" class="w-full h-full object-cover">
+            <div class="snap-center shrink-0 w-[260px] group h-full">
+                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lily&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
                     </div>
-                    <h4 class="font-doodle text-sm font-black text-black">Reva</h4>
-                    <p class="text-[10px] font-black text-black bg-neo-orange neo-border px-2 py-1 uppercase tracking-wider mt-2 transform rotate-1">👩‍🍳 Si Paling Chef</p>
-                    <p class="text-xs text-black font-bold mt-3 leading-relaxed font-sans border-t-2 border-black pt-2">Ahli racik bumbu dapur dan per-BBQ-an duniawi.</p>
+                    <h4 class="font-serif italic text-lg text-white mb-3">Reva</h4>
+                    <span class="text-[10px] font-bold text-pink-300 bg-pink-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">👩‍🍳 Si Paling Chef</span>
+                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Ahli racik bumbu dapur dan per-BBQ-an duniawi.</p>
                 </div>
             </div>
 
             <!-- Sina -->
-            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group h-full">
-                <div class="neo-card p-5 bg-white text-center h-full flex flex-col items-center">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-neo-yellow neo-border shadow-neo-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" class="w-full h-full object-cover">
+            <div class="snap-center shrink-0 w-[260px] group h-full">
+                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Mia&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
                     </div>
-                    <h4 class="font-doodle text-sm font-black text-black">Sina</h4>
-                    <p class="text-[10px] font-black text-black bg-neo-cyan neo-border px-2 py-1 uppercase tracking-wider mt-2 transform -rotate-2">🔥 Si Paling Acara</p>
-                    <p class="text-xs text-black font-bold mt-3 leading-relaxed font-sans border-t-2 border-black pt-2">Pemandu game bareng Zidan biar acaranya idup.</p>
+                    <h4 class="font-serif italic text-lg text-white mb-3">Sina</h4>
+                    <span class="text-[10px] font-bold text-red-300 bg-red-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🔥 Si Paling Acara</span>
+                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Pemandu game bareng Zidan biar acaranya idup.</p>
                 </div>
             </div>
 
             <!-- Uci -->
-            <div class="snap-center shrink-0 w-[240px] sm:w-[220px] group h-full">
-                <div class="neo-card p-5 bg-white text-center h-full flex flex-col items-center">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-neo-pink neo-border shadow-neo-sm overflow-hidden mb-3">
-                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" class="w-full h-full object-cover">
+            <div class="snap-center shrink-0 w-[260px] group h-full">
+                <div class="glass-panel p-8 rounded-[2rem] text-center h-full flex flex-col items-center hover:-translate-y-2 transition-all duration-500">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-slate-800/80 border border-white/10 overflow-hidden mb-5">
+                        <img src="https://api.dicebear.com/9.x/notionists/svg?seed=Lucas&backgroundColor=transparent" class="w-full h-full object-cover opacity-80">
                     </div>
-                    <h4 class="font-doodle text-sm font-black text-black">Uci</h4>
-                    <p class="text-[10px] font-black text-black bg-neo-green neo-border px-2 py-1 uppercase tracking-wider mt-2 transform rotate-2">🎭 Si Paling Acara</p>
-                    <p class="text-xs text-black font-bold mt-3 leading-relaxed font-sans border-t-2 border-black pt-2">Partner Sina buat nyediain topik deep talk & games malam.</p>
+                    <h4 class="font-serif italic text-lg text-white mb-3">Uci</h4>
+                    <span class="text-[10px] font-bold text-blue-300 bg-blue-500/10 px-3 py-1.5 rounded-full uppercase tracking-widest mb-4">🎭 Si Paling Acara</span>
+                    <p class="text-xs text-zinc-400 leading-relaxed font-light mt-auto">Partner Sina buat nyediain topik deep talk & games malam.</p>
                 </div>
             </div>
         </div>
         
-        <div class="mt-4 sm:mt-8 px-4 mx-auto max-w-3xl">
-            <div class="neo-card p-4 bg-neo-yellow text-center transform rotate-1">
-                <p class="text-sm font-black text-black">
-                    💡 Info Penting: Panitia di atas tetep ikutan nge-games & seru-seruan bareng ya, jaganya kita gilir santuy aja wkwk! 
+        <div class="mt-8 px-4 mx-auto max-w-3xl">
+            <div class="p-5 glass-panel rounded-2xl text-center border-orange-500/20">
+                <p class="text-xs sm:text-sm font-light text-zinc-300">
+                    <span class="text-orange-300">💡 Info Penting:</span> Panitia di atas tetep ikutan nge-games & seru-seruan bareng ya, jaganya kita gilir santuy aja wkwk! 
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Galeri Spot Villa Section -->
-    <section id="villa" class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <div class="neo-card p-8 text-center overflow-hidden relative group bg-white">
-            <div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700" style="background-image: url('villa-1.webp'); filter: grayscale(100%) contrast(200%);"></div>
-            <div class="relative z-10 p-6 bg-white/90 neo-border shadow-neo inline-block max-w-2xl transform -rotate-1">
-                <h2 class="text-xs font-black uppercase tracking-wider text-white bg-black inline-block px-3 py-1 mb-4 neo-border">Sneak Peek Akomodasi</h2>
+    <section id="villa" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10 relative">
+        <div class="glass-panel rounded-[2.5rem] p-8 sm:p-12 text-center overflow-hidden relative group border-white/5">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 filter blur-sm group-hover:scale-105 transition-transform duration-1000 ease-out mix-blend-overlay" style="background-image: url('villa-1.webp');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/60 to-transparent"></div>
+            
+            <div class="relative z-10">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-4">Sneak Peek Akomodasi</h2>
                 
-                <h3 class="text-2xl font-black text-black mb-4 relative inline-block">
-                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="bg-neo-cyan px-2 hover:bg-neo-pink hover:text-white transition-colors">
+                <h3 class="text-4xl sm:text-5xl font-serif italic text-white mb-6">
+                    <a href="https://share.google/MzP9LBrVaEJhFGXTw" target="_blank" class="hover:text-cyan-300 transition-colors">
                         Spot Villa Kamela by ngevillayuk
                     </a>
                 </h3>
                 
-                <p class="text-black font-bold text-sm mb-6 max-w-md mx-auto">Fasilitas dan penampakan villa yang bakal kita acak-acak. Ada private pool, ruang karaoke, sampe meja billiard!</p>
+                <p class="text-zinc-300 text-sm mb-10 max-w-lg mx-auto font-light leading-relaxed">Fasilitas dan penampakan villa yang bakal kita acak-acak. Ada private pool, ruang karaoke, sampe meja billiard!</p>
                 
-                <button onclick="openGallery()" class="neo-btn inline-flex items-center gap-2 px-6 py-3 font-black text-black bg-neo-yellow hover:bg-neo-green transition-all">
+                <button onclick="openGallery()" class="inline-flex items-center gap-3 px-8 py-4 rounded-full font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.2)] backdrop-blur-md">
                     📸 Buka Galeri Foto Villa
                 </button>
                 
-                <div class="mt-8 mx-auto max-w-md p-4 bg-neo-cyan neo-border text-left transform rotate-2 shadow-neo">
-                    <p class="text-xs font-black text-black leading-relaxed">
-                        <span class="text-xl">📝</span> <strong class="bg-white px-1 border border-black">Note dari PJ:</strong> Kenapa milih Villa Kamela? Karena cuma ini doang yang masuk akal dan paling kompatibel sama jumlah orang dan budget kita yang pas-pasan wkwk.
+                <div class="mt-12 mx-auto max-w-md p-5 bg-slate-900/60 backdrop-blur-md border border-white/10 rounded-2xl text-left shadow-2xl">
+                    <p class="text-xs font-light text-zinc-300 leading-relaxed">
+                        <span class="text-base mr-1">📝</span> <strong class="text-white font-medium">Note dari PJ:</strong> Kenapa milih Villa Kamela? Karena cuma ini doang yang masuk akal dan paling kompatibel sama jumlah orang dan budget kita yang pas-pasan wkwk.
                     </p>
                 </div>
             </div>
@@ -442,65 +447,65 @@
     </section>
 
     <!-- Galeri Modal (Pop-Up Slider) -->
-    <div id="galleryModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-neo-pink/95 p-4">
-        <div class="modal-content relative w-full max-w-5xl bg-white neo-border shadow-neo flex flex-col">
+    <div id="galleryModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-[#09090b]/95 backdrop-blur-xl p-4 sm:p-8">
+        <div class="modal-content relative w-full max-w-5xl bg-slate-900/80 border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col backdrop-blur-2xl">
             <!-- Header Modal -->
-            <div class="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-20">
-                <span class="text-black font-black text-sm bg-neo-yellow px-3 py-1 neo-border shadow-neo-sm">
+            <div class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-20 bg-gradient-to-b from-black/60 to-transparent">
+                <span class="text-white/80 font-medium text-xs tracking-widest bg-black/40 px-4 py-2 rounded-full backdrop-blur-md border border-white/10">
                     <span id="slideCounter">1</span> / 7
                 </span>
-                <button onclick="closeGallery()" class="neo-btn text-white bg-black rounded-full p-2 transition-colors hover:bg-white hover:text-black">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button onclick="closeGallery()" class="text-zinc-400 hover:text-white bg-black/40 rounded-full p-2.5 transition-colors backdrop-blur-md border border-white/10">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
             <!-- Image Area -->
-            <div class="relative h-[50vh] sm:h-[70vh] w-full flex items-center justify-center bg-neo-cyan border-b-4 border-black p-4">
-                <img id="sliderImage" src="" alt="Villa Image" class="max-h-full max-w-full object-contain neo-border shadow-neo bg-white" loading="lazy">
+            <div class="relative h-[55vh] sm:h-[70vh] w-full flex items-center justify-center bg-transparent">
+                <img id="sliderImage" src="" alt="Villa Image" class="max-h-full max-w-full object-contain drop-shadow-2xl" loading="lazy">
                 
                 <!-- Nav Arrows -->
-                <button onclick="prevSlide()" class="neo-btn absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-neo-yellow text-black hover:bg-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7"></path></svg>
+                <button onclick="prevSlide()" class="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-black/40 hover:bg-white/10 text-white rounded-full transition-all border border-white/10 backdrop-blur-md hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
-                <button onclick="nextSlide()" class="neo-btn absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-2 sm:p-3 bg-neo-yellow text-black hover:bg-white transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7"></path></svg>
+                <button onclick="nextSlide()" class="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 p-3 sm:p-4 bg-black/40 hover:bg-white/10 text-white rounded-full transition-all border border-white/10 backdrop-blur-md hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
             </div>
             
             <!-- Caption Area -->
-            <div class="p-4 sm:p-6 bg-white text-center sm:text-left">
-                <h4 id="sliderTitle" class="text-lg font-black text-black mb-1 font-graffiti"></h4>
-                <p id="sliderDesc" class="text-sm font-bold text-slate-700"></p>
+            <div class="p-6 sm:p-8 bg-slate-900/90 border-t border-white/5 text-center sm:text-left">
+                <h4 id="sliderTitle" class="text-xl font-serif italic text-white mb-2"></h4>
+                <p id="sliderDesc" class="text-sm font-light text-zinc-400"></p>
             </div>
         </div>
     </div>
 
     <!-- Financial Audit Section -->
-    <section id="audit" class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <div class="text-center space-y-2 mb-8">
-            <h2 class="text-xs font-black uppercase tracking-wider text-black bg-neo-pink text-white inline-block px-3 py-1 neo-border shadow-neo-sm transform rotate-2">Transparansi Kas</h2>
-            <h3 class="text-3xl sm:text-5xl font-black text-white" style="text-shadow: 4px 4px 0px #000;">Status Budget Acara</h3>
+    <section id="audit" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto z-10 relative">
+        <div class="text-center space-y-4 mb-12">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-emerald-400/80">Transparansi Kas</h2>
+            <h3 class="text-3xl sm:text-4xl font-serif italic text-white">Status Budget Acara</h3>
         </div>
 
-        <div class="neo-card p-6 sm:p-8 bg-white">
+        <div class="glass-panel rounded-[2.5rem] p-6 sm:p-10">
             
             <!-- Alert DP Box -->
-            <div class="mb-8 p-5 bg-neo-yellow neo-border shadow-neo relative overflow-hidden transform -rotate-1">
-                <div class="flex items-start gap-4 relative z-10">
-                    <span class="text-4xl drop-shadow-sm animate-tilt">⚠️</span>
+            <div class="mb-10 p-6 bg-rose-500/10 border border-rose-500/20 rounded-3xl relative overflow-hidden">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5 relative z-10">
+                    <div class="w-12 h-12 shrink-0 rounded-full bg-rose-500/20 flex items-center justify-center border border-rose-500/30 text-rose-300 text-xl">⚠️</div>
                     <div class="w-full">
-                        <h4 class="font-black text-black text-lg mb-1 bg-white inline-block px-2 border-2 border-black">INFO PENTING PELUNASAN</h4>
-                        <p class="text-xs text-black font-bold leading-relaxed mb-4 mt-2">
-                            DP Villa 50% harus <strong class="bg-neo-pink text-white px-1">segera dilunasi</strong> agar tanggal kita aman dan di-keep pemilik! <br>
-                            Pelunasan iuran per orang (Rp 120.000) paling lambat ditunggu <strong class="bg-neo-cyan px-1">Tanggal 1 Agustus</strong>.
+                        <h4 class="font-serif italic text-rose-200 text-lg mb-1">INFO PENTING PELUNASAN</h4>
+                        <p class="text-xs text-rose-200/80 font-light leading-relaxed mb-4">
+                            DP Villa 50% harus <strong class="text-rose-300 font-medium">segera dilunasi</strong> agar tanggal kita aman dan di-keep pemilik! <br>
+                            Pelunasan iuran per orang (Rp 120.000) paling lambat ditunggu <strong class="text-rose-300 font-medium">Tanggal 1 Agustus</strong>.
                         </p>
                         
                         <!-- Box Salin DANA yang Responsif -->
-                        <div class="flex items-center justify-center sm:justify-start w-full max-w-[320px]">
-                            <div class="flex items-center bg-white neo-border shadow-neo-sm w-full">
-                                <div class="px-3 py-3 bg-black text-neo-yellow font-black text-xs shrink-0">DANA</div>
-                                <input type="text" id="danaNumber" value="088290073130" readonly class="w-full px-2 text-sm font-black text-black outline-none bg-white min-w-0 text-center sm:text-left">
-                                <button onclick="copyDana()" id="copyBtn" class="px-3 py-3 bg-neo-pink text-white font-black text-xs hover:bg-black transition-colors shrink-0 border-l-4 border-black">Salin</button>
+                        <div class="flex items-center justify-start w-full max-w-[320px]">
+                            <div class="flex items-center bg-black/40 border border-rose-500/30 rounded-xl overflow-hidden shadow-inner w-full">
+                                <div class="px-4 py-2.5 bg-white/5 border-r border-rose-500/30 text-rose-200/80 font-medium tracking-widest text-[10px] shrink-0 uppercase">DANA</div>
+                                <input type="text" id="danaNumber" value="088290073130" readonly class="w-full px-3 text-sm font-medium text-white outline-none bg-transparent min-w-0 text-left">
+                                <button onclick="copyDana()" id="copyBtn" class="px-4 py-2.5 bg-rose-500/20 text-rose-200 font-medium text-xs hover:bg-rose-500/40 transition-colors shrink-0 border-l border-rose-500/30">Salin</button>
                             </div>
                         </div>
 
@@ -509,26 +514,26 @@
             </div>
 
             <!-- Cards Summary -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-                <div class="neo-card p-4 bg-neo-cyan text-center sm:text-left">
-                    <p class="text-[11px] font-black text-black uppercase tracking-wider bg-white px-1 border-2 border-black inline-block">Target Budget</p>
-                    <p class="text-2xl font-black text-black mt-2">Rp 1.440.000</p>
-                    <p class="text-[11px] font-bold text-black mt-1">12 Orang × Rp 120.000</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+                <div class="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-center sm:text-left">
+                    <p class="text-[10px] font-medium text-zinc-500 uppercase tracking-widest">Target Budget</p>
+                    <p class="text-2xl font-serif italic text-white mt-2">Rp 1.440.000</p>
+                    <p class="text-[10px] font-light text-zinc-400 mt-2">12 Orang × Rp 120.000</p>
                 </div>
-                <div class="neo-card p-4 bg-neo-pink text-center sm:text-left text-white">
-                    <p class="text-[11px] font-black text-black uppercase tracking-wider bg-white px-1 border-2 border-black inline-block">Estimasi Keluar</p>
-                    <p class="text-2xl font-black text-white mt-2" style="text-shadow: 2px 2px 0px #000;">Rp 1.289.000</p>
-                    <p class="text-[11px] font-bold text-white mt-1">Villa + Logistik</p>
+                <div class="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-center sm:text-left">
+                    <p class="text-[10px] font-medium text-zinc-500 uppercase tracking-widest">Estimasi Keluar</p>
+                    <p class="text-2xl font-serif italic text-rose-300 mt-2">Rp 1.289.000</p>
+                    <p class="text-[10px] font-light text-zinc-400 mt-2">Villa + Logistik</p>
                 </div>
-                <div class="neo-card p-4 bg-neo-green text-center sm:text-left">
-                    <p class="text-[11px] font-black text-black uppercase tracking-wider bg-white px-1 border-2 border-black inline-block">Dana Darurat</p>
-                    <p class="text-2xl font-black text-black mt-2">Rp 151.000</p>
-                    <p class="text-[11px] font-bold text-black mt-1">Sisa saldo diamankan</p>
+                <div class="p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-center sm:text-left">
+                    <p class="text-[10px] font-medium text-zinc-500 uppercase tracking-widest">Dana Darurat</p>
+                    <p class="text-2xl font-serif italic text-emerald-300 mt-2">Rp 151.000</p>
+                    <p class="text-[10px] font-light text-zinc-400 mt-2">Sisa saldo diamankan</p>
                 </div>
             </div>
 
-            <div class="text-center mt-6">
-                <button onclick="openBudget()" class="neo-btn inline-flex items-center gap-2 px-6 py-3 font-black text-white bg-black hover:bg-neo-yellow hover:text-black transition-all">
+            <div class="text-center">
+                <button onclick="openBudget()" class="inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-medium text-sm text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all hover:-translate-y-1">
                     📄 Lihat Detail Rincian Belanja
                 </button>
             </div>
@@ -536,95 +541,95 @@
     </section>
 
     <!-- Checklist Pelunasan -->
-    <section id="pelunasan" class="py-4 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <div class="text-center space-y-2 mb-6">
-            <h3 class="text-2xl sm:text-4xl font-black text-white" style="text-shadow: 3px 3px 0px #000;">Live Checklist Pelunasan</h3>
-            <p class="text-black font-bold text-xs sm:text-sm max-w-md mx-auto bg-neo-cyan inline-block px-2 neo-border shadow-neo-sm transform -rotate-1">Data otomatis sinkron real-time dari Google Sheets Bundahara Sintia.</p>
+    <section id="pelunasan" class="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto z-10 relative">
+        <div class="text-center space-y-3 mb-10">
+            <h3 class="text-2xl sm:text-3xl font-serif italic text-white">Live Checklist Pelunasan</h3>
+            <p class="text-zinc-400 text-xs sm:text-sm font-light max-w-md mx-auto">Data otomatis sinkron real-time dari Google Sheets Bundahara Sintia.</p>
         </div>
 
-        <div class="neo-card p-5 bg-white">
-            <div class="flex justify-between items-center mb-5 pb-4 border-b-4 border-black">
+        <div class="glass-panel rounded-[2rem] p-6 sm:p-8">
+            <div class="flex justify-between items-end mb-8 pb-6 border-b border-white/10">
                 <div>
-                    <p class="text-xs text-black font-black uppercase bg-neo-yellow px-1 border-2 border-black inline-block">Total Kas Masuk</p>
-                    <p id="totalTerkumpul" class="text-xl font-black text-black mt-1">Rp 0</p>
+                    <p class="text-[10px] tracking-widest text-zinc-500 font-medium uppercase mb-1">Total Kas Masuk</p>
+                    <p id="totalTerkumpul" class="text-2xl font-serif italic text-emerald-300">Rp 0</p>
                 </div>
                 <div class="text-right">
-                    <p class="text-xs text-black font-black uppercase bg-neo-pink text-white px-1 border-2 border-black inline-block">Status Pasukan</p>
-                    <p class="text-xl font-black text-black mt-1"><span id="countLunas" class="text-neo-pink" style="text-shadow: 1px 1px 0px #000;">0</span>/12 Lunas</p>
+                    <p class="text-[10px] tracking-widest text-zinc-500 font-medium uppercase mb-1">Status Pasukan</p>
+                    <p class="text-2xl font-serif italic text-white"><span id="countLunas" class="text-emerald-300">0</span><span class="text-zinc-600 text-lg">/12 Lunas</span></p>
                 </div>
             </div>
             
             <div id="checklistContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <!-- Loading text -->
-                <p class="text-sm font-black text-black col-span-full text-center py-4 animate-pulse bg-neo-yellow neo-border">⏳ Sedang nge-sync data dari Excel Bundahara...</p>
+                <p class="text-sm font-light text-zinc-500 col-span-full text-center py-6 animate-pulse">⏳ Sedang nge-sync data dari Excel Bundahara...</p>
             </div>
         </div>
     </section>
 
     <!-- Budget Detail Modal -->
-    <div id="budgetModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-neo-cyan/95 p-4">
-        <div class="modal-content relative w-full max-w-2xl bg-white neo-border shadow-neo flex flex-col max-h-[85vh] overflow-hidden">
-            <div class="p-5 border-b-4 border-black flex justify-between items-center bg-neo-yellow">
-                <h3 class="font-black text-xl text-black uppercase font-graffiti">Rincian Belanja (Detail)</h3>
-                <button onclick="closeBudget()" class="neo-btn text-white bg-black hover:bg-neo-pink transition-colors p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 18L18 6M6 6l12 12"></path></svg>
+    <div id="budgetModal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-[#09090b]/95 backdrop-blur-xl p-4">
+        <div class="modal-content relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[2rem] shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+            <div class="p-6 border-b border-white/5 flex justify-between items-center bg-slate-900/50">
+                <h3 class="font-serif italic text-xl text-white">Rincian Belanja (Detail)</h3>
+                <button onclick="closeBudget()" class="text-zinc-500 hover:text-white transition-colors p-2 bg-white/5 hover:bg-white/10 rounded-full">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
-            <div class="p-4 sm:p-6 overflow-y-auto custom-scrollbar bg-white">
+            <div class="p-6 overflow-y-auto custom-scrollbar">
                 <table class="w-full text-left text-sm">
                     <thead>
-                        <tr class="border-b-4 border-black text-black text-sm uppercase font-black bg-neo-green">
-                            <th class="py-3 px-2 border-r-4 border-black">Item Belanja</th>
-                            <th class="py-3 px-2 text-right">Harga</th>
+                        <tr class="border-b border-white/10 text-zinc-500 text-[10px] tracking-widest uppercase font-medium">
+                            <th class="pb-4 pr-2 font-medium">Item Belanja</th>
+                            <th class="pb-4 px-2 text-right font-medium">Harga</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y-4 divide-black text-black font-bold">
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Sewa Villa Kamela</p><p class="text-xs mt-0.5">1 Malam (Inc. DP & Pelunasan)</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 900.000</td>
+                    <tbody class="divide-y divide-white/5 text-zinc-300 font-light">
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Sewa Villa Kamela</p><p class="text-[11px] text-zinc-500 mt-1">1 Malam (Inc. DP & Pelunasan)</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 900.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Daging Ayam Segar</p><p class="text-xs mt-0.5">1 Ekor (@ Rp 55.000)</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 55.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Daging Ayam Segar</p><p class="text-[11px] text-zinc-500 mt-1">1 Ekor (@ Rp 55.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 55.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Sosis Bakar</p><p class="text-xs mt-0.5">2 Pack (@ Rp 18.000)</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 36.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Sosis Bakar</p><p class="text-[11px] text-zinc-500 mt-1">2 Pack (@ Rp 18.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 36.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Beras</p><p class="text-xs mt-0.5">5 Liter (@ Rp 11.000)</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 55.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Beras</p><p class="text-[11px] text-zinc-500 mt-1">5 Liter (@ Rp 11.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 55.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Telur Ayam</p><p class="text-xs mt-0.5">1,5 Kg (@ Rp 28.000)</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 42.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Telur Ayam</p><p class="text-[11px] text-zinc-500 mt-1">1,5 Kg (@ Rp 28.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 42.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Bumbu Dapur, Minyak</p><p class="text-xs mt-0.5">Penyedap rasa, saos BBQ, dsb</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 40.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Bumbu Dapur, Minyak</p><p class="text-[11px] text-zinc-500 mt-1">Penyedap rasa, saos BBQ, dsb</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 40.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Snack Bal-an</p><p class="text-xs mt-0.5">2 Bungkus Besar (@ Rp 40.000)</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 80.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Snack Bal-an</p><p class="text-[11px] text-zinc-500 mt-1">2 Bungkus Besar (@ Rp 40.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 80.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Kopi, Teh, Gula</p><p class="text-xs mt-0.5">Amunisi begadang</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 42.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Kopi, Teh, Gula</p><p class="text-[11px] text-zinc-500 mt-1">Amunisi begadang</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 42.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Arang BBQ</p><p class="text-xs mt-0.5">2 Bungkus (@ Rp 7.000)</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 14.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Arang BBQ</p><p class="text-[11px] text-zinc-500 mt-1">2 Bungkus (@ Rp 7.000)</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 14.000</td>
                         </tr>
-                        <tr class="hover:bg-neo-cyan/20">
-                            <td class="py-3 px-2 border-r-4 border-black"><p class="font-black text-base">Es Batu & Galon Air</p><p class="text-xs mt-0.5">Isi ulang galon + es batu balok</p></td>
-                            <td class="py-3 px-2 text-right font-black text-base">Rp 25.000</td>
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="py-4 pr-2"><p class="font-medium text-zinc-200">Es Batu & Galon Air</p><p class="text-[11px] text-zinc-500 mt-1">Isi ulang galon + es batu balok</p></td>
+                            <td class="py-4 px-2 text-right font-medium">Rp 25.000</td>
                         </tr>
                     </tbody>
                     <tfoot>
-                        <tr class="bg-black text-neo-yellow border-4 border-black">
-                            <td class="py-4 px-3 font-black text-sm border-r-4 border-black">TOTAL ESTIMASI</td>
-                            <td class="py-4 px-3 text-right font-black text-lg">Rp 1.289.000</td>
+                        <tr class="bg-rose-500/10 border-t border-rose-500/20 text-rose-200">
+                            <td class="py-5 px-4 font-medium text-xs tracking-widest uppercase rounded-bl-2xl">TOTAL ESTIMASI</td>
+                            <td class="py-5 px-4 text-right font-serif italic text-xl rounded-br-2xl">Rp 1.289.000</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -633,23 +638,23 @@
     </div>
 
     <!-- Timeline / Itinerary Section -->
-    <section id="itinerary" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto overflow-hidden">
-        <div class="text-center space-y-2 mb-16">
-            <h2 class="text-sm font-black uppercase tracking-wider text-black bg-neo-cyan inline-block px-3 py-1 neo-border shadow-neo-sm transform rotate-2">Susunan Agenda</h2>
-            <h3 class="text-3xl sm:text-5xl font-black text-white" style="text-shadow: 4px 4px 0px #000;">Journey Map Acara</h3>
+    <section id="itinerary" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto overflow-hidden z-10 relative">
+        <div class="text-center space-y-4 mb-20">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-blue-400/80">Susunan Agenda</h2>
+            <h3 class="text-3xl sm:text-4xl font-serif italic text-white">Journey Map Acara</h3>
         </div>
 
         <div class="relative w-full max-w-4xl mx-auto">
             
-            <!-- Garis Tengah (Road/Path) -->
-            <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 border-l-8 border-black border-dashed md:-translate-x-1/2 opacity-100"></div>
+            <!-- Garis Putus-putus Tengah -->
+            <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-white/10 md:-translate-x-1/2"></div>
             
             <!-- Bendera Start -->
-            <div class="absolute left-8 md:left-1/2 top-0 -translate-x-1/2 -mt-6 z-20 text-3xl bg-white neo-border p-2 rounded-full shadow-neo-sm transform -rotate-12">🏁</div>
+            <div class="absolute left-8 md:left-1/2 top-0 -translate-x-1/2 -mt-4 z-20 text-2xl drop-shadow-lg">🏁</div>
 
             <!-- Hari 1 Label -->
-            <div class="relative flex justify-start md:justify-center mb-12 pl-20 md:pl-0 z-20">
-                <div class="px-5 py-3 bg-neo-pink text-white font-black text-sm neo-border shadow-neo transform rotate-2">
+            <div class="relative flex justify-start md:justify-center mb-14 pl-20 md:pl-0 z-20">
+                <div class="px-6 py-2.5 rounded-full glass-panel text-white font-medium text-xs tracking-widest uppercase shadow-xl border-purple-500/30 text-purple-200">
                     DAY 1 — Selasa, 11 Agustus 2026
                 </div>
             </div>
@@ -658,22 +663,20 @@
                 <!-- Item 1 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="neo-card p-5 inline-block w-full text-left transform -rotate-1 hover:rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-yellow px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">13:00 - 14:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Tikum & Otw Puncak</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-blue-500/20 hover:border-blue-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-3 block">13:00 - 14:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Tikum & Otw Puncak</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
                         </div>
                     </div>
                     
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-neo-cyan neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform rotate-12">
-                        🛵
-                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-blue-400 shadow-[0_0_15px_#60a5fa] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
                     
-                    <div class="md:hidden w-full pl-24 pr-2">
-                        <div class="neo-card p-5 inline-block w-full transform -rotate-1 hover:rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-yellow px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">13:00 - 14:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Tikum & Otw Puncak</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-blue-500/20 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-blue-300 uppercase mb-3 block">13:00 - 14:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Tikum & Otw Puncak</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Tikum Depok di rumah Reva. Tikum Bogor di rumah Roza. Cek kendaraan, lalu gaskeun jalan bareng!</p>
                         </div>
                     </div>
                 </div>
@@ -681,14 +684,12 @@
                 <!-- Item 2 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-neo-pink neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform -rotate-6">
-                        🏡
-                    </div>
-                    <div class="w-full md:w-1/2 pl-24 md:pl-14 pr-2 text-left">
-                        <div class="neo-card p-5 inline-block w-full transform rotate-2 hover:-rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-cyan px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">14:30 - 15:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Check-in & Unboxing Barang</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Nyampe villa, milih kamar rebutan kasur, naruh tas, dan rapihin bahan makanan di dapur.</p>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-purple-400 shadow-[0_0_15px_#c084fc] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-purple-500/20 hover:border-purple-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-purple-300 uppercase mb-3 block">14:30 - 15:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Check-in & Unboxing Barang</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Nyampe villa, milih kamar rebutan kasur, naruh tas, dan rapihin bahan makanan di dapur.</p>
                         </div>
                     </div>
                 </div>
@@ -696,21 +697,19 @@
                 <!-- Item 3 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="neo-card p-5 inline-block w-full text-left transform -rotate-2 hover:rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-green px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">15:30 - 16:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Ganjal Perut & Ashar</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-cyan-500/20 hover:border-cyan-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-cyan-300 uppercase mb-3 block">15:30 - 16:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Ganjal Perut & Ashar</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
                         </div>
                     </div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-neo-yellow neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform rotate-6">
-                        🍜
-                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_15px_#22d3ee] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
                     
-                    <div class="md:hidden w-full pl-24 pr-2">
-                        <div class="neo-card p-5 inline-block w-full transform -rotate-1 hover:rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-green px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">15:30 - 16:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Ganjal Perut & Ashar</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-cyan-500/20 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-cyan-300 uppercase mb-3 block">15:30 - 16:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Ganjal Perut & Ashar</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Masak mie porsi darurat pake telur biar ga masuk angin, lanjut ibadah/istirahat sejenak.</p>
                         </div>
                     </div>
                 </div>
@@ -718,14 +717,12 @@
                 <!-- Item 4 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-white neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform -rotate-12">
-                        ☕
-                    </div>
-                    <div class="w-full md:w-1/2 pl-24 md:pl-14 pr-2 text-left">
-                        <div class="neo-card p-5 inline-block w-full transform rotate-1 hover:-rotate-2">
-                            <span class="text-xs font-black text-white bg-black px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#00c3ff]">16:30 - 18:00</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Game Santai & Ngopi</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Buka snack bal-an, bikin kopi hangat, main game ringan sambil menikmati sore.</p>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-emerald-400 shadow-[0_0_15px_#34d399] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-emerald-500/20 hover:border-emerald-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-emerald-300 uppercase mb-3 block">16:30 - 18:00</span>
+                            <h4 class="font-serif italic text-white text-xl">Game Santai & Ngopi</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Buka snack bal-an, bikin kopi hangat, main game ringan sambil menikmati sore.</p>
                         </div>
                     </div>
                 </div>
@@ -733,21 +730,19 @@
                 <!-- Item 5 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="neo-card p-5 inline-block w-full text-left transform -rotate-1 hover:rotate-2">
-                            <span class="text-xs font-black text-black bg-neo-orange px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">18:00 - 19:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">ISHOMA & Prep Nasi Liwet</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-amber-500/20 hover:border-amber-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-amber-300 uppercase mb-3 block">18:00 - 19:30</span>
+                            <h4 class="font-serif italic text-white text-xl">ISHOMA & Prep Nasi Liwet</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
                         </div>
                     </div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-neo-cyan neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform rotate-12">
-                        🕌
-                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-amber-400 shadow-[0_0_15px_#fbbf24] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
                     
-                    <div class="md:hidden w-full pl-24 pr-2">
-                        <div class="neo-card p-5 inline-block w-full transform -rotate-1 hover:rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-orange px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">18:00 - 19:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">ISHOMA & Prep Nasi Liwet</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-amber-500/20 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-amber-300 uppercase mb-3 block">18:00 - 19:30</span>
+                            <h4 class="font-serif italic text-white text-xl">ISHOMA & Prep Nasi Liwet</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Sholat Maghrib & Isya, lalu squad dapur mulai ngolah beras liwet dan nyiapin panggangan.</p>
                         </div>
                     </div>
                 </div>
@@ -755,14 +750,12 @@
                 <!-- Item 6 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-neo-pink neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform -rotate-6">
-                        🍖
-                    </div>
-                    <div class="w-full md:w-1/2 pl-24 md:pl-14 pr-2 text-left">
-                        <div class="neo-card p-5 inline-block w-full transform rotate-2 hover:-rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-yellow px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">19:30 - 21:00</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">The Last Dance Dinner</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Puncak acara! Sikat habis panggangan ayam, sosis, dan santap nasi liwet di daun pisang.</p>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-rose-400 shadow-[0_0_15px_#fb7185] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-rose-500/20 hover:border-rose-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-rose-300 uppercase mb-3 block">19:30 - 21:00</span>
+                            <h4 class="font-serif italic text-white text-xl">The Last Dance Dinner</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Puncak acara! Sikat habis panggangan ayam, sosis, dan santap nasi liwet di daun pisang.</p>
                         </div>
                     </div>
                 </div>
@@ -770,21 +763,19 @@
                 <!-- Item 7 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="neo-card p-5 inline-block w-full text-left transform -rotate-2 hover:rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-cyan px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">21:00 - 23:00</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Deep Talk & Curhat Malam</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-indigo-500/20 hover:border-indigo-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-indigo-300 uppercase mb-3 block">21:00 - 23:00</span>
+                            <h4 class="font-serif italic text-white text-xl">Deep Talk & Curhat Malam</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
                         </div>
                     </div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-black neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform rotate-6">
-                        ⛺
-                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-indigo-400 shadow-[0_0_15px_#818cf8] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
                     
-                    <div class="md:hidden w-full pl-24 pr-2">
-                        <div class="neo-card p-5 inline-block w-full transform -rotate-1 hover:rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-cyan px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">21:00 - 23:00</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Deep Talk & Curhat Malam</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-indigo-500/20 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-indigo-300 uppercase mb-3 block">21:00 - 23:00</span>
+                            <h4 class="font-serif italic text-white text-xl">Deep Talk & Curhat Malam</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Sesi hangat: curhat, confession terpendam, tukar loker, main game bareng sampe malam.</p>
                         </div>
                     </div>
                 </div>
@@ -792,8 +783,8 @@
             </div>
 
             <!-- Hari 2 Label -->
-            <div class="relative flex justify-start md:justify-center mt-12 mb-12 pl-20 md:pl-0 z-20">
-                <div class="px-5 py-3 bg-neo-yellow text-black font-black text-sm neo-border shadow-neo transform -rotate-2">
+            <div class="relative flex justify-start md:justify-center mt-14 mb-14 pl-20 md:pl-0 z-20">
+                <div class="px-6 py-2.5 rounded-full glass-panel text-white font-medium text-xs tracking-widest uppercase shadow-xl border-orange-500/30 text-orange-200">
                     DAY 2 — Rabu, 12 Agustus 2026
                 </div>
             </div>
@@ -802,14 +793,12 @@
                 <!-- Item 8 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-white neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform -rotate-12">
-                        🍳
-                    </div>
-                    <div class="w-full md:w-1/2 pl-24 md:pl-14 pr-2 text-left">
-                        <div class="neo-card p-5 inline-block w-full transform rotate-1 hover:-rotate-1">
-                            <span class="text-xs font-black text-white bg-neo-pink px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">07:00 - 08:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Bangun Pagi & Nasi Goreng</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Hirup udara dingin Puncak, lanjut olah sisa liwetan semalam jadi nasi goreng.</p>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-yellow-400 shadow-[0_0_15px_#facc15] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-yellow-500/20 hover:border-yellow-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-yellow-300 uppercase mb-3 block">07:00 - 08:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Bangun Pagi & Nasi Goreng</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Hirup udara dingin Puncak, lanjut olah sisa liwetan semalam jadi nasi goreng.</p>
                         </div>
                     </div>
                 </div>
@@ -817,21 +806,19 @@
                 <!-- Item 9 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2 md:pr-14 text-right">
-                        <div class="neo-card p-5 inline-block w-full text-left transform -rotate-1 hover:rotate-2">
-                            <span class="text-xs font-black text-black bg-neo-green px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">08:30 - 10:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Capturing Memories</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-pink-500/20 hover:border-pink-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-pink-300 uppercase mb-3 block">08:30 - 10:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Capturing Memories</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
                         </div>
                     </div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-neo-cyan neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform rotate-12">
-                        📸
-                    </div>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-pink-400 shadow-[0_0_15px_#f472b6] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
                     
-                    <div class="md:hidden w-full pl-24 pr-2">
-                        <div class="neo-card p-5 inline-block w-full transform -rotate-1 hover:rotate-1">
-                            <span class="text-xs font-black text-black bg-neo-green px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">08:30 - 10:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Capturing Memories</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
+                    <div class="md:hidden w-full pl-20 pr-2">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-1 border-pink-500/20 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-pink-300 uppercase mb-3 block">08:30 - 10:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Capturing Memories</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Foto bareng formasi lengkap 12 orang buat kenang-kenangan feeds Instagram.</p>
                         </div>
                     </div>
                 </div>
@@ -839,51 +826,48 @@
                 <!-- Item 10 -->
                 <div class="relative flex flex-col md:flex-row items-center justify-between group">
                     <div class="hidden md:block md:w-1/2"></div>
-                    <div class="absolute left-8 md:left-1/2 w-14 h-14 bg-neo-orange neo-border shadow-neo -translate-x-1/2 z-10 flex items-center justify-center text-2xl transform -rotate-6">
-                        🚗
-                    </div>
-                    <div class="w-full md:w-1/2 pl-24 md:pl-14 pr-2 text-left">
-                        <div class="neo-card p-5 inline-block w-full transform rotate-2 hover:-rotate-1">
-                            <span class="text-xs font-black text-black bg-white px-2 py-1 border-2 border-black mb-2 inline-block shadow-[2px_2px_0px_#000]">10:30 - 11:30</span>
-                            <h4 class="font-black text-black text-lg font-graffiti mt-1">Check-out & Pulang</h4>
-                            <p class="text-black font-bold text-xs mt-2 leading-relaxed">Beres-beres kamar, pastikan ga ada barang yang ketinggalan, lalu konvoi pulang!</p>
+                    <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-slate-400 shadow-[0_0_15px_#94a3b8] -translate-x-1/2 z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-full md:w-1/2 pl-20 md:pl-14 pr-2 text-left">
+                        <div class="glass-panel p-6 rounded-3xl transform transition-all duration-500 hover:-translate-y-2 inline-block w-full border-slate-500/20 hover:border-slate-500/40 hover:bg-white/10 text-left">
+                            <span class="text-[10px] font-bold tracking-widest text-zinc-300 uppercase mb-3 block">10:30 - 11:30</span>
+                            <h4 class="font-serif italic text-white text-xl">Check-out & Pulang</h4>
+                            <p class="text-zinc-400 text-xs mt-3 leading-relaxed font-light">Beres-beres kamar, pastikan ga ada barang yang ketinggalan, lalu konvoi pulang!</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Bendera Finish -->
-            <div class="absolute left-8 md:left-1/2 bottom-0 -translate-x-1/2 translate-y-8 z-20 text-3xl bg-white p-2 rounded-full neo-border shadow-neo-sm">🏠</div>
+            <div class="absolute left-8 md:left-1/2 bottom-0 -translate-x-1/2 translate-y-6 z-20 text-2xl drop-shadow-lg">🏠</div>
 
         </div>
     </section>
 
     <!-- Pleading / Mohon-mohon Notes Sticky Area -->
-    <div class="max-w-xl mx-auto px-4 mt-10">
-        <div class="neo-card p-6 transform -rotate-2 hover:rotate-1 transition-transform bg-neo-orange text-center">
-            <h4 class="font-doodle text-xl text-black font-black mb-2 bg-white inline-block px-2 border-2 border-black transform rotate-1">Pliiiis Banget... 🙏</h4>
-            <p class="text-black font-black text-sm leading-relaxed mt-2">
+    <div class="max-w-xl mx-auto px-4 mt-12 z-10 relative">
+        <div class="glass-panel p-8 rounded-[2rem] hover:-translate-y-1 transition-transform border border-cyan-500/20 shadow-2xl text-center">
+            <h4 class="font-serif italic text-2xl text-cyan-300 mb-3">Pliiiis Banget... 🙏</h4>
+            <p class="text-zinc-300 font-light text-sm leading-relaxed">
                 Tolong realisasiin acara ini ya, *Guys*! Udah wacana dari kapan tau masa mau gitu-gitu aja? 🥺 Ini momen *healing* terakhir nih sebelum pada sibuk ngurusin revisian skripsi sama pusing nyari loker masing-masing. Gassskeunn!! 🚀
             </p>
         </div>
     </div>
 
     <!-- Spotify Playlist Section -->
-    <section class="py-10 px-4 max-w-2xl mx-auto">
-        <div class="neo-card p-4 bg-neo-yellow text-center">
-            <h4 class="font-black text-black text-lg mb-4 uppercase bg-white border-2 border-black inline-block px-2 transform -rotate-1">🎵 Playlist The Last Dance</h4>
-            <iframe style="border-radius:0px; border: 4px solid black; box-shadow: 4px 4px 0px black;" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <section class="py-16 px-4 max-w-2xl mx-auto z-10 relative">
+        <div class="glass-panel p-6 rounded-[2rem] border border-white/5 shadow-2xl">
+            <h4 class="font-serif italic text-white text-xl text-center mb-6">🎵 Playlist The Last Dance</h4>
+            <iframe style="border-radius:16px; background-color: rgba(255,255,255,0.02);" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
     </section>
 
-    <!-- Footer Doodle YNKTS -->
-    <footer class="pt-16 pb-12 text-center relative overflow-hidden">
+    <!-- Footer -->
+    <footer class="pt-10 pb-16 text-center relative overflow-hidden z-10">
         <div class="max-w-2xl mx-auto px-4 relative z-10">
-            <!-- YNKTS Doodle Quote -->
-            <p class="font-doodle text-2xl sm:text-4xl text-white bg-black px-4 py-2 neo-border shadow-neo -rotate-2 transform mb-6 inline-block hover:scale-105 transition-transform">
+            <p class="font-serif italic text-2xl sm:text-3xl text-zinc-400 mb-8 inline-block font-light">
                 "YNKTS - Yo Ndak Tau<br>Kok Tanya Saya"
             </p>
-            <p class="font-black text-black bg-white inline-block px-2 border-2 border-black text-sm mt-8 transform rotate-1 shadow-neo-sm">
+            <p class="font-light tracking-widest uppercase text-zinc-600 text-[10px]">
                 The Last Dance © 2026. Made with ❤️ untuk kita semua.
             </p>
         </div>
@@ -906,14 +890,12 @@
                 if(isLunas) lunasCount++;
                 
                 let card = document.createElement('div');
-                card.className = `flex justify-between items-center px-4 py-3 neo-card border-4 border-black ${isLunas ? 'bg-neo-yellow' : 'bg-white'}`;
+                card.className = `flex justify-between items-center px-5 py-4 rounded-2xl border transition-all duration-300 ${isLunas ? 'bg-emerald-500/10 border-emerald-500/30 shadow-[0_0_15px_rgba(52,211,153,0.1)]' : 'bg-white/5 border-white/5 hover:bg-white/10'}`;
                 card.innerHTML = `
-                    <span class="font-black text-sm text-black">${name}</span>
-                    <label class="relative inline-flex items-center cursor-not-allowed border-2 border-black bg-slate-300 w-12 h-6" style="box-shadow: 2px 2px 0px black;">
+                    <span class="font-medium text-sm tracking-wide ${isLunas ? 'text-emerald-300' : 'text-zinc-400'}">${name}</span>
+                    <label class="relative inline-flex items-center cursor-not-allowed">
                       <input type="checkbox" class="sr-only peer" ${isLunas ? 'checked' : ''} disabled>
-                      <div class="w-full h-full peer-checked:bg-neo-green flex items-center transition-colors">
-                          <div class="w-4 h-4 bg-white border-2 border-black ml-1 peer-checked:ml-auto peer-checked:mr-1 transition-all"></div>
-                      </div>
+                      <div class="w-10 h-5 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500/80"></div>
                     </label>
                 `;
                 checklistContainer.appendChild(card);
@@ -962,7 +944,7 @@
                 renderChecklist(statusPelunasan);
             } catch (error) {
                 renderChecklist(statusPelunasan);
-                checklistContainer.insertAdjacentHTML('afterbegin', '<p class="text-xs text-white bg-black px-2 border-2 border-white col-span-full text-center mb-2">Gagal narik data dari Google Sheets. Pastiin link Excelnya public ya!</p>');
+                checklistContainer.insertAdjacentHTML('afterbegin', '<p class="text-xs text-rose-400 col-span-full text-center mb-2 font-light">Gagal narik data dari Google Sheets. Pastiin link Excelnya public ya!</p>');
             }
         }
 
@@ -977,16 +959,10 @@
             
             var copyBtn = document.getElementById("copyBtn");
             var originalText = copyBtn.innerText;
-            copyBtn.innerText = "Tersalin! ✅";
-            copyBtn.classList.remove("bg-neo-pink");
-            copyBtn.classList.add("bg-neo-green");
-            copyBtn.classList.add("text-black");
+            copyBtn.innerText = "Tersalin! ✓";
             
             setTimeout(function() {
                 copyBtn.innerText = originalText;
-                copyBtn.classList.remove("bg-neo-green");
-                copyBtn.classList.remove("text-black");
-                copyBtn.classList.add("bg-neo-pink");
             }, 2000);
         }
 
@@ -1018,7 +994,14 @@
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
-        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if(!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('animate-pulse-slow');
+            } else {
+                mobileMenu.classList.remove('animate-pulse-slow');
+            }
+        });
         mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
         // --- GALLERY SLIDER LOGIC ---
